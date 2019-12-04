@@ -1,2 +1,2 @@
 # cpu-r
-Codes and notes for learning Verilog.
+> Codes and notes for learning Verilog.

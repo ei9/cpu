@@ -1,0 +1,57 @@
+#! /usr/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7)";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x11b8eb0 .scope module, "Or_test" "Or_test" 2 1;
+ .timescale 0 0;
+v0x11c7d10_0 .var "a", 0 0;
+v0x11c7de0_0 .var "b", 0 0;
+v0x11c7eb0_0 .net "out", 0 0, L_0x11c8160; 1 drivers
+S_0x11b8fa0 .scope module, "or1" "Or" 2 19, 3 1, S_0x11b8eb0;
+ .timescale 0 0;
+L_0x11c8160 .functor NAND 1, L_0x11c7f30, L_0x11c8070, C4<1>, C4<1>;
+v0x11c7980_0 .net "a", 0 0, v0x11c7d10_0; 1 drivers
+v0x11c7a50_0 .net "b", 0 0, v0x11c7de0_0; 1 drivers
+v0x11c7b00_0 .alias "out", 0 0, v0x11c7eb0_0;
+v0x11c7b80_0 .net "w1", 0 0, L_0x11c7f30; 1 drivers
+v0x11c7c60_0 .net "w2", 0 0, L_0x11c8070; 1 drivers
+S_0x11c7730 .scope module, "not1" "Not" 3 7, 4 1, S_0x11b8fa0;
+ .timescale 0 0;
+L_0x11c7f30 .functor NAND 1, v0x11c7d10_0, v0x11c7d10_0, C4<1>, C4<1>;
+v0x11c7820_0 .alias "in", 0 0, v0x11c7980_0;
+v0x11c78e0_0 .alias "out", 0 0, v0x11c7b80_0;
+S_0x11b7da0 .scope module, "not2" "Not" 3 8, 4 1, S_0x11b8fa0;
+ .timescale 0 0;
+L_0x11c8070 .functor NAND 1, v0x11c7de0_0, v0x11c7de0_0, C4<1>, C4<1>;
+v0x11b7e90_0 .alias "in", 0 0, v0x11c7a50_0;
+v0x11c7690_0 .alias "out", 0 0, v0x11c7c60_0;
+    .scope S_0x11b8eb0;
+T_0 ;
+    %vpi_call 2 8 "$dumpfile", "Or_test.vcd";
+    %vpi_call 2 9 "$dumpvars", 1'sb0, S_0x11b8fa0;
+    %vpi_call 2 10 "$monitor", "a = %b, b = %b, out = %b", v0x11c7d10_0, v0x11c7de0_0, v0x11c7eb0_0;
+    %delay 5, 0;
+    %set/v v0x11c7d10_0, 0, 1;
+    %set/v v0x11c7de0_0, 0, 1;
+    %delay 5, 0;
+    %set/v v0x11c7d10_0, 0, 1;
+    %set/v v0x11c7de0_0, 1, 1;
+    %delay 5, 0;
+    %set/v v0x11c7d10_0, 1, 1;
+    %set/v v0x11c7de0_0, 0, 1;
+    %delay 5, 0;
+    %set/v v0x11c7d10_0, 1, 1;
+    %set/v v0x11c7de0_0, 1, 1;
+    %delay 5, 0;
+    %vpi_call 2 16 "$finish";
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 5;
+    "N/A";
+    "<interactive>";
+    "Or_test.v";
+    "Or.v";
+    "Not.v";

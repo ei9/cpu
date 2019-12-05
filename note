@@ -1,0 +1,34 @@
+/*
+ * Link: https://sites.google.com/site/verilog710/xiang-guan-gong-ju/icarus-verilog
+ */
+iverilog -o sample.vvp sample_test.v sample.v  // Generate sample.vvp
+vvp sample.vvp  // Execute.
+
+
+Under "src/verilog" directory.
+
+/*
+ * Not gate.
+ */
+iverilog -o Not_test.vvp Not_test.v Not.v  // Generate Not_test.vvp
+vvp Not_test.vvp  // Execute.
+iverilog Not_test.v Not.v  // Generate Not_test.vcd
+gtkwave Not_test.vcd  // See graphical wave output.
+
+/*
+ * And gate.
+ */
+iverilog -o And_test.vvp And_test.v And.v Not.v  // Generate And_test.vvp
+vvp And_test.vvp  // Execute.
+iverilog And_test.v And.v Not.v  // Generate And_test.vcd
+gtkwave And_test.vcd  // See graphical wave output.
+
+/*
+ * Or gate.
+ */
+iverilog -o Or_test.vvp Or_test.v Or.v Not.v  // Generate Or_test.vvp
+vvp Or_test.vvp  // Execute.
+iverilog Or_test.v Or.v Not.v  // Generate Or_test.vcd
+gtkwave Or_test.vcd  // See graphical wave output.
+
+

@@ -1,0 +1,28 @@
+$date
+	Thu Dec  5 19:55:25 2019
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module Not_test $end
+$scope module not1 $end
+$var wire 1 ! in $end
+$var wire 1 " out $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+x"
+x!
+$end
+#50
+1"
+0!
+#100
+0"
+1!
+#150

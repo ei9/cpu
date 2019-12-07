@@ -31,4 +31,11 @@ vvp Or_test.vvp  // Execute.
 iverilog Or_test.v Or.v Not.v  // Generate Or_test.vcd
 gtkwave Or_test.vcd  // See graphical wave output.
 
+/*
+ * Xor gate.
+ */
+iverilog -o Xor_test.vvp Xor_test.v Xor.v Or.v And.v Not.v
+vvp Xor_test.vvp
+iverilog Xor_test.v Xor.v Or.v And.v Not.v
+gtkwave Xor_test.vcd
 

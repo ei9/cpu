@@ -1,5 +1,5 @@
 $date
-	Thu Dec  5 19:55:25 2019
+	Sat Dec  7 20:30:40 2019
 $end
 $version
 	Icarus Verilog
@@ -19,10 +19,10 @@ $dumpvars
 x"
 x!
 $end
-#50
+#1
 1"
 0!
-#100
+#2
 0"
 1!
-#150
+#3

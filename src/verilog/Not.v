@@ -6,3 +6,4 @@ module Not(out, in);
     nand nand1(out, in, in);
 
 endmodule
+

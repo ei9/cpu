@@ -9,9 +9,9 @@ module Not_test;
             $dumpvars(0, not1);
             $monitor("in = %b, out = %b", in, out);
 
-            #50 in = 1'b0;
-            #50 in = 1'b1;
-            #50 $finish;
+            #1 in = 1'b0;
+            #1 in = 1'b1;
+            #1 $finish;
         end
 
     Not not1(out, in);

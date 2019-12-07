@@ -4,54 +4,99 @@
 :vpi_module "system";
 :vpi_module "v2005_math";
 :vpi_module "va_math";
-S_0x11b8eb0 .scope module, "Or_test" "Or_test" 2 1;
+S_0x12d6650 .scope module, "Xor_test" "Xor_test" 2 1;
  .timescale 0 0;
-v0x11c7d10_0 .var "a", 0 0;
-v0x11c7de0_0 .var "b", 0 0;
-v0x11c7eb0_0 .net "out", 0 0, L_0x11c8160; 1 drivers
-S_0x11b8fa0 .scope module, "or1" "Or" 2 19, 3 1, S_0x11b8eb0;
+v0x12ea660_0 .var "a", 0 0;
+v0x12ea6e0_0 .var "b", 0 0;
+v0x12ea760_0 .net "out", 0 0, L_0x12eafc0; 1 drivers
+S_0x12d6740 .scope module, "xor1" "Xor" 2 19, 3 1, S_0x12d6650;
  .timescale 0 0;
-L_0x11c8160 .functor NAND 1, L_0x11c7f30, L_0x11c8070, C4<1>, C4<1>;
-v0x11c7980_0 .net "a", 0 0, v0x11c7d10_0; 1 drivers
-v0x11c7a50_0 .net "b", 0 0, v0x11c7de0_0; 1 drivers
-v0x11c7b00_0 .alias "out", 0 0, v0x11c7eb0_0;
-v0x11c7b80_0 .net "w1", 0 0, L_0x11c7f30; 1 drivers
-v0x11c7c60_0 .net "w2", 0 0, L_0x11c8070; 1 drivers
-S_0x11c7730 .scope module, "not1" "Not" 3 7, 4 1, S_0x11b8fa0;
+v0x12ea040_0 .net "a", 0 0, v0x12ea660_0; 1 drivers
+v0x12ea110_0 .net "b", 0 0, v0x12ea6e0_0; 1 drivers
+v0x12ea1e0_0 .alias "out", 0 0, v0x12ea760_0;
+v0x12ea260_0 .net "w1", 0 0, L_0x12ea7e0; 1 drivers
+v0x12ea330_0 .net "w2", 0 0, L_0x12ea8d0; 1 drivers
+v0x12ea400_0 .net "w3", 0 0, L_0x12eaaf0; 1 drivers
+v0x12ea550_0 .net "w4", 0 0, L_0x12ead50; 1 drivers
+S_0x12e9df0 .scope module, "not1" "Not" 3 7, 4 1, S_0x12d6740;
  .timescale 0 0;
-L_0x11c7f30 .functor NAND 1, v0x11c7d10_0, v0x11c7d10_0, C4<1>, C4<1>;
-v0x11c7820_0 .alias "in", 0 0, v0x11c7980_0;
-v0x11c78e0_0 .alias "out", 0 0, v0x11c7b80_0;
-S_0x11b7da0 .scope module, "not2" "Not" 3 8, 4 1, S_0x11b8fa0;
+L_0x12ea7e0 .functor NAND 1, v0x12ea660_0, v0x12ea660_0, C4<1>, C4<1>;
+v0x12e9ee0_0 .alias "in", 0 0, v0x12ea040_0;
+v0x12e9f90_0 .alias "out", 0 0, v0x12ea260_0;
+S_0x12e9ba0 .scope module, "not2" "Not" 3 8, 4 1, S_0x12d6740;
  .timescale 0 0;
-L_0x11c8070 .functor NAND 1, v0x11c7de0_0, v0x11c7de0_0, C4<1>, C4<1>;
-v0x11b7e90_0 .alias "in", 0 0, v0x11c7a50_0;
-v0x11c7690_0 .alias "out", 0 0, v0x11c7c60_0;
-    .scope S_0x11b8eb0;
+L_0x12ea8d0 .functor NAND 1, v0x12ea6e0_0, v0x12ea6e0_0, C4<1>, C4<1>;
+v0x12e9c90_0 .alias "in", 0 0, v0x12ea110_0;
+v0x12e9d40_0 .alias "out", 0 0, v0x12ea330_0;
+S_0x12e95e0 .scope module, "And1" "And" 3 9, 5 1, S_0x12d6740;
+ .timescale 0 0;
+L_0x12ea9c0 .functor NAND 1, L_0x12ea7e0, v0x12ea6e0_0, C4<1>, C4<1>;
+v0x12e9910_0 .alias "a", 0 0, v0x12ea260_0;
+v0x12e99d0_0 .alias "b", 0 0, v0x12ea110_0;
+v0x12e9a70_0 .alias "out", 0 0, v0x12ea400_0;
+v0x12e9af0_0 .net "w", 0 0, L_0x12ea9c0; 1 drivers
+S_0x12e96d0 .scope module, "not1" "Not" 5 8, 4 1, S_0x12e95e0;
+ .timescale 0 0;
+L_0x12eaaf0 .functor NAND 1, L_0x12ea9c0, L_0x12ea9c0, C4<1>, C4<1>;
+v0x12e97c0_0 .alias "in", 0 0, v0x12e9af0_0;
+v0x12e9840_0 .alias "out", 0 0, v0x12ea400_0;
+S_0x12e9060 .scope module, "And2" "And" 3 10, 5 1, S_0x12d6740;
+ .timescale 0 0;
+L_0x12eac20 .functor NAND 1, v0x12ea660_0, L_0x12ea8d0, C4<1>, C4<1>;
+v0x12e9390_0 .alias "a", 0 0, v0x12ea040_0;
+v0x12e9410_0 .alias "b", 0 0, v0x12ea330_0;
+v0x12e94b0_0 .alias "out", 0 0, v0x12ea550_0;
+v0x12e9530_0 .net "w", 0 0, L_0x12eac20; 1 drivers
+S_0x12e9150 .scope module, "not1" "Not" 5 8, 4 1, S_0x12e9060;
+ .timescale 0 0;
+L_0x12ead50 .functor NAND 1, L_0x12eac20, L_0x12eac20, C4<1>, C4<1>;
+v0x12e9240_0 .alias "in", 0 0, v0x12e9530_0;
+v0x12e92c0_0 .alias "out", 0 0, v0x12ea550_0;
+S_0x12d7360 .scope module, "or1" "Or" 3 11, 6 1, S_0x12d6740;
+ .timescale 0 0;
+L_0x12eafc0 .functor NAND 1, L_0x12eae80, L_0x12eaf20, C4<1>, C4<1>;
+v0x12e8cd0_0 .alias "a", 0 0, v0x12ea400_0;
+v0x12e8da0_0 .alias "b", 0 0, v0x12ea550_0;
+v0x12e8e50_0 .alias "out", 0 0, v0x12ea760_0;
+v0x12e8ed0_0 .net "w1", 0 0, L_0x12eae80; 1 drivers
+v0x12e8fb0_0 .net "w2", 0 0, L_0x12eaf20; 1 drivers
+S_0x12e8a80 .scope module, "not1" "Not" 6 7, 4 1, S_0x12d7360;
+ .timescale 0 0;
+L_0x12eae80 .functor NAND 1, L_0x12eaaf0, L_0x12eaaf0, C4<1>, C4<1>;
+v0x12e8b70_0 .alias "in", 0 0, v0x12ea400_0;
+v0x12e8c30_0 .alias "out", 0 0, v0x12e8ed0_0;
+S_0x12d7450 .scope module, "not2" "Not" 6 8, 4 1, S_0x12d7360;
+ .timescale 0 0;
+L_0x12eaf20 .functor NAND 1, L_0x12ead50, L_0x12ead50, C4<1>, C4<1>;
+v0x12d7540_0 .alias "in", 0 0, v0x12ea550_0;
+v0x12e89e0_0 .alias "out", 0 0, v0x12e8fb0_0;
+    .scope S_0x12d6650;
 T_0 ;
-    %vpi_call 2 8 "$dumpfile", "Or_test.vcd";
-    %vpi_call 2 9 "$dumpvars", 1'sb0, S_0x11b8fa0;
-    %vpi_call 2 10 "$monitor", "a = %b, b = %b, out = %b", v0x11c7d10_0, v0x11c7de0_0, v0x11c7eb0_0;
-    %delay 5, 0;
-    %set/v v0x11c7d10_0, 0, 1;
-    %set/v v0x11c7de0_0, 0, 1;
-    %delay 5, 0;
-    %set/v v0x11c7d10_0, 0, 1;
-    %set/v v0x11c7de0_0, 1, 1;
-    %delay 5, 0;
-    %set/v v0x11c7d10_0, 1, 1;
-    %set/v v0x11c7de0_0, 0, 1;
-    %delay 5, 0;
-    %set/v v0x11c7d10_0, 1, 1;
-    %set/v v0x11c7de0_0, 1, 1;
-    %delay 5, 0;
+    %vpi_call 2 8 "$dumpfile", "Xor_test.vcd";
+    %vpi_call 2 9 "$dumpvars", 1'sb0, S_0x12d6740;
+    %vpi_call 2 10 "$monitor", "a = %b, b = %b, out = %b", v0x12ea660_0, v0x12ea6e0_0, v0x12ea760_0;
+    %delay 1, 0;
+    %set/v v0x12ea660_0, 0, 1;
+    %set/v v0x12ea6e0_0, 0, 1;
+    %delay 1, 0;
+    %set/v v0x12ea660_0, 0, 1;
+    %set/v v0x12ea6e0_0, 1, 1;
+    %delay 1, 0;
+    %set/v v0x12ea660_0, 1, 1;
+    %set/v v0x12ea6e0_0, 0, 1;
+    %delay 1, 0;
+    %set/v v0x12ea660_0, 1, 1;
+    %set/v v0x12ea6e0_0, 1, 1;
+    %delay 1, 0;
     %vpi_call 2 16 "$finish";
     %end;
     .thread T_0;
 # The file index is used to find the file name in the following table.
-:file_names 5;
+:file_names 7;
     "N/A";
     "<interactive>";
-    "Or_test.v";
-    "Or.v";
+    "Xor_test.v";
+    "Xor.v";
     "Not.v";
+    "And.v";
+    "Or.v";

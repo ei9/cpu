@@ -1,0 +1,102 @@
+#! /usr/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7)";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x17f6650 .scope module, "Xor_test" "Xor_test" 2 1;
+ .timescale 0 0;
+v0x180a660_0 .var "a", 0 0;
+v0x180a6e0_0 .var "b", 0 0;
+v0x180a760_0 .net "out", 0 0, L_0x180afc0; 1 drivers
+S_0x17f6740 .scope module, "xor1" "Xor" 2 19, 3 1, S_0x17f6650;
+ .timescale 0 0;
+v0x180a040_0 .net "a", 0 0, v0x180a660_0; 1 drivers
+v0x180a110_0 .net "b", 0 0, v0x180a6e0_0; 1 drivers
+v0x180a1e0_0 .alias "out", 0 0, v0x180a760_0;
+v0x180a260_0 .net "w1", 0 0, L_0x180a7e0; 1 drivers
+v0x180a330_0 .net "w2", 0 0, L_0x180a8d0; 1 drivers
+v0x180a400_0 .net "w3", 0 0, L_0x180aaf0; 1 drivers
+v0x180a550_0 .net "w4", 0 0, L_0x180ad50; 1 drivers
+S_0x1809df0 .scope module, "not1" "Not" 3 7, 4 1, S_0x17f6740;
+ .timescale 0 0;
+L_0x180a7e0 .functor NAND 1, v0x180a660_0, v0x180a660_0, C4<1>, C4<1>;
+v0x1809ee0_0 .alias "in", 0 0, v0x180a040_0;
+v0x1809f90_0 .alias "out", 0 0, v0x180a260_0;
+S_0x1809ba0 .scope module, "not2" "Not" 3 8, 4 1, S_0x17f6740;
+ .timescale 0 0;
+L_0x180a8d0 .functor NAND 1, v0x180a6e0_0, v0x180a6e0_0, C4<1>, C4<1>;
+v0x1809c90_0 .alias "in", 0 0, v0x180a110_0;
+v0x1809d40_0 .alias "out", 0 0, v0x180a330_0;
+S_0x18095e0 .scope module, "And1" "And" 3 9, 5 1, S_0x17f6740;
+ .timescale 0 0;
+L_0x180a9c0 .functor NAND 1, L_0x180a7e0, v0x180a6e0_0, C4<1>, C4<1>;
+v0x1809910_0 .alias "a", 0 0, v0x180a260_0;
+v0x18099d0_0 .alias "b", 0 0, v0x180a110_0;
+v0x1809a70_0 .alias "out", 0 0, v0x180a400_0;
+v0x1809af0_0 .net "w", 0 0, L_0x180a9c0; 1 drivers
+S_0x18096d0 .scope module, "not1" "Not" 5 8, 4 1, S_0x18095e0;
+ .timescale 0 0;
+L_0x180aaf0 .functor NAND 1, L_0x180a9c0, L_0x180a9c0, C4<1>, C4<1>;
+v0x18097c0_0 .alias "in", 0 0, v0x1809af0_0;
+v0x1809840_0 .alias "out", 0 0, v0x180a400_0;
+S_0x1809060 .scope module, "And2" "And" 3 10, 5 1, S_0x17f6740;
+ .timescale 0 0;
+L_0x180ac20 .functor NAND 1, v0x180a660_0, L_0x180a8d0, C4<1>, C4<1>;
+v0x1809390_0 .alias "a", 0 0, v0x180a040_0;
+v0x1809410_0 .alias "b", 0 0, v0x180a330_0;
+v0x18094b0_0 .alias "out", 0 0, v0x180a550_0;
+v0x1809530_0 .net "w", 0 0, L_0x180ac20; 1 drivers
+S_0x1809150 .scope module, "not1" "Not" 5 8, 4 1, S_0x1809060;
+ .timescale 0 0;
+L_0x180ad50 .functor NAND 1, L_0x180ac20, L_0x180ac20, C4<1>, C4<1>;
+v0x1809240_0 .alias "in", 0 0, v0x1809530_0;
+v0x18092c0_0 .alias "out", 0 0, v0x180a550_0;
+S_0x17f7360 .scope module, "or1" "Or" 3 11, 6 1, S_0x17f6740;
+ .timescale 0 0;
+L_0x180afc0 .functor NAND 1, L_0x180ae80, L_0x180af20, C4<1>, C4<1>;
+v0x1808cd0_0 .alias "a", 0 0, v0x180a400_0;
+v0x1808da0_0 .alias "b", 0 0, v0x180a550_0;
+v0x1808e50_0 .alias "out", 0 0, v0x180a760_0;
+v0x1808ed0_0 .net "w1", 0 0, L_0x180ae80; 1 drivers
+v0x1808fb0_0 .net "w2", 0 0, L_0x180af20; 1 drivers
+S_0x1808a80 .scope module, "not1" "Not" 6 7, 4 1, S_0x17f7360;
+ .timescale 0 0;
+L_0x180ae80 .functor NAND 1, L_0x180aaf0, L_0x180aaf0, C4<1>, C4<1>;
+v0x1808b70_0 .alias "in", 0 0, v0x180a400_0;
+v0x1808c30_0 .alias "out", 0 0, v0x1808ed0_0;
+S_0x17f7450 .scope module, "not2" "Not" 6 8, 4 1, S_0x17f7360;
+ .timescale 0 0;
+L_0x180af20 .functor NAND 1, L_0x180ad50, L_0x180ad50, C4<1>, C4<1>;
+v0x17f7540_0 .alias "in", 0 0, v0x180a550_0;
+v0x18089e0_0 .alias "out", 0 0, v0x1808fb0_0;
+    .scope S_0x17f6650;
+T_0 ;
+    %vpi_call 2 8 "$dumpfile", "Xor_test.vcd";
+    %vpi_call 2 9 "$dumpvars", 1'sb0, S_0x17f6740;
+    %vpi_call 2 10 "$monitor", "a = %b, b = %b, out = %b", v0x180a660_0, v0x180a6e0_0, v0x180a760_0;
+    %delay 1, 0;
+    %set/v v0x180a660_0, 0, 1;
+    %set/v v0x180a6e0_0, 0, 1;
+    %delay 1, 0;
+    %set/v v0x180a660_0, 0, 1;
+    %set/v v0x180a6e0_0, 1, 1;
+    %delay 1, 0;
+    %set/v v0x180a660_0, 1, 1;
+    %set/v v0x180a6e0_0, 0, 1;
+    %delay 1, 0;
+    %set/v v0x180a660_0, 1, 1;
+    %set/v v0x180a6e0_0, 1, 1;
+    %delay 1, 0;
+    %vpi_call 2 16 "$finish";
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 7;
+    "N/A";
+    "<interactive>";
+    "Xor_test.v";
+    "Xor.v";
+    "Not.v";
+    "And.v";
+    "Or.v";

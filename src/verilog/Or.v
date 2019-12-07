@@ -9,3 +9,4 @@ module Or(out, a, b);
     nand nand1(out, w1, w2);
 
 endmodule
+

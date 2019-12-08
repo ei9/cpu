@@ -1,0 +1,77 @@
+#! /usr/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7)";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x2399b10 .scope module, "Mux_test" "Mux_test" 2 1;
+ .timescale 0 0;
+v0x23ab110_0 .var "a", 0 0;
+v0x23ab190_0 .var "b", 0 0;
+v0x23ab240_0 .net "out", 0 0, L_0x23ab640; 1 drivers
+v0x23ab2f0_0 .var "sel", 0 0;
+S_0x2399c00 .scope module, "mux1" "Mux" 2 23, 3 1, S_0x2399b10;
+ .timescale 0 0;
+L_0x23ab530 .functor NAND 1, v0x23ab110_0, L_0x23ab3f0, C4<1>, C4<1>;
+L_0x23ab590 .functor NAND 1, v0x23ab190_0, v0x23ab2f0_0, C4<1>, C4<1>;
+L_0x23ab640 .functor NAND 1, L_0x23ab530, L_0x23ab590, C4<1>, C4<1>;
+v0x23aac40_0 .net "a", 0 0, v0x23ab110_0; 1 drivers
+v0x23aad00_0 .net "b", 0 0, v0x23ab190_0; 1 drivers
+v0x23aada0_0 .alias "out", 0 0, v0x23ab240_0;
+v0x23aae40_0 .net "sel", 0 0, v0x23ab2f0_0; 1 drivers
+v0x23aaf20_0 .net "w1", 0 0, L_0x23ab3f0; 1 drivers
+v0x23aafd0_0 .net "w2", 0 0, L_0x23ab530; 1 drivers
+v0x23ab090_0 .net "w3", 0 0, L_0x23ab590; 1 drivers
+S_0x2361690 .scope module, "not1" "Not" 3 7, 4 1, S_0x2399c00;
+ .timescale 0 0;
+L_0x23ab3f0 .functor NAND 1, v0x23ab2f0_0, v0x23ab2f0_0, C4<1>, C4<1>;
+v0x2361780_0 .alias "in", 0 0, v0x23aae40_0;
+v0x23aaba0_0 .alias "out", 0 0, v0x23aaf20_0;
+    .scope S_0x2399b10;
+T_0 ;
+    %vpi_call 2 8 "$dumpfile", "Mux_test.vcd";
+    %vpi_call 2 9 "$dumpvars", 1'sb0, S_0x2399c00;
+    %vpi_call 2 10 "$monitor", "sel = %b, a = %b, b = %b, out = %b", v0x23ab2f0_0, v0x23ab110_0, v0x23ab190_0, v0x23ab240_0;
+    %delay 1, 0;
+    %set/v v0x23ab2f0_0, 0, 1;
+    %set/v v0x23ab110_0, 0, 1;
+    %set/v v0x23ab190_0, 0, 1;
+    %delay 1, 0;
+    %set/v v0x23ab2f0_0, 0, 1;
+    %set/v v0x23ab110_0, 0, 1;
+    %set/v v0x23ab190_0, 1, 1;
+    %delay 1, 0;
+    %set/v v0x23ab2f0_0, 0, 1;
+    %set/v v0x23ab110_0, 1, 1;
+    %set/v v0x23ab190_0, 0, 1;
+    %delay 1, 0;
+    %set/v v0x23ab2f0_0, 0, 1;
+    %set/v v0x23ab110_0, 1, 1;
+    %set/v v0x23ab190_0, 1, 1;
+    %delay 1, 0;
+    %set/v v0x23ab2f0_0, 1, 1;
+    %set/v v0x23ab110_0, 0, 1;
+    %set/v v0x23ab190_0, 0, 1;
+    %delay 1, 0;
+    %set/v v0x23ab2f0_0, 1, 1;
+    %set/v v0x23ab110_0, 0, 1;
+    %set/v v0x23ab190_0, 1, 1;
+    %delay 1, 0;
+    %set/v v0x23ab2f0_0, 1, 1;
+    %set/v v0x23ab110_0, 1, 1;
+    %set/v v0x23ab190_0, 0, 1;
+    %delay 1, 0;
+    %set/v v0x23ab2f0_0, 1, 1;
+    %set/v v0x23ab110_0, 1, 1;
+    %set/v v0x23ab190_0, 1, 1;
+    %delay 1, 0;
+    %vpi_call 2 20 "$finish";
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 5;
+    "N/A";
+    "<interactive>";
+    "Mux_test.v";
+    "Mux.v";
+    "Not.v";

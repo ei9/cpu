@@ -34,8 +34,16 @@ gtkwave Or_test.vcd  // See graphical wave output.
 /*
  * Xor gate.
  */
-iverilog -o Xor_test.vvp Xor_test.v Xor.v Or.v And.v Not.v
+iverilog -o Xor_test.vvp Xor_test.v Xor.v Not.v
 vvp Xor_test.vvp
-iverilog Xor_test.v Xor.v Or.v And.v Not.v
+iverilog Xor_test.v Xor.v Not.v
 gtkwave Xor_test.vcd
+
+/*
+ * Multiplexor
+ */
+iverilog -o Mux_test.vvp Mux_test.v Mux.v Not.v
+vvp Mux_test.vvp
+iverilog Mux_test.v Mux.v Not.v
+gtkwave Mux_test.vcd
 

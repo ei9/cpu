@@ -47,3 +47,11 @@ vvp Mux_test.vvp
 iverilog Mux_test.v Mux.v Not.v
 gtkwave Mux_test.vcd
 
+/*
+ * Demultiplexor.
+ */
+iverilog -o DMux_test.vvp DMux_test.v DMux.v And.v Not.v
+vvp DMux_test.vvp
+iverilog DMux_test.v DMux.v And.v Not.v
+gtkwave DMux_test.vcd
+

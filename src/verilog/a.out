@@ -4,53 +4,74 @@
 :vpi_module "system";
 :vpi_module "v2005_math";
 :vpi_module "va_math";
-S_0xbee270 .scope module, "Not" "Not" 2 1;
+S_0x1adf180 .scope module, "DMux_test" "DMux_test" 2 1;
  .timescale 0 0;
-L_0xbfd010 .functor NAND 1, C4<z>, C4<z>, C4<1>, C4<1>;
-v0xbecda0_0 .net "in", 0 0, C4<z>; 0 drivers
-v0xbfc850_0 .net "out", 0 0, L_0xbfd010; 1 drivers
-S_0xbee360 .scope module, "Xor_test" "Xor_test" 3 1;
+v0x1af0da0_0 .net "a", 0 0, L_0x1af1210; 1 drivers
+v0x1af0e20_0 .net "b", 0 0, L_0x1af1470; 1 drivers
+v0x1af0ea0_0 .var "in", 0 0;
+v0x1af0f20_0 .var "sel", 0 0;
+S_0x1adf270 .scope module, "dmux1" "DMux" 2 19, 3 1, S_0x1adf180;
  .timescale 0 0;
-v0xbfce10_0 .var "a", 0 0;
-v0xbfceb0_0 .var "b", 0 0;
-v0xbfcf60_0 .net "out", 0 0, L_0xbfd330; 1 drivers
-S_0xbfc8f0 .scope module, "xor1" "Xor" 3 19, 4 1, S_0xbee360;
+v0x1af0990_0 .alias "a", 0 0, v0x1af0da0_0;
+v0x1af0a60_0 .alias "b", 0 0, v0x1af0e20_0;
+v0x1af0b30_0 .net "in", 0 0, v0x1af0ea0_0; 1 drivers
+v0x1af0c00_0 .net "sel", 0 0, v0x1af0f20_0; 1 drivers
+v0x1af0cd0_0 .net "w1", 0 0, L_0x1af0fa0; 1 drivers
+S_0x1af0740 .scope module, "not1" "Not" 3 7, 4 1, S_0x1adf270;
  .timescale 0 0;
-L_0xbfd120 .functor NAND 1, v0xbfce10_0, v0xbfceb0_0, C4<1>, C4<1>;
-L_0xbfd220 .functor NAND 1, v0xbfce10_0, L_0xbfd120, C4<1>, C4<1>;
-L_0xbfd2d0 .functor NAND 1, L_0xbfd120, v0xbfceb0_0, C4<1>, C4<1>;
-L_0xbfd330 .functor NAND 1, L_0xbfd220, L_0xbfd2d0, C4<1>, C4<1>;
-v0xbfc9e0_0 .net "a", 0 0, v0xbfce10_0; 1 drivers
-v0xbfcaa0_0 .net "b", 0 0, v0xbfceb0_0; 1 drivers
-v0xbfcb40_0 .alias "out", 0 0, v0xbfcf60_0;
-v0xbfcbe0_0 .net "w1", 0 0, L_0xbfd120; 1 drivers
-v0xbfcc90_0 .net "w2", 0 0, L_0xbfd220; 1 drivers
-v0xbfcd30_0 .net "w3", 0 0, L_0xbfd2d0; 1 drivers
-    .scope S_0xbee360;
+L_0x1af0fa0 .functor NAND 1, v0x1af0f20_0, v0x1af0f20_0, C4<1>, C4<1>;
+v0x1af0830_0 .alias "in", 0 0, v0x1af0c00_0;
+v0x1af08e0_0 .alias "out", 0 0, v0x1af0cd0_0;
+S_0x1af0180 .scope module, "and1" "And" 3 8, 5 1, S_0x1adf270;
+ .timescale 0 0;
+L_0x1af1090 .functor NAND 1, v0x1af0ea0_0, L_0x1af0fa0, C4<1>, C4<1>;
+v0x1af0460_0 .alias "a", 0 0, v0x1af0b30_0;
+v0x1af0530_0 .alias "b", 0 0, v0x1af0cd0_0;
+v0x1af05b0_0 .alias "out", 0 0, v0x1af0da0_0;
+v0x1af0660_0 .net "w", 0 0, L_0x1af1090; 1 drivers
+S_0x1af0270 .scope module, "not1" "Not" 5 8, 4 1, S_0x1af0180;
+ .timescale 0 0;
+L_0x1af1210 .functor NAND 1, L_0x1af1090, L_0x1af1090, C4<1>, C4<1>;
+v0x1af0360_0 .alias "in", 0 0, v0x1af0660_0;
+v0x1af03e0_0 .alias "out", 0 0, v0x1af0da0_0;
+S_0x1addfa0 .scope module, "and2" "And" 3 9, 5 1, S_0x1adf270;
+ .timescale 0 0;
+L_0x1af13d0 .functor NAND 1, v0x1af0ea0_0, v0x1af0f20_0, C4<1>, C4<1>;
+v0x1aefe90_0 .alias "a", 0 0, v0x1af0b30_0;
+v0x1aeff50_0 .alias "b", 0 0, v0x1af0c00_0;
+v0x1aefff0_0 .alias "out", 0 0, v0x1af0e20_0;
+v0x1af00a0_0 .net "w", 0 0, L_0x1af13d0; 1 drivers
+S_0x1ade090 .scope module, "not1" "Not" 5 8, 4 1, S_0x1addfa0;
+ .timescale 0 0;
+L_0x1af1470 .functor NAND 1, L_0x1af13d0, L_0x1af13d0, C4<1>, C4<1>;
+v0x1ab9720_0 .alias "in", 0 0, v0x1af00a0_0;
+v0x1aefdf0_0 .alias "out", 0 0, v0x1af0e20_0;
+    .scope S_0x1adf180;
 T_0 ;
-    %vpi_call 3 8 "$dumpfile", "Xor_test.vcd";
-    %vpi_call 3 9 "$dumpvars", 1'sb0, S_0xbfc8f0;
-    %vpi_call 3 10 "$monitor", "a = %b, b = %b, out = %b", v0xbfce10_0, v0xbfceb0_0, v0xbfcf60_0;
+    %vpi_call 2 8 "$dumpfile", "DMux_test.vcd";
+    %vpi_call 2 9 "$dumpvars", 1'sb0, S_0x1adf270;
+    %vpi_call 2 10 "$monitor", "in = %b, sel = %b, a = %b, b = %b", v0x1af0ea0_0, v0x1af0f20_0, v0x1af0da0_0, v0x1af0e20_0;
     %delay 1, 0;
-    %set/v v0xbfce10_0, 0, 1;
-    %set/v v0xbfceb0_0, 0, 1;
+    %set/v v0x1af0ea0_0, 0, 1;
+    %set/v v0x1af0f20_0, 0, 1;
     %delay 1, 0;
-    %set/v v0xbfce10_0, 0, 1;
-    %set/v v0xbfceb0_0, 1, 1;
+    %set/v v0x1af0ea0_0, 0, 1;
+    %set/v v0x1af0f20_0, 1, 1;
     %delay 1, 0;
-    %set/v v0xbfce10_0, 1, 1;
-    %set/v v0xbfceb0_0, 0, 1;
+    %set/v v0x1af0ea0_0, 1, 1;
+    %set/v v0x1af0f20_0, 0, 1;
     %delay 1, 0;
-    %set/v v0xbfce10_0, 1, 1;
-    %set/v v0xbfceb0_0, 1, 1;
+    %set/v v0x1af0ea0_0, 1, 1;
+    %set/v v0x1af0f20_0, 1, 1;
     %delay 1, 0;
-    %vpi_call 3 16 "$finish";
+    %vpi_call 2 16 "$finish";
     %end;
     .thread T_0;
 # The file index is used to find the file name in the following table.
-:file_names 5;
+:file_names 6;
     "N/A";
     "<interactive>";
+    "DMux_test.v";
+    "DMux.v";
     "Not.v";
-    "Xor_test.v";
-    "Xor.v";
+    "And.v";

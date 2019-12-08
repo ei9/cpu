@@ -1,0 +1,78 @@
+$date
+	Sun Dec  8 18:20:30 2019
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module DMux_test $end
+$scope module dmux1 $end
+$var wire 1 ! a $end
+$var wire 1 " b $end
+$var wire 1 # in $end
+$var wire 1 $ sel $end
+$var wire 1 % w1 $end
+$scope module not1 $end
+$var wire 1 $ in $end
+$var wire 1 % out $end
+$upscope $end
+$scope module and1 $end
+$var wire 1 # a $end
+$var wire 1 % b $end
+$var wire 1 ! out $end
+$var wire 1 & w $end
+$scope module not1 $end
+$var wire 1 & in $end
+$var wire 1 ! out $end
+$upscope $end
+$upscope $end
+$scope module and2 $end
+$var wire 1 # a $end
+$var wire 1 $ b $end
+$var wire 1 " out $end
+$var wire 1 ' w $end
+$scope module not1 $end
+$var wire 1 ' in $end
+$var wire 1 " out $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+x'
+x&
+x%
+x$
+x#
+x"
+x!
+$end
+#1
+0!
+0"
+1%
+1&
+1'
+0$
+0#
+#2
+0%
+1$
+#3
+1!
+0&
+1%
+0$
+1#
+#4
+0!
+1&
+1"
+0%
+0'
+1$
+#5

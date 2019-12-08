@@ -7,7 +7,7 @@ module Not16_test;
         begin
             $dumpfile("Not16_test.vcd");
             $dumpvars(0, not16);
-            $monitor("in = %b16, out = %b16", in, out);
+            $monitor("in = %b, out = %b", in, out);
 
             #1 in = 16'b0000000000000000;
             #1 in = 16'b1111111111111111;

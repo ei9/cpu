@@ -4,8 +4,8 @@ module And(out, a, b);
     input a, b;
     wire w;
 
-    nand nand1(w, a, b);
-    Not not1(out, w);
+    nand nand0(w, a, b);
+    Not not0(out, w);
 
 endmodule
 

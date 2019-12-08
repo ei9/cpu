@@ -1,5 +1,5 @@
 $date
-	Sat Dec  7 20:30:40 2019
+	Sun Dec  8 21:07:46 2019
 $end
 $version
 	Icarus Verilog
@@ -8,7 +8,7 @@ $timescale
 	1s
 $end
 $scope module Not_test $end
-$scope module not1 $end
+$scope module not0 $end
 $var wire 1 ! in $end
 $var wire 1 " out $end
 $upscope $end

@@ -6,7 +6,7 @@ module Not_test;
     initial
         begin
             $dumpfile("Not_test.vcd");
-            $dumpvars(0, not1);
+            $dumpvars(0, not0);
             $monitor("in = %b, out = %b", in, out);
 
             #1 in = 1'b0;
@@ -14,6 +14,6 @@ module Not_test;
             #1 $finish;
         end
 
-    Not not1(out, in);
+    Not not0(out, in);
 
 endmodule

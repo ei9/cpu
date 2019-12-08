@@ -1,5 +1,5 @@
 $date
-	Sun Dec  8 08:13:11 2019
+	Sun Dec  8 21:26:23 2019
 $end
 $version
 	Icarus Verilog
@@ -8,13 +8,13 @@ $timescale
 	1s
 $end
 $scope module Xor_test $end
-$scope module xor1 $end
+$scope module xor0 $end
 $var wire 1 ! a $end
 $var wire 1 " b $end
 $var wire 1 # out $end
-$var wire 1 $ w1 $end
-$var wire 1 % w2 $end
-$var wire 1 & w3 $end
+$var wire 1 $ w0 $end
+$var wire 1 % w1 $end
+$var wire 1 & w2 $end
 $upscope $end
 $upscope $end
 $enddefinitions $end

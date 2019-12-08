@@ -6,7 +6,7 @@ module Or_test;
     initial
         begin
             $dumpfile("Or_test.vcd");
-            $dumpvars(0, or1);
+            $dumpvars(0, or0);
             $monitor("a = %b, b = %b, out = %b", a, b, out);
 
             #5 a = 1'b0; b = 1'b0;
@@ -16,6 +16,6 @@ module Or_test;
             #5 $finish;
         end 
     
-    Or or1(out, a, b);
+    Or or0(out, a, b);
     
 endmodule 

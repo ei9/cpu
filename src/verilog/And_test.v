@@ -6,7 +6,7 @@ module And_test;
     initial
         begin
             $dumpfile("And_test.vcd");
-            $dumpvars(0, and1);
+            $dumpvars(0, and0);
             $monitor("a = %b, b = %b, out = %b", a, b, out);
 
             #1 a = 1'b0; b = 1'b0;
@@ -16,7 +16,7 @@ module And_test;
             #1 $finish;
         end
 
-    And and1(out, a, b);
+    And and0(out, a, b);
 
 endmodule
 

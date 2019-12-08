@@ -6,7 +6,7 @@ module Xor_test;
     initial
         begin
             $dumpfile("Xor_test.vcd");
-            $dumpvars(0, xor1);
+            $dumpvars(0, xor0);
             $monitor("a = %b, b = %b, out = %b", a, b, out);
 
             #1 a = 1'b0; b = 1'b0;
@@ -16,7 +16,7 @@ module Xor_test;
             #1 $finish;
         end
 
-    Xor xor1(out, a, b);
+    Xor xor0(out, a, b);
 
 endmodule
 

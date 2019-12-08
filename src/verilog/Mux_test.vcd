@@ -1,5 +1,5 @@
 $date
-	Sun Dec  8 08:14:01 2019
+	Sun Dec  8 21:15:14 2019
 $end
 $version
 	Icarus Verilog
@@ -8,15 +8,15 @@ $timescale
 	1s
 $end
 $scope module Mux_test $end
-$scope module mux1 $end
+$scope module mux0 $end
 $var wire 1 ! a $end
 $var wire 1 " b $end
 $var wire 1 # out $end
 $var wire 1 $ sel $end
-$var wire 1 % w1 $end
-$var wire 1 & w2 $end
-$var wire 1 ' w3 $end
-$scope module not1 $end
+$var wire 1 % w0 $end
+$var wire 1 & w1 $end
+$var wire 1 ' w2 $end
+$scope module not0 $end
 $var wire 1 $ in $end
 $var wire 1 % out $end
 $upscope $end

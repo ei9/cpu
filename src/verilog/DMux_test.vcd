@@ -1,5 +1,5 @@
 $date
-	Sun Dec  8 20:20:24 2019
+	Sun Dec  8 21:18:07 2019
 $end
 $version
 	Icarus Verilog
@@ -8,17 +8,17 @@ $timescale
 	1s
 $end
 $scope module DMux_test $end
-$scope module dmux1 $end
+$scope module dmux0 $end
 $var wire 1 ! a $end
 $var wire 1 " b $end
 $var wire 1 # in $end
 $var wire 1 $ sel $end
 $var wire 1 % w1 $end
-$scope module not1 $end
+$scope module not0 $end
 $var wire 1 $ in $end
 $var wire 1 % out $end
 $upscope $end
-$scope module and1 $end
+$scope module and0 $end
 $var wire 1 # a $end
 $var wire 1 % b $end
 $var wire 1 ! out $end
@@ -28,7 +28,7 @@ $var wire 1 & in $end
 $var wire 1 ! out $end
 $upscope $end
 $upscope $end
-$scope module and2 $end
+$scope module and1 $end
 $var wire 1 # a $end
 $var wire 1 $ b $end
 $var wire 1 " out $end

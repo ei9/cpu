@@ -2,12 +2,12 @@ module Mux(out, sel, a, b);
 
     output out;
     input sel, a, b;
-    wire w1, w2, w3;
+    wire w0, w1, w2;
 
-    Not not1(w1, sel);
-    nand nand1(w2, a, w1);
-    nand nand2(w3, b, sel);
-    nand nand3(out, w2, w3);
+    Not not0(w0, sel);
+    nand nand0(w1, a, w0);
+    nand nand1(w2, b, sel);
+    nand nand2(out, w1, w2);
 
 endmodule
 

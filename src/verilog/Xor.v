@@ -2,12 +2,12 @@ module Xor(out, a, b);
 
     output out;
     input a, b;
-    wire w1, w2, w3;
+    wire w0, w1, w2;
 
-    nand nand1(w1, a, b);
-    nand nand2(w2, a, w1);
-    nand nand3(w3, w1, b);
-    nand nand4(out, w2, w3);
+    nand nand0(w0, a, b);
+    nand nand1(w1, a, w0);
+    nand nand2(w2, w0, b);
+    nand nand3(out, w1, w2);
 
 endmodule
 

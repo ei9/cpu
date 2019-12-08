@@ -55,3 +55,11 @@ vvp DMux_test.vvp
 iverilog DMux_test.v DMux.v And.v Not.v
 gtkwave DMux_test.vcd
 
+/*
+ * Not16.
+ */
+iverilog -o Not16_test.vvp Not16_test.v Not16.v Not.v
+vvp Not16_test.vvp
+iverilog Not16_test.v Not16.v Not.v
+gtkwave Not16_test.vcd
+

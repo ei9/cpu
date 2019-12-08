@@ -16,7 +16,7 @@ module DMux_test;
             #1 $finish;
         end
 
-    DMux dmux1(in, sel, a, b);
+    DMux dmux1(a, b, in, sel);
 
 endmodule
 

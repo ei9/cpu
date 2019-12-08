@@ -1,4 +1,4 @@
-module DMux(in, sel, a, b);
+module DMux(a, b, in, sel);
 
     input in, sel;
     output a, b;

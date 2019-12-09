@@ -79,3 +79,11 @@ vvp Or16_test.vvp
 iverilog Or16_test.v Or16.v Or.v Not.v
 gtkwave Or16_test.vcd
 
+/*
+ * Mux16.
+ */
+iverilog -o Mux16_test.vvp Mux16_test.v Mux16.v Mux.v Not.v
+vvp Mux16_test.vvp
+iverilog Mux16_test.v Mux16.v Mux.v Not.v
+gtkwave Mux16_test.vcd
+

@@ -71,3 +71,11 @@ vvp And16_test.vvp
 iverilog And16_test.v And16.v And.v Not.v
 gtkwave And16_test.vcd
 
+/*
+ * Or16.
+ */
+iverilog -o Or16_test.vvp Or16_test.v Or16.v Or.v Not.v
+vvp Or16_test.vvp
+iverilog Or16_test.v Or16.v Or.v Not.v
+gtkwave Or16_test.vcd
+

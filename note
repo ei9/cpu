@@ -87,3 +87,12 @@ vvp Mux16_test.vvp
 iverilog Mux16_test.v Mux16.v Mux.v Not.v
 gtkwave Mux16_test.vcd
 
+/*
+ * Or8Way.
+ */
+iverilog -o Or8Way_test.vvp Or8Way_test.v Or8Way.v Or.v Not.v
+vvp Or8Way_test.vvp
+iverilog Or8Way_test.v Or8Way.v Or.v Not.v
+gtkwave Or8Way_test.vcd
+
+

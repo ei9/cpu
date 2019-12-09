@@ -1,0 +1,189 @@
+#! /usr/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7)";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x128f350 .scope module, "Or8Way_test" "Or8Way_test" 2 1;
+ .timescale 0 0;
+v0x12ba370_0 .var "in", 7 0;
+v0x12ba3f0_0 .net "out", 0 0, L_0x12bc160; 1 drivers
+S_0x128fc60 .scope module, "or8Way" "Or8Way" 2 22, 3 1, S_0x128f350;
+ .timescale 0 0;
+v0x12b9e80_0 .net "in", 7 0, v0x12ba370_0; 1 drivers
+v0x12b9f00_0 .alias "out", 0 0, v0x12ba3f0_0;
+v0x12b9fb0_0 .net "w0", 0 0, L_0x12ba6c0; 1 drivers
+v0x12ba030_0 .net "w1", 0 0, L_0x12bac30; 1 drivers
+v0x12ba0e0_0 .net "w2", 0 0, L_0x12bb170; 1 drivers
+v0x12ba160_0 .net "w3", 0 0, L_0x12bb690; 1 drivers
+v0x12ba220_0 .net "w4", 0 0, L_0x12bbbe0; 1 drivers
+v0x12ba2a0_0 .net "w5", 0 0, L_0x12bbea0; 1 drivers
+L_0x12ba7d0 .part v0x12ba370_0, 0, 1;
+L_0x12ba920 .part v0x12ba370_0, 1, 1;
+L_0x12bad60 .part v0x12ba370_0, 2, 1;
+L_0x12baf20 .part v0x12ba370_0, 3, 1;
+L_0x12bb2a0 .part v0x12ba370_0, 4, 1;
+L_0x12bb3d0 .part v0x12ba370_0, 5, 1;
+L_0x12bb7c0 .part v0x12ba370_0, 6, 1;
+L_0x12bba00 .part v0x12ba370_0, 7, 1;
+S_0x12b95e0 .scope module, "or0" "Or" 3 7, 4 1, S_0x128fc60;
+ .timescale 0 0;
+L_0x12ba6c0 .functor NAND 1, L_0x12ba4c0, L_0x12ba5c0, C4<1>, C4<1>;
+v0x12b9ad0_0 .net "a", 0 0, L_0x12ba7d0; 1 drivers
+v0x12b9ba0_0 .net "b", 0 0, L_0x12ba920; 1 drivers
+v0x12b9c50_0 .alias "out", 0 0, v0x12b9fb0_0;
+v0x12b9d20_0 .net "w0", 0 0, L_0x12ba4c0; 1 drivers
+v0x12b9dd0_0 .net "w1", 0 0, L_0x12ba5c0; 1 drivers
+S_0x12b98c0 .scope module, "not0" "Not" 4 7, 5 1, S_0x12b95e0;
+ .timescale 0 0;
+L_0x12ba4c0 .functor NAND 1, L_0x12ba7d0, L_0x12ba7d0, C4<1>, C4<1>;
+v0x12b99b0_0 .alias "in", 0 0, v0x12b9ad0_0;
+v0x12b9a30_0 .alias "out", 0 0, v0x12b9d20_0;
+S_0x12b96d0 .scope module, "not1" "Not" 4 8, 5 1, S_0x12b95e0;
+ .timescale 0 0;
+L_0x12ba5c0 .functor NAND 1, L_0x12ba920, L_0x12ba920, C4<1>, C4<1>;
+v0x12b97c0_0 .alias "in", 0 0, v0x12b9ba0_0;
+v0x12b9840_0 .alias "out", 0 0, v0x12b9dd0_0;
+S_0x12b8d40 .scope module, "or1" "Or" 3 8, 4 1, S_0x128fc60;
+ .timescale 0 0;
+L_0x12bac30 .functor NAND 1, L_0x12baa50, L_0x12baaf0, C4<1>, C4<1>;
+v0x12b9230_0 .net "a", 0 0, L_0x12bad60; 1 drivers
+v0x12b9300_0 .net "b", 0 0, L_0x12baf20; 1 drivers
+v0x12b93b0_0 .alias "out", 0 0, v0x12ba030_0;
+v0x12b9480_0 .net "w0", 0 0, L_0x12baa50; 1 drivers
+v0x12b9530_0 .net "w1", 0 0, L_0x12baaf0; 1 drivers
+S_0x12b9020 .scope module, "not0" "Not" 4 7, 5 1, S_0x12b8d40;
+ .timescale 0 0;
+L_0x12baa50 .functor NAND 1, L_0x12bad60, L_0x12bad60, C4<1>, C4<1>;
+v0x12b9110_0 .alias "in", 0 0, v0x12b9230_0;
+v0x12b9190_0 .alias "out", 0 0, v0x12b9480_0;
+S_0x12b8e30 .scope module, "not1" "Not" 4 8, 5 1, S_0x12b8d40;
+ .timescale 0 0;
+L_0x12baaf0 .functor NAND 1, L_0x12baf20, L_0x12baf20, C4<1>, C4<1>;
+v0x12b8f20_0 .alias "in", 0 0, v0x12b9300_0;
+v0x12b8fa0_0 .alias "out", 0 0, v0x12b9530_0;
+S_0x12b84a0 .scope module, "or2" "Or" 3 9, 4 1, S_0x128fc60;
+ .timescale 0 0;
+L_0x12bb170 .functor NAND 1, L_0x12bb050, L_0x12bb0d0, C4<1>, C4<1>;
+v0x12b8990_0 .net "a", 0 0, L_0x12bb2a0; 1 drivers
+v0x12b8a60_0 .net "b", 0 0, L_0x12bb3d0; 1 drivers
+v0x12b8b10_0 .alias "out", 0 0, v0x12ba0e0_0;
+v0x12b8be0_0 .net "w0", 0 0, L_0x12bb050; 1 drivers
+v0x12b8c90_0 .net "w1", 0 0, L_0x12bb0d0; 1 drivers
+S_0x12b8780 .scope module, "not0" "Not" 4 7, 5 1, S_0x12b84a0;
+ .timescale 0 0;
+L_0x12bb050 .functor NAND 1, L_0x12bb2a0, L_0x12bb2a0, C4<1>, C4<1>;
+v0x12b8870_0 .alias "in", 0 0, v0x12b8990_0;
+v0x12b88f0_0 .alias "out", 0 0, v0x12b8be0_0;
+S_0x12b8590 .scope module, "not1" "Not" 4 8, 5 1, S_0x12b84a0;
+ .timescale 0 0;
+L_0x12bb0d0 .functor NAND 1, L_0x12bb3d0, L_0x12bb3d0, C4<1>, C4<1>;
+v0x12b8680_0 .alias "in", 0 0, v0x12b8a60_0;
+v0x12b8700_0 .alias "out", 0 0, v0x12b8c90_0;
+S_0x12b7c00 .scope module, "or3" "Or" 3 10, 4 1, S_0x128fc60;
+ .timescale 0 0;
+L_0x12bb690 .functor NAND 1, L_0x12bb500, L_0x12bb5a0, C4<1>, C4<1>;
+v0x12b80f0_0 .net "a", 0 0, L_0x12bb7c0; 1 drivers
+v0x12b81c0_0 .net "b", 0 0, L_0x12bba00; 1 drivers
+v0x12b8270_0 .alias "out", 0 0, v0x12ba160_0;
+v0x12b8340_0 .net "w0", 0 0, L_0x12bb500; 1 drivers
+v0x12b83f0_0 .net "w1", 0 0, L_0x12bb5a0; 1 drivers
+S_0x12b7ee0 .scope module, "not0" "Not" 4 7, 5 1, S_0x12b7c00;
+ .timescale 0 0;
+L_0x12bb500 .functor NAND 1, L_0x12bb7c0, L_0x12bb7c0, C4<1>, C4<1>;
+v0x12b7fd0_0 .alias "in", 0 0, v0x12b80f0_0;
+v0x12b8050_0 .alias "out", 0 0, v0x12b8340_0;
+S_0x12b7cf0 .scope module, "not1" "Not" 4 8, 5 1, S_0x12b7c00;
+ .timescale 0 0;
+L_0x12bb5a0 .functor NAND 1, L_0x12bba00, L_0x12bba00, C4<1>, C4<1>;
+v0x12b7de0_0 .alias "in", 0 0, v0x12b81c0_0;
+v0x12b7e60_0 .alias "out", 0 0, v0x12b83f0_0;
+S_0x12b7360 .scope module, "or4" "Or" 3 11, 4 1, S_0x128fc60;
+ .timescale 0 0;
+L_0x12bbbe0 .functor NAND 1, L_0x12bbaa0, L_0x12bbb40, C4<1>, C4<1>;
+v0x12b7850_0 .alias "a", 0 0, v0x12b9fb0_0;
+v0x12b7920_0 .alias "b", 0 0, v0x12ba030_0;
+v0x12b79d0_0 .alias "out", 0 0, v0x12ba220_0;
+v0x12b7aa0_0 .net "w0", 0 0, L_0x12bbaa0; 1 drivers
+v0x12b7b50_0 .net "w1", 0 0, L_0x12bbb40; 1 drivers
+S_0x12b7640 .scope module, "not0" "Not" 4 7, 5 1, S_0x12b7360;
+ .timescale 0 0;
+L_0x12bbaa0 .functor NAND 1, L_0x12ba6c0, L_0x12ba6c0, C4<1>, C4<1>;
+v0x12b7730_0 .alias "in", 0 0, v0x12b9fb0_0;
+v0x12b77b0_0 .alias "out", 0 0, v0x12b7aa0_0;
+S_0x12b7450 .scope module, "not1" "Not" 4 8, 5 1, S_0x12b7360;
+ .timescale 0 0;
+L_0x12bbb40 .functor NAND 1, L_0x12bac30, L_0x12bac30, C4<1>, C4<1>;
+v0x12b7540_0 .alias "in", 0 0, v0x12ba030_0;
+v0x12b75c0_0 .alias "out", 0 0, v0x12b7b50_0;
+S_0x12b6aa0 .scope module, "or5" "Or" 3 12, 4 1, S_0x128fc60;
+ .timescale 0 0;
+L_0x12bbea0 .functor NAND 1, L_0x12bbd10, L_0x12bbdb0, C4<1>, C4<1>;
+v0x12b6fb0_0 .alias "a", 0 0, v0x12ba0e0_0;
+v0x12b7080_0 .alias "b", 0 0, v0x12ba160_0;
+v0x12b7130_0 .alias "out", 0 0, v0x12ba2a0_0;
+v0x12b7200_0 .net "w0", 0 0, L_0x12bbd10; 1 drivers
+v0x12b72b0_0 .net "w1", 0 0, L_0x12bbdb0; 1 drivers
+S_0x12b6d80 .scope module, "not0" "Not" 4 7, 5 1, S_0x12b6aa0;
+ .timescale 0 0;
+L_0x12bbd10 .functor NAND 1, L_0x12bb170, L_0x12bb170, C4<1>, C4<1>;
+v0x12b6e70_0 .alias "in", 0 0, v0x12ba0e0_0;
+v0x12b6f10_0 .alias "out", 0 0, v0x12b7200_0;
+S_0x12b6b90 .scope module, "not1" "Not" 4 8, 5 1, S_0x12b6aa0;
+ .timescale 0 0;
+L_0x12bbdb0 .functor NAND 1, L_0x12bb690, L_0x12bb690, C4<1>, C4<1>;
+v0x12b6c80_0 .alias "in", 0 0, v0x12ba160_0;
+v0x12b6d00_0 .alias "out", 0 0, v0x12b72b0_0;
+S_0x128f6d0 .scope module, "or6" "Or" 3 13, 4 1, S_0x128fc60;
+ .timescale 0 0;
+L_0x12bc160 .functor NAND 1, L_0x12bbfd0, L_0x12bc070, C4<1>, C4<1>;
+v0x12b6710_0 .alias "a", 0 0, v0x12ba220_0;
+v0x12b67e0_0 .alias "b", 0 0, v0x12ba2a0_0;
+v0x12b6890_0 .alias "out", 0 0, v0x12ba3f0_0;
+v0x12b6910_0 .net "w0", 0 0, L_0x12bbfd0; 1 drivers
+v0x12b69f0_0 .net "w1", 0 0, L_0x12bc070; 1 drivers
+S_0x12b64c0 .scope module, "not0" "Not" 4 7, 5 1, S_0x128f6d0;
+ .timescale 0 0;
+L_0x12bbfd0 .functor NAND 1, L_0x12bbbe0, L_0x12bbbe0, C4<1>, C4<1>;
+v0x12b65b0_0 .alias "in", 0 0, v0x12ba220_0;
+v0x12b6670_0 .alias "out", 0 0, v0x12b6910_0;
+S_0x128edc0 .scope module, "not1" "Not" 4 8, 5 1, S_0x128f6d0;
+ .timescale 0 0;
+L_0x12bc070 .functor NAND 1, L_0x12bbea0, L_0x12bbea0, C4<1>, C4<1>;
+v0x1290950_0 .alias "in", 0 0, v0x12ba2a0_0;
+v0x12b6420_0 .alias "out", 0 0, v0x12b69f0_0;
+    .scope S_0x128f350;
+T_0 ;
+    %vpi_call 2 8 "$dumpfile", "Or8Way_test.vcd";
+    %vpi_call 2 9 "$dumpvars", 1'sb0, S_0x128fc60;
+    %vpi_call 2 10 "$monitor", "in = %h, out = %b", v0x12ba370_0, v0x12ba3f0_0;
+    %delay 1, 0;
+    %set/v v0x12ba370_0, 0, 8;
+    %delay 1, 0;
+    %movi 8, 1, 8;
+    %set/v v0x12ba370_0, 8, 8;
+    %delay 1, 0;
+    %movi 8, 2, 8;
+    %set/v v0x12ba370_0, 8, 8;
+    %delay 1, 0;
+    %movi 8, 15, 8;
+    %set/v v0x12ba370_0, 8, 8;
+    %delay 1, 0;
+    %set/v v0x12ba370_0, 0, 8;
+    %delay 1, 0;
+    %set/v v0x12ba370_0, 1, 8;
+    %delay 1, 0;
+    %movi 8, 128, 8;
+    %set/v v0x12ba370_0, 8, 8;
+    %delay 1, 0;
+    %vpi_call 2 19 "$finish";
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 6;
+    "N/A";
+    "<interactive>";
+    "Or8Way_test.v";
+    "Or8Way.v";
+    "Or.v";
+    "Not.v";

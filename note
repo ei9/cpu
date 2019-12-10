@@ -95,4 +95,11 @@ vvp Or8Way_test.vvp
 iverilog Or8Way_test.v Or8Way.v Or.v Not.v
 gtkwave Or8Way_test.vcd
 
+/*
+ * 16-bit, 4-way multiplexor.
+ */
+iverilog -o Mux4Way16_test.vvp Mux4Way16_test.v Mux4Way16.v Mux16.v Mux.v Not.v
+vvp Mux4Way16_test.vvp
+iverilog Mux4Way16_test.v Mux4Way16.v Mux16.v Mux.v Not.v
+gtkwave Mux4Way16_test.vcd
 

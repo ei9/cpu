@@ -119,3 +119,11 @@ vvp DMux4Way_test.vvp
 iverilog DMux4Way_test.v DMux4Way.v DMux.v And.v Not.v
 gtkwave DMux4Way_test.vcd
 
+/*
+ * 8-way demultiplexor.
+ */
+iverilog -o DMux8Way_test.vvp DMux8Way_test.v DMux8Way.v DMux4Way.v DMux.v And.v Not.v
+vvp DMux8Way_test.vvp
+iverilog DMux8Way_test.v DMux8Way.v DMux4Way.v DMux.v And.v Not.v
+gtkwave DMux8Way_test.vcd
+

@@ -103,3 +103,11 @@ vvp Mux4Way16_test.vvp
 iverilog Mux4Way16_test.v Mux4Way16.v Mux16.v Mux.v Not.v
 gtkwave Mux4Way16_test.vcd
 
+/*
+ * 16-bit, 8-way multiplexor.
+ */
+iverilog -o Mux8Way16_test.vvp Mux8Way16_test.v Mux8Way16.v Mux4Way16.v Mux16.v Mux.v Not.v
+vvp Mux8Way16_test.vvp
+iverilog Mux8Way16_test.v Mux8Way16.v Mux4Way16.v Mux16.v Mux.v Not.v
+gtkwave Mux8Way16_test.vcd
+

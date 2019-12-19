@@ -4,53 +4,91 @@
 :vpi_module "system";
 :vpi_module "v2005_math";
 :vpi_module "va_math";
-S_0x1b63d00 .scope module, "HalfAdder_test" "HalfAdder_test" 2 1;
+S_0x1455f00 .scope module, "FullAdder_test" "FullAdder_test" 2 1;
  .timescale 0 0;
-v0x1b74410_0 .var "a", 0 0;
-v0x1b744b0_0 .var "b", 0 0;
-v0x1b74560_0 .net "carry", 0 0, L_0x1b74a80; 1 drivers
-v0x1b74630_0 .net "sum", 0 0, L_0x1b74980; 1 drivers
-S_0x1b63df0 .scope module, "halfAdder" "HalfAdder" 2 19, 3 1, S_0x1b63d00;
+v0x146ac20_0 .var "a", 0 0;
+v0x146acf0_0 .var "b", 0 0;
+v0x146adc0_0 .net "carry", 0 0, L_0x146b830; 1 drivers
+v0x146ae40_0 .var "cin", 0 0;
+v0x146af10_0 .net "sum", 0 0, L_0x146b670; 1 drivers
+S_0x141e690 .scope module, "fullAdder" "FullAdder" 2 23, 3 1, S_0x1455f00;
  .timescale 0 0;
-L_0x1b746e0 .functor NAND 1, v0x1b74410_0, v0x1b744b0_0, C4<1>, C4<1>;
-L_0x1b74830 .functor NAND 1, v0x1b74410_0, L_0x1b746e0, C4<1>, C4<1>;
-L_0x1b74890 .functor NAND 1, L_0x1b746e0, v0x1b744b0_0, C4<1>, C4<1>;
-L_0x1b74980 .functor NAND 1, L_0x1b74830, L_0x1b74890, C4<1>, C4<1>;
-v0x1b73f60_0 .net "a", 0 0, v0x1b74410_0; 1 drivers
-v0x1b74020_0 .net "b", 0 0, v0x1b744b0_0; 1 drivers
-v0x1b740c0_0 .alias "carry", 0 0, v0x1b74560_0;
-v0x1b74170_0 .alias "sum", 0 0, v0x1b74630_0;
-v0x1b74220_0 .net "w0", 0 0, L_0x1b746e0; 1 drivers
-v0x1b742d0_0 .net "w1", 0 0, L_0x1b74830; 1 drivers
-v0x1b74390_0 .net "w2", 0 0, L_0x1b74890; 1 drivers
-S_0x1b2d690 .scope module, "not0" "Not" 3 11, 4 1, S_0x1b63df0;
+L_0x146b720 .functor NAND 1, L_0x146b360, v0x146ae40_0, C4<1>, C4<1>;
+L_0x146b780 .functor NAND 1, v0x146ac20_0, v0x146acf0_0, C4<1>, C4<1>;
+L_0x146b830 .functor NAND 1, L_0x146b720, L_0x146b780, C4<1>, C4<1>;
+v0x146a690_0 .net "a", 0 0, v0x146ac20_0; 1 drivers
+v0x146a730_0 .net "b", 0 0, v0x146acf0_0; 1 drivers
+v0x146a7e0_0 .alias "carry", 0 0, v0x146adc0_0;
+v0x146a860_0 .net "cin", 0 0, v0x146ae40_0; 1 drivers
+v0x146a940_0 .net "g0_out", 0 0, L_0x146b360; 1 drivers
+v0x146aa10_0 .net "g2_out", 0 0, L_0x146b720; 1 drivers
+v0x146aad0_0 .net "g3_out", 0 0, L_0x146b780; 1 drivers
+v0x146ab50_0 .alias "sum", 0 0, v0x146af10_0;
+S_0x146a1b0 .scope module, "g0" "Xor" 3 7, 4 1, S_0x141e690;
  .timescale 0 0;
-L_0x1b74a80 .functor NAND 1, L_0x1b746e0, L_0x1b746e0, C4<1>, C4<1>;
-v0x1b2d780_0 .alias "in", 0 0, v0x1b74220_0;
-v0x1b73ec0_0 .alias "out", 0 0, v0x1b74560_0;
-    .scope S_0x1b63d00;
+L_0x146b0e0 .functor NAND 1, v0x146ac20_0, v0x146acf0_0, C4<1>, C4<1>;
+L_0x146b160 .functor NAND 1, v0x146ac20_0, L_0x146b0e0, C4<1>, C4<1>;
+L_0x146b270 .functor NAND 1, L_0x146b0e0, v0x146acf0_0, C4<1>, C4<1>;
+L_0x146b360 .functor NAND 1, L_0x146b160, L_0x146b270, C4<1>, C4<1>;
+v0x146a2a0_0 .alias "a", 0 0, v0x146a690_0;
+v0x146a360_0 .alias "b", 0 0, v0x146a730_0;
+v0x146a400_0 .alias "out", 0 0, v0x146a940_0;
+v0x146a480_0 .net "w0", 0 0, L_0x146b0e0; 1 drivers
+v0x146a530_0 .net "w1", 0 0, L_0x146b160; 1 drivers
+v0x146a5b0_0 .net "w2", 0 0, L_0x146b270; 1 drivers
+S_0x141e780 .scope module, "g1" "Xor" 3 8, 4 1, S_0x141e690;
+ .timescale 0 0;
+L_0x146b410 .functor NAND 1, L_0x146b360, v0x146ae40_0, C4<1>, C4<1>;
+L_0x146b500 .functor NAND 1, L_0x146b360, L_0x146b410, C4<1>, C4<1>;
+L_0x146b580 .functor NAND 1, L_0x146b410, v0x146ae40_0, C4<1>, C4<1>;
+L_0x146b670 .functor NAND 1, L_0x146b500, L_0x146b580, C4<1>, C4<1>;
+v0x141e870_0 .alias "a", 0 0, v0x146a940_0;
+v0x1469e40_0 .alias "b", 0 0, v0x146a860_0;
+v0x1469ee0_0 .alias "out", 0 0, v0x146af10_0;
+v0x1469f80_0 .net "w0", 0 0, L_0x146b410; 1 drivers
+v0x146a030_0 .net "w1", 0 0, L_0x146b500; 1 drivers
+v0x146a0d0_0 .net "w2", 0 0, L_0x146b580; 1 drivers
+S_0x1455ff0 .scope module, "Not" "Not" 5 1;
+ .timescale 0 0;
+L_0x146b980 .functor NAND 1, C4<z>, C4<z>, C4<1>, C4<1>;
+v0x146afe0_0 .net "in", 0 0, C4<z>; 0 drivers
+v0x146b060_0 .net "out", 0 0, L_0x146b980; 1 drivers
+    .scope S_0x1455f00;
 T_0 ;
-    %vpi_call 2 8 "$dumpfile", "HalfAdder_test.vcd";
-    %vpi_call 2 9 "$dumpvars", 1'sb0, S_0x1b63df0;
-    %vpi_call 2 10 "$monitor", "a = %b, b = %b, sum = %b, carry = %b", v0x1b74410_0, v0x1b744b0_0, v0x1b74630_0, v0x1b74560_0;
+    %vpi_call 2 8 "$dumpfile", "FullAdder_test.vcd";
+    %vpi_call 2 9 "$dumpvars", 1'sb0, S_0x141e690;
+    %vpi_call 2 10 "$monitor", "a = %b, b = %b, cin = %b, sum = %b, carry = %b", v0x146ac20_0, v0x146acf0_0, v0x146ae40_0, v0x146af10_0, v0x146adc0_0;
     %delay 1, 0;
-    %set/v v0x1b74410_0, 0, 1;
-    %set/v v0x1b744b0_0, 0, 1;
+    %set/v v0x146ac20_0, 0, 1;
+    %set/v v0x146acf0_0, 0, 1;
+    %set/v v0x146ae40_0, 0, 1;
     %delay 1, 0;
-    %set/v v0x1b744b0_0, 1, 1;
+    %set/v v0x146ae40_0, 1, 1;
     %delay 1, 0;
-    %set/v v0x1b74410_0, 1, 1;
-    %set/v v0x1b744b0_0, 0, 1;
+    %set/v v0x146acf0_0, 1, 1;
+    %set/v v0x146ae40_0, 0, 1;
     %delay 1, 0;
-    %set/v v0x1b744b0_0, 1, 1;
+    %set/v v0x146ae40_0, 1, 1;
     %delay 1, 0;
-    %vpi_call 2 16 "$finish";
+    %set/v v0x146ac20_0, 1, 1;
+    %set/v v0x146acf0_0, 0, 1;
+    %set/v v0x146ae40_0, 0, 1;
+    %delay 1, 0;
+    %set/v v0x146ae40_0, 1, 1;
+    %delay 1, 0;
+    %set/v v0x146acf0_0, 1, 1;
+    %set/v v0x146ae40_0, 0, 1;
+    %delay 1, 0;
+    %set/v v0x146ae40_0, 1, 1;
+    %delay 1, 0;
+    %vpi_call 2 20 "$finish";
     %end;
     .thread T_0;
 # The file index is used to find the file name in the following table.
-:file_names 5;
+:file_names 6;
     "N/A";
     "<interactive>";
-    "HalfAdder_test.v";
-    "HalfAdder.v";
+    "FullAdder_test.v";
+    "FullAdder.v";
+    "Xor.v";
     "Not.v";

@@ -136,3 +136,13 @@ vvp HalfAdder_test.vvp
 iverilog HalfAdder_test.v HalfAdder.v Not.v
 gtkwave HalfAdder_test.vcd
 
+
+/*
+ * Full Adder.
+ * Reference : https://en.wikipedia.org/wiki/Adder_(electronics)
+ */
+iverilog -o FullAdder_test.vvp FullAdder_test.v FullAdder.v Xor.v Not.v
+vvp FullAdder_test.vvp
+iverilog FullAdder_test.v FullAdder.v Xor.v Not.v
+gtkwave FullAdder_test.vcd
+

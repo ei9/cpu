@@ -1,4 +1,4 @@
-/*
+/ *
  * Link: https://sites.google.com/site/verilog710/xiang-guan-gong-ju/icarus-verilog
  */
 iverilog -o sample.vvp sample_test.v sample.v  // Generate sample.vvp
@@ -126,4 +126,12 @@ iverilog -o DMux8Way_test.vvp DMux8Way_test.v DMux8Way.v DMux4Way.v DMux.v And.v
 vvp DMux8Way_test.vvp
 iverilog DMux8Way_test.v DMux8Way.v DMux4Way.v DMux.v And.v Not.v
 gtkwave DMux8Way_test.vcd
+
+/*
+ * Half adder.
+ */
+iverilog -o HalfAdder_test.vvp HalfAdder_test.v HalfAdder.v Xor.v And.v Not.v
+vvp HalfAdder_test.vvp
+iverilog HalfAdder_test.v HalfAdder.v Xor.v And.v Not.v
+gtkwave HalfAdder_test.vcd
 

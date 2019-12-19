@@ -1,5 +1,5 @@
 $date
-	Thu Dec 19 20:27:46 2019
+	Thu Dec 19 20:51:13 2019
 $end
 $version
 	Icarus Verilog
@@ -13,30 +13,18 @@ $var wire 1 ! a $end
 $var wire 1 " b $end
 $var wire 1 # carry $end
 $var wire 1 $ sum $end
-$scope module g0 $end
-$var wire 1 ! a $end
-$var wire 1 " b $end
-$var wire 1 $ out $end
 $var wire 1 % w0 $end
 $var wire 1 & w1 $end
 $var wire 1 ' w2 $end
-$upscope $end
-$scope module g1 $end
-$var wire 1 ! a $end
-$var wire 1 " b $end
-$var wire 1 # out $end
-$var wire 1 ( w $end
 $scope module not0 $end
-$var wire 1 ( in $end
+$var wire 1 % in $end
 $var wire 1 # out $end
-$upscope $end
 $upscope $end
 $upscope $end
 $upscope $end
 $enddefinitions $end
 #0
 $dumpvars
-x(
 x'
 x&
 x%
@@ -46,12 +34,11 @@ x"
 x!
 $end
 #1
-0$
 0#
+0$
 1'
 1%
 1&
-1(
 0"
 0!
 #2
@@ -69,6 +56,5 @@ $end
 1#
 0%
 1'
-0(
 1"
 #5

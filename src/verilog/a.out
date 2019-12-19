@@ -4,67 +4,53 @@
 :vpi_module "system";
 :vpi_module "v2005_math";
 :vpi_module "va_math";
-S_0x15b1010 .scope module, "HalfAdder_test" "HalfAdder_test" 2 1;
+S_0x1b63d00 .scope module, "HalfAdder_test" "HalfAdder_test" 2 1;
  .timescale 0 0;
-v0x15c1b40_0 .var "a", 0 0;
-v0x15c1bc0_0 .var "b", 0 0;
-v0x15c1c40_0 .net "carry", 0 0, L_0x15c2150; 1 drivers
-v0x15c1cc0_0 .net "sum", 0 0, L_0x15c1fd0; 1 drivers
-S_0x15b1100 .scope module, "halfAdder" "HalfAdder" 2 19, 3 1, S_0x15b1010;
+v0x1b74410_0 .var "a", 0 0;
+v0x1b744b0_0 .var "b", 0 0;
+v0x1b74560_0 .net "carry", 0 0, L_0x1b74a80; 1 drivers
+v0x1b74630_0 .net "sum", 0 0, L_0x1b74980; 1 drivers
+S_0x1b63df0 .scope module, "halfAdder" "HalfAdder" 2 19, 3 1, S_0x1b63d00;
  .timescale 0 0;
-v0x15c1850_0 .net "a", 0 0, v0x15c1b40_0; 1 drivers
-v0x15c1920_0 .net "b", 0 0, v0x15c1bc0_0; 1 drivers
-v0x15c19f0_0 .alias "carry", 0 0, v0x15c1c40_0;
-v0x15c1ac0_0 .alias "sum", 0 0, v0x15c1cc0_0;
-S_0x15c1390 .scope module, "g0" "Xor" 3 6, 4 1, S_0x15b1100;
+L_0x1b746e0 .functor NAND 1, v0x1b74410_0, v0x1b744b0_0, C4<1>, C4<1>;
+L_0x1b74830 .functor NAND 1, v0x1b74410_0, L_0x1b746e0, C4<1>, C4<1>;
+L_0x1b74890 .functor NAND 1, L_0x1b746e0, v0x1b744b0_0, C4<1>, C4<1>;
+L_0x1b74980 .functor NAND 1, L_0x1b74830, L_0x1b74890, C4<1>, C4<1>;
+v0x1b73f60_0 .net "a", 0 0, v0x1b74410_0; 1 drivers
+v0x1b74020_0 .net "b", 0 0, v0x1b744b0_0; 1 drivers
+v0x1b740c0_0 .alias "carry", 0 0, v0x1b74560_0;
+v0x1b74170_0 .alias "sum", 0 0, v0x1b74630_0;
+v0x1b74220_0 .net "w0", 0 0, L_0x1b746e0; 1 drivers
+v0x1b742d0_0 .net "w1", 0 0, L_0x1b74830; 1 drivers
+v0x1b74390_0 .net "w2", 0 0, L_0x1b74890; 1 drivers
+S_0x1b2d690 .scope module, "not0" "Not" 3 11, 4 1, S_0x1b63df0;
  .timescale 0 0;
-L_0x15c1d90 .functor NAND 1, v0x15c1b40_0, v0x15c1bc0_0, C4<1>, C4<1>;
-L_0x15c1f10 .functor NAND 1, v0x15c1b40_0, L_0x15c1d90, C4<1>, C4<1>;
-L_0x15c1f70 .functor NAND 1, L_0x15c1d90, v0x15c1bc0_0, C4<1>, C4<1>;
-L_0x15c1fd0 .functor NAND 1, L_0x15c1f10, L_0x15c1f70, C4<1>, C4<1>;
-v0x15c1480_0 .alias "a", 0 0, v0x15c1850_0;
-v0x15c1530_0 .alias "b", 0 0, v0x15c1920_0;
-v0x15c15e0_0 .alias "out", 0 0, v0x15c1cc0_0;
-v0x15c1660_0 .net "w0", 0 0, L_0x15c1d90; 1 drivers
-v0x15c1710_0 .net "w1", 0 0, L_0x15c1f10; 1 drivers
-v0x15c1790_0 .net "w2", 0 0, L_0x15c1f70; 1 drivers
-S_0x15aec60 .scope module, "g1" "And" 3 7, 5 1, S_0x15b1100;
- .timescale 0 0;
-L_0x15c2080 .functor NAND 1, v0x15c1b40_0, v0x15c1bc0_0, C4<1>, C4<1>;
-v0x15c10a0_0 .alias "a", 0 0, v0x15c1850_0;
-v0x15c1160_0 .alias "b", 0 0, v0x15c1920_0;
-v0x15c1200_0 .alias "out", 0 0, v0x15c1c40_0;
-v0x15c12b0_0 .net "w", 0 0, L_0x15c2080; 1 drivers
-S_0x15aed50 .scope module, "not0" "Not" 5 8, 6 1, S_0x15aec60;
- .timescale 0 0;
-L_0x15c2150 .functor NAND 1, L_0x15c2080, L_0x15c2080, C4<1>, C4<1>;
-v0x15aee40_0 .alias "in", 0 0, v0x15c12b0_0;
-v0x15c1000_0 .alias "out", 0 0, v0x15c1c40_0;
-    .scope S_0x15b1010;
+L_0x1b74a80 .functor NAND 1, L_0x1b746e0, L_0x1b746e0, C4<1>, C4<1>;
+v0x1b2d780_0 .alias "in", 0 0, v0x1b74220_0;
+v0x1b73ec0_0 .alias "out", 0 0, v0x1b74560_0;
+    .scope S_0x1b63d00;
 T_0 ;
     %vpi_call 2 8 "$dumpfile", "HalfAdder_test.vcd";
-    %vpi_call 2 9 "$dumpvars", 1'sb0, S_0x15b1100;
-    %vpi_call 2 10 "$monitor", "a = %b, b = %b, sum = %b, carry = %b", v0x15c1b40_0, v0x15c1bc0_0, v0x15c1cc0_0, v0x15c1c40_0;
+    %vpi_call 2 9 "$dumpvars", 1'sb0, S_0x1b63df0;
+    %vpi_call 2 10 "$monitor", "a = %b, b = %b, sum = %b, carry = %b", v0x1b74410_0, v0x1b744b0_0, v0x1b74630_0, v0x1b74560_0;
     %delay 1, 0;
-    %set/v v0x15c1b40_0, 0, 1;
-    %set/v v0x15c1bc0_0, 0, 1;
+    %set/v v0x1b74410_0, 0, 1;
+    %set/v v0x1b744b0_0, 0, 1;
     %delay 1, 0;
-    %set/v v0x15c1bc0_0, 1, 1;
+    %set/v v0x1b744b0_0, 1, 1;
     %delay 1, 0;
-    %set/v v0x15c1b40_0, 1, 1;
-    %set/v v0x15c1bc0_0, 0, 1;
+    %set/v v0x1b74410_0, 1, 1;
+    %set/v v0x1b744b0_0, 0, 1;
     %delay 1, 0;
-    %set/v v0x15c1bc0_0, 1, 1;
+    %set/v v0x1b744b0_0, 1, 1;
     %delay 1, 0;
     %vpi_call 2 16 "$finish";
     %end;
     .thread T_0;
 # The file index is used to find the file name in the following table.
-:file_names 7;
+:file_names 5;
     "N/A";
     "<interactive>";
     "HalfAdder_test.v";
     "HalfAdder.v";
-    "Xor.v";
-    "And.v";
     "Not.v";

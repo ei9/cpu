@@ -33,10 +33,11 @@ gtkwave gate16_test.vcd
 
 /*
  * Multiplexor
+ * Reference : https://github.com/ccckmit/nand2tetris_verilog/blob/master/mux_test.v
  */
-iverilog -o Mux_test.vvp Mux_test.v Mux.v Not.v
+iverilog -o Mux_test.vvp Mux_test.v
 vvp Mux_test.vvp
-iverilog Mux_test.v Mux.v Not.v
+iverilog Mux_test.v
 gtkwave Mux_test.vcd
 
 /*
@@ -46,30 +47,6 @@ iverilog -o DMux_test.vvp DMux_test.v DMux.v And.v Not.v
 vvp DMux_test.vvp
 iverilog DMux_test.v DMux.v And.v Not.v
 gtkwave DMux_test.vcd
-
-/*
- * Mux16.
- */
-iverilog -o Mux16_test.vvp Mux16_test.v Mux16.v Mux.v Not.v
-vvp Mux16_test.vvp
-iverilog Mux16_test.v Mux16.v Mux.v Not.v
-gtkwave Mux16_test.vcd
-
-/*
- * 16-bit, 4-way multiplexor.
- */
-iverilog -o Mux4Way16_test.vvp Mux4Way16_test.v Mux4Way16.v Mux16.v Mux.v Not.v
-vvp Mux4Way16_test.vvp
-iverilog Mux4Way16_test.v Mux4Way16.v Mux16.v Mux.v Not.v
-gtkwave Mux4Way16_test.vcd
-
-/*
- * 16-bit, 8-way multiplexor.
- */
-iverilog -o Mux8Way16_test.vvp Mux8Way16_test.v Mux8Way16.v Mux4Way16.v Mux16.v Mux.v Not.v
-vvp Mux8Way16_test.vvp
-iverilog Mux8Way16_test.v Mux8Way16.v Mux4Way16.v Mux16.v Mux.v Not.v
-gtkwave Mux8Way16_test.vcd
 
 /*
  * 4-way demultiplexor.

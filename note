@@ -173,3 +173,11 @@ iverilog LCUAdder16_test.v LCUAdder16.v CLFullAdder.v Xor.v Or16.v Or.v And16.v 
 verilog LCUAdder16.v CLFullAdder.v Xor.v Or16.v Or.v And16.v And.v Not.v
 gtkwave LCUAdder16_test.vcd
 
+/*
+ * 64-bit carry-lookahead adder.
+ */
+iverilog -o LCUAdder64_test.vvp LCUAdder64_test.v LCUAdder64.v LCUAdder16.v CLFullAdder.v Xor.v Or16.v Or.v And16.v And.v Not.v
+vvp LCUAdder64_test.vvp
+iverilog LCUAdder64_test.v LCUAdder64.v LCUAdder16.v CLFullAdder.v Xor.v Or16.v Or.v And16.v And.v Not.v
+gtkwave LCUAdder64_test.vcd
+

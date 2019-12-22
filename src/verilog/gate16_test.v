@@ -1,16 +1,22 @@
-module And16_test;
+`include "gate16.v"
+
+module gate16_test;
 
     reg[15:0] a, b;
-    wire[15:0] out;
+    wire[15:0] aNot, abAnd, abOr;
+
+    Not16 not16(aNot, a);
+    And16 and16(abAnd, a, b);
+    Or16  or16(abOr, a, b);
 
     initial
         begin
-            $dumpfile("And16_test.vcd");
-            $dumpvars(0, and16);
-            $monitor("a = %b, b = %b, out = %b", a, b, out);
+            $dumpfile("gate16_test.vcd");
+            $dumpvars(0, not16, and16, or16);
+            $monitor("a = %h, b = %h, aNot = %h, abAnd = %h, abOr = %h", a, b, aNot, abAnd, abOr);
 
-            #1 a = 16'b0000000000000000; b = 16'b0000000000000000;
-            #1 a = 16'b1111111111111111; b = 16'b1111111111111111;
+            #1 a = 16'h0; b = 16'h0;
+            #1 a = 16'hf; b = 16'hf;
             #1 a = 16'b0000000011111111; b = 16'b1111111100000000;
             #1 a = 16'b1111111100000000; b = 16'b0000000011111111;
             #1 a = 16'b0101010101010101; b = 16'b1010101010101010;
@@ -20,7 +26,4 @@ module And16_test;
             #1 $finish;
         end
 
-    And16 and16(out, a, b);
-
 endmodule
-

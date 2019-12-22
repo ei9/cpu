@@ -8,12 +8,28 @@ vvp sample_test.vvp                        # Execute.
 Under "src/verilog" directory.
 
 /*
- * Gates (Not, And, Or, Xor).
+ * gate (Not, And, Or, Xor)
  */
 iverilog -o gate_test.vvp gate_test.v  # Generate Not_test.vvp
 vvp gate_test.vvp                      # Execute.
 iverilog gate_test.v                   # Generate Not_test.vcd
 gtkwave gate_test.vcd                  # See graphical wave output.
+
+/*
+ * Or8Way.
+ */
+iverilog -o Or8Way_test.vvp Or8Way_test.v
+vvp Or8Way_test.vvp
+iverilog Or8Way_test.v
+gtkwave Or8Way_test.vcd
+
+/*
+ * gate16
+ */
+iverilog -o gate16_test.vvp gate16_test.v
+vvp gate16_test.vvp
+iverilog gate16_test.v
+gtkwave gate16_test.vcd
 
 /*
  * Multiplexor
@@ -32,44 +48,12 @@ iverilog DMux_test.v DMux.v And.v Not.v
 gtkwave DMux_test.vcd
 
 /*
- * Not16.
- */
-iverilog -o Not16_test.vvp Not16_test.v Not16.v Not.v
-vvp Not16_test.vvp
-iverilog Not16_test.v Not16.v Not.v
-gtkwave Not16_test.vcd
-
-/*
- * And16.
- */
-iverilog -o And16_test.vvp And16_test.v And16.v And.v Not.v
-vvp And16_test.vvp
-iverilog And16_test.v And16.v And.v Not.v
-gtkwave And16_test.vcd
-
-/*
- * Or16.
- */
-iverilog -o Or16_test.vvp Or16_test.v Or16.v Or.v Not.v
-vvp Or16_test.vvp
-iverilog Or16_test.v Or16.v Or.v Not.v
-gtkwave Or16_test.vcd
-
-/*
  * Mux16.
  */
 iverilog -o Mux16_test.vvp Mux16_test.v Mux16.v Mux.v Not.v
 vvp Mux16_test.vvp
 iverilog Mux16_test.v Mux16.v Mux.v Not.v
 gtkwave Mux16_test.vcd
-
-/*
- * Or8Way.
- */
-iverilog -o Or8Way_test.vvp Or8Way_test.v Or8Way.v Or.v Not.v
-vvp Or8Way_test.vvp
-iverilog Or8Way_test.v Or8Way.v Or.v Not.v
-gtkwave Or8Way_test.vcd
 
 /*
  * 16-bit, 4-way multiplexor.

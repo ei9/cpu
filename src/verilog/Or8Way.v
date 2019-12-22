@@ -1,3 +1,5 @@
+`include "gate.v"
+
 module Or8Way(out, in);
 
     output out;
@@ -13,4 +15,3 @@ module Or8Way(out, in);
     Or or6(out, w4, w5);
 
 endmodule
-

@@ -1,7 +1,11 @@
+`include "Or8Way.v"
+
 module Or8Way_test;
 
     reg[7:0] in;
     wire out;
+
+    Or8Way or8Way(out, in);
 
     initial
         begin
@@ -19,7 +23,4 @@ module Or8Way_test;
             #1 $finish;
         end
 
-    Or8Way or8Way(out, in);
-
 endmodule
-

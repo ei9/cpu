@@ -1,43 +1,19 @@
 /*
  * Link: https://sites.google.com/site/verilog710/xiang-guan-gong-ju/icarus-verilog
  */
-iverilog -o sample.vvp sample_test.v sample.v  // Generate sample.vvp
-vvp sample.vvp  // Execute.
+iverilog -o sample_test.vvp sample_test.v  # Generate sample.vvp
+vvp sample_test.vvp                        # Execute.
 
 
 Under "src/verilog" directory.
 
 /*
- * Not gate.
+ * Gates (Not, And, Or, Xor).
  */
-iverilog -o Not_test.vvp Not_test.v Not.v  // Generate Not_test.vvp
-vvp Not_test.vvp  // Execute.
-iverilog Not_test.v Not.v  // Generate Not_test.vcd
-gtkwave Not_test.vcd  // See graphical wave output.
-
-/*
- * And gate.
- */
-iverilog -o And_test.vvp And_test.v And.v Not.v  // Generate And_test.vvp
-vvp And_test.vvp  // Execute.
-iverilog And_test.v And.v Not.v  // Generate And_test.vcd
-gtkwave And_test.vcd  // See graphical wave output.
-
-/*
- * Or gate.
- */
-iverilog -o Or_test.vvp Or_test.v Or.v Not.v  // Generate Or_test.vvp
-vvp Or_test.vvp  // Execute.
-iverilog Or_test.v Or.v Not.v  // Generate Or_test.vcd
-gtkwave Or_test.vcd  // See graphical wave output.
-
-/*
- * Xor gate.
- */
-iverilog -o Xor_test.vvp Xor_test.v Xor.v Not.v
-vvp Xor_test.vvp
-iverilog Xor_test.v Xor.v Not.v
-gtkwave Xor_test.vcd
+iverilog -o gate_test.vvp gate_test.v  # Generate Not_test.vvp
+vvp gate_test.vvp                      # Execute.
+iverilog gate_test.v                   # Generate Not_test.vcd
+gtkwave gate_test.vcd                  # See graphical wave output.
 
 /*
  * Multiplexor
@@ -180,4 +156,3 @@ iverilog -o LCUAdder64_test.vvp LCUAdder64_test.v LCUAdder64.v LCUAdder16.v CLFu
 vvp LCUAdder64_test.vvp
 iverilog LCUAdder64_test.v LCUAdder64.v LCUAdder16.v CLFullAdder.v Xor.v Or16.v Or.v And16.v And.v Not.v
 gtkwave LCUAdder64_test.vcd
-

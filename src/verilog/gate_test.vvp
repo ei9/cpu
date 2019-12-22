@@ -1,0 +1,88 @@
+#! /usr/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7)";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0xa180c0 .scope module, "gate_test" "gate_test" 2 3;
+ .timescale 0 0;
+v0xa63cd0_0 .var "a", 0 0;
+v0xa63d50_0 .net "aNot", 0 0, L_0xa64130; 1 drivers
+v0xa63e00_0 .net "abAnd", 0 0, L_0xa63bc0; 1 drivers
+v0xa63e80_0 .net "abOr", 0 0, L_0xa64590; 1 drivers
+v0xa63f30_0 .net "abXor", 0 0, L_0xa648c0; 1 drivers
+v0xa63fe0_0 .var "b", 0 0;
+S_0xa63a50 .scope module, "g0" "Not" 2 8, 3 1, S_0xa180c0;
+ .timescale 0 0;
+L_0xa64130 .functor NAND 1, v0xa63cd0_0, v0xa63cd0_0, C4<1>, C4<1>;
+v0xa63b40_0 .net "in", 0 0, v0xa63cd0_0; 1 drivers
+v0xa63c50_0 .alias "out", 0 0, v0xa63d50_0;
+S_0xa634c0 .scope module, "g1" "And" 2 9, 3 11, S_0xa180c0;
+ .timescale 0 0;
+L_0xa64190 .functor NAND 1, v0xa63cd0_0, v0xa63fe0_0, C4<1>, C4<1>;
+v0xa637a0_0 .alias "a", 0 0, v0xa63b40_0;
+v0xa63840_0 .net "b", 0 0, v0xa63fe0_0; 1 drivers
+v0xa638c0_0 .alias "out", 0 0, v0xa63e00_0;
+v0xa63970_0 .net "w", 0 0, L_0xa64190; 1 drivers
+S_0xa635b0 .scope module, "not0" "Not" 3 18, 3 1, S_0xa634c0;
+ .timescale 0 0;
+L_0xa63bc0 .functor NAND 1, L_0xa64190, L_0xa64190, C4<1>, C4<1>;
+v0xa636a0_0 .alias "in", 0 0, v0xa63970_0;
+v0xa63720_0 .alias "out", 0 0, v0xa63e00_0;
+S_0xa62bf0 .scope module, "g2" "Or" 2 10, 3 23, S_0xa180c0;
+ .timescale 0 0;
+L_0xa64590 .functor NAND 1, L_0xa64400, L_0xa644a0, C4<1>, C4<1>;
+v0xa63130_0 .alias "a", 0 0, v0xa63b40_0;
+v0xa63220_0 .alias "b", 0 0, v0xa63840_0;
+v0xa632f0_0 .alias "out", 0 0, v0xa63e80_0;
+v0xa63390_0 .net "w0", 0 0, L_0xa64400; 1 drivers
+v0xa63410_0 .net "w1", 0 0, L_0xa644a0; 1 drivers
+S_0xa62ef0 .scope module, "not0" "Not" 3 29, 3 1, S_0xa62bf0;
+ .timescale 0 0;
+L_0xa64400 .functor NAND 1, v0xa63cd0_0, v0xa63cd0_0, C4<1>, C4<1>;
+v0xa62fe0_0 .alias "in", 0 0, v0xa63b40_0;
+v0xa630b0_0 .alias "out", 0 0, v0xa63390_0;
+S_0xa62ce0 .scope module, "not1" "Not" 3 30, 3 1, S_0xa62bf0;
+ .timescale 0 0;
+L_0xa644a0 .functor NAND 1, v0xa63fe0_0, v0xa63fe0_0, C4<1>, C4<1>;
+v0xa62dd0_0 .alias "in", 0 0, v0xa63840_0;
+v0xa62e70_0 .alias "out", 0 0, v0xa63410_0;
+S_0xa17690 .scope module, "g3" "Xor" 2 11, 3 36, S_0xa180c0;
+ .timescale 0 0;
+L_0xa64680 .functor NAND 1, v0xa63cd0_0, v0xa63fe0_0, C4<1>, C4<1>;
+L_0xa640a0 .functor NAND 1, v0xa63cd0_0, L_0xa64680, C4<1>, C4<1>;
+L_0xa64860 .functor NAND 1, L_0xa64680, v0xa63fe0_0, C4<1>, C4<1>;
+L_0xa648c0 .functor NAND 1, L_0xa640a0, L_0xa64860, C4<1>, C4<1>;
+v0xa17780_0 .alias "a", 0 0, v0xa63b40_0;
+v0xa62880_0 .alias "b", 0 0, v0xa63840_0;
+v0xa62920_0 .alias "out", 0 0, v0xa63f30_0;
+v0xa629c0_0 .net "w0", 0 0, L_0xa64680; 1 drivers
+v0xa62a70_0 .net "w1", 0 0, L_0xa640a0; 1 drivers
+v0xa62b10_0 .net "w2", 0 0, L_0xa64860; 1 drivers
+    .scope S_0xa180c0;
+T_0 ;
+    %vpi_call 2 15 "$dumpfile", "gate_test.vcd";
+    %vpi_call 2 16 "$dumpvars", 1'sb0, S_0xa63a50, S_0xa634c0, S_0xa62bf0, S_0xa17690;
+    %vpi_call 2 17 "$monitor", "a = %b, b = %b, aNot = %b, abAnd = %b, abOr = %b, abXor = %b", v0xa63cd0_0, v0xa63fe0_0, v0xa63d50_0, v0xa63e00_0, v0xa63e80_0, v0xa63f30_0;
+    %delay 1, 0;
+    %set/v v0xa63cd0_0, 0, 1;
+    %set/v v0xa63fe0_0, 0, 1;
+    %delay 1, 0;
+    %set/v v0xa63cd0_0, 0, 1;
+    %set/v v0xa63fe0_0, 1, 1;
+    %delay 1, 0;
+    %set/v v0xa63cd0_0, 1, 1;
+    %set/v v0xa63fe0_0, 0, 1;
+    %delay 1, 0;
+    %set/v v0xa63cd0_0, 1, 1;
+    %set/v v0xa63fe0_0, 1, 1;
+    %delay 1, 0;
+    %vpi_call 2 23 "$finish";
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "gate_test.v";
+    "./gate.v";

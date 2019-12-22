@@ -163,3 +163,13 @@ vvp CLFullAdder_test.vvp
 iverilog CLFullAdder_test.v CLFullAdder.v Xor.v Or.v And.v Not.v
 gtkwave CLFullAdder_test.vcd
 
+/*
+ * 16-bit carry-lookahead adder.
+ * Reference : https://en.wikipedia.org/wiki/Adder_(electronics)
+ */
+iverilog -o LCUAdder16_test.vvp LCUAdder16_test.v LCUAdder16.v CLFullAdder.v Xor.v Or16.v Or.v And16.v And.v Not.v
+vvp LCUAdder16_test.vvp
+iverilog LCUAdder16_test.v LCUAdder16.v CLFullAdder.v Xor.v Or16.v Or.v And16.v And.v Not.v
+verilog LCUAdder16.v CLFullAdder.v Xor.v Or16.v Or.v And16.v And.v Not.v
+gtkwave LCUAdder16_test.vcd
+

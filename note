@@ -147,10 +147,19 @@ iverilog FullAdder_test.v FullAdder.v Xor.v Not.v
 gtkwave FullAdder_test.vcd
 
 /*
+ * 16-bit adder.
+ */
+iverilog -o Add16_test.vvp Add16_test.v Add16.v FullAdder.v Xor.v Not.v
+vvp Add16_test.vvp
+iverilog Add16_test.v Add16.v FullAdder.v Xor.v Not.v
+gtkwave Add16_test.vcd
+
+/*
  * Full adder for carry-lookahead adder.
+ * Reference : https://en.wikipedia.org/wiki/Adder_(electronics)
  */
 iverilog -o CLFullAdder_test.vvp CLFullAdder_test.v CLFullAdder.v Xor.v Or.v And.v Not.v
 vvp CLFullAdder_test.vvp
 iverilog CLFullAdder_test.v CLFullAdder.v Xor.v Or.v And.v Not.v
 gtkwave CLFullAdder_test.vcd
- 
+

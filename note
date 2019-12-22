@@ -138,7 +138,7 @@ gtkwave HalfAdder_test.vcd
 
 
 /*
- * Full Adder.
+ * Full adder.
  * Reference : https://en.wikipedia.org/wiki/Adder_(electronics)
  */
 iverilog -o FullAdder_test.vvp FullAdder_test.v FullAdder.v Xor.v Not.v
@@ -146,3 +146,11 @@ vvp FullAdder_test.vvp
 iverilog FullAdder_test.v FullAdder.v Xor.v Not.v
 gtkwave FullAdder_test.vcd
 
+/*
+ * Full adder for carry-lookahead adder.
+ */
+iverilog -o CLFullAdder_test.vvp CLFullAdder_test.v CLFullAdder.v Xor.v Or.v And.v Not.v
+vvp CLFullAdder_test.vvp
+iverilog CLFullAdder_test.v CLFullAdder.v Xor.v Or.v And.v Not.v
+gtkwave CLFullAdder_test.vcd
+ 

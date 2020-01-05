@@ -2,25 +2,28 @@
 
 module gate_test;
 
-    reg a, b;
-    wire aNot, abAnd, abOr, abXor;
+    reg[7:0] in;
+    wire aNot, abAnd, abOr, abXor, or8Way;
 
-    Not g0(aNot,  a);
-    And g1(abAnd, a, b);
-    Or  g2(abOr,  a, b);
-    Xor g3(abXor, a, b);
+    Not    g0(aNot,   in[0]);
+    And    g1(abAnd,  in[1], in[0]);
+    Or     g2(abOr,   in[1], in[0]);
+    Xor    g3(abXor,  in[1], in[0]);
+    Or8Way g4(or8Way, in);
 
-    initial
-        begin
-            $dumpfile("gate_test.vcd");
-            $dumpvars(0, g0, g1, g2, g3);
-            $monitor("a = %b, b = %b, aNot = %b, abAnd = %b, abOr = %b, abXor = %b", a, b, aNot, abAnd, abOr, abXor);
+    initial begin
+        $dumpfile("gate_test.vcd");
+        $dumpvars(0, g0, g1, g2, g3, g4);
+        $monitor("%4dns in = %d, aNot = %b, abAnd = %b, abOr = %b, abXor = %b, or8Way = %b", $stime, in, aNot, abAnd, abOr, abXor, or8Way);
 
-            #1 a = 1'b0; b = 1'b0;
-            #1 a = 1'b0; b = 1'b1;
-            #1 a = 1'b1; b = 1'b0;
-            #1 a = 1'b1; b = 1'b1;
-            #1 $finish;
-        end
+        in = 8'b1111_1111;
+    end
+
+    always #1 begin
+        in = in + 1;
+    end
+
+    initial #9 $finish;
+
 
 endmodule

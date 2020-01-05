@@ -8,20 +8,12 @@ vvp sample_test.vvp                        # Execute.
 Under "src/verilog" directory.
 
 /*
- * gate (Not, And, Or, Xor)
+ * gate (Not, And, Or, Xor, Or8Way)
  */
-iverilog -o gate_test.vvp gate_test.v  # Generate Not_test.vvp
+iverilog -o gate_test.vvp gate_test.v  # Generate gate_test.vvp
 vvp gate_test.vvp                      # Execute.
-iverilog gate_test.v                   # Generate Not_test.vcd
+iverilog gate_test.v                   # Generate gate_test.vcd
 gtkwave gate_test.vcd                  # See graphical wave output.
-
-/*
- * Or8Way.
- */
-iverilog -o Or8Way_test.vvp Or8Way_test.v
-vvp Or8Way_test.vvp
-iverilog Or8Way_test.v
-gtkwave Or8Way_test.vcd
 
 /*
  * gate16

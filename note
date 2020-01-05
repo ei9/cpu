@@ -27,34 +27,18 @@ gtkwave gate16_test.vcd
  * Multiplexor
  * Reference : https://github.com/ccckmit/nand2tetris_verilog/blob/master/mux_test.v
  */
-iverilog -o Mux_test.vvp Mux_test.v
-vvp Mux_test.vvp
-iverilog Mux_test.v
-gtkwave Mux_test.vcd
+iverilog -o mux_test.vvp mux_test.v
+vvp mux_test.vvp
+iverilog mux_test.v
+gtkwave mux_test.vcd
 
 /*
  * Demultiplexor.
  */
-iverilog -o DMux_test.vvp DMux_test.v DMux.v And.v Not.v
-vvp DMux_test.vvp
-iverilog DMux_test.v DMux.v And.v Not.v
-gtkwave DMux_test.vcd
-
-/*
- * 4-way demultiplexor.
- */
-iverilog -o DMux4Way_test.vvp DMux4Way_test.v DMux4Way.v DMux.v And.v Not.v
-vvp DMux4Way_test.vvp
-iverilog DMux4Way_test.v DMux4Way.v DMux.v And.v Not.v
-gtkwave DMux4Way_test.vcd
-
-/*
- * 8-way demultiplexor.
- */
-iverilog -o DMux8Way_test.vvp DMux8Way_test.v DMux8Way.v DMux4Way.v DMux.v And.v Not.v
-vvp DMux8Way_test.vvp
-iverilog DMux8Way_test.v DMux8Way.v DMux4Way.v DMux.v And.v Not.v
-gtkwave DMux8Way_test.vcd
+iverilog -o dmux_test.vvp dmux_test.v
+vvp dmux_test.vvp
+iverilog dmux_test.v
+gtkwave dmux_test.vcd
 
 /*
  * Half adder.

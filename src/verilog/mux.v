@@ -66,3 +66,44 @@ module Mux8Way16(out, sel, a, b, c, d, e, f, g, h);
     Mux16 g2(out, sel[2], g0_out, g1_out);
 
 endmodule
+
+
+module DMux(a, b, in, sel);
+
+    input in, sel;
+    output a, b;
+    wire w;
+
+    Not not0(w1, sel);
+    And and0(a, in, w1);
+    And and1(b, in, sel);
+
+endmodule
+
+
+module DMux4Way(a, b, c, d, in, sel);
+
+    output a ,b ,c, d;
+    input in;
+    input[1:0] sel;
+    wire w0, w1;
+
+    DMux g0(w0, w1, in, sel[1]);
+    DMux g1(a, b, w0, sel[0]);
+    DMux g2(c, d, w1, sel[0]);
+
+endmodule
+
+
+module DMux8Way(a, b, c, d, e, f, g, h, in, sel);
+
+    output a, b, c, d, e, f, g, h;
+    input in;
+    input[2:0] sel;
+    wire g0_out0, g0_out1;
+
+    DMux g0(g0_out0, g0_out1, in, sel[2]);
+    DMux4Way g1(a, b, c, d, g0_out0, sel[1:0]);
+    DMux4Way g2(e, f, g, h, g0_out1, sel[1:0]);
+
+endmodule

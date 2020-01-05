@@ -4,7 +4,7 @@
 iverilog -o sample_test.vvp sample_test.v  # Generate sample.vvp
 vvp sample_test.vvp                        # Execute.
 
-
+To test.
 Under "src/verilog" directory.
 
 /*
@@ -41,55 +41,9 @@ iverilog dmux_test.v
 gtkwave dmux_test.vcd
 
 /*
- * Half adder.
- * Reference : https://en.wikipedia.org/wiki/Adder_(electronics)
+ * Adder.
  */
-iverilog -o HalfAdder_test.vvp HalfAdder_test.v HalfAdder.v Not.v
-vvp HalfAdder_test.vvp
-iverilog HalfAdder_test.v HalfAdder.v Not.v
-gtkwave HalfAdder_test.vcd
-
-
-/*
- * Full adder.
- * Reference : https://en.wikipedia.org/wiki/Adder_(electronics)
- */
-iverilog -o FullAdder_test.vvp FullAdder_test.v FullAdder.v Xor.v Not.v
-vvp FullAdder_test.vvp
-iverilog FullAdder_test.v FullAdder.v Xor.v Not.v
-gtkwave FullAdder_test.vcd
-
-/*
- * 16-bit adder.
- */
-iverilog -o Add16_test.vvp Add16_test.v Add16.v FullAdder.v Xor.v Not.v
-vvp Add16_test.vvp
-iverilog Add16_test.v Add16.v FullAdder.v Xor.v Not.v
-gtkwave Add16_test.vcd
-
-/*
- * Full adder for carry-lookahead adder.
- * Reference : https://en.wikipedia.org/wiki/Adder_(electronics)
- */
-iverilog -o CLFullAdder_test.vvp CLFullAdder_test.v CLFullAdder.v Xor.v Or.v And.v Not.v
-vvp CLFullAdder_test.vvp
-iverilog CLFullAdder_test.v CLFullAdder.v Xor.v Or.v And.v Not.v
-gtkwave CLFullAdder_test.vcd
-
-/*
- * 16-bit carry-lookahead adder.
- * Reference : https://en.wikipedia.org/wiki/Adder_(electronics)
- */
-iverilog -o LCUAdder16_test.vvp LCUAdder16_test.v LCUAdder16.v CLFullAdder.v Xor.v Or16.v Or.v And16.v And.v Not.v
-vvp LCUAdder16_test.vvp
-iverilog LCUAdder16_test.v LCUAdder16.v CLFullAdder.v Xor.v Or16.v Or.v And16.v And.v Not.v
-verilog LCUAdder16.v CLFullAdder.v Xor.v Or16.v Or.v And16.v And.v Not.v
-gtkwave LCUAdder16_test.vcd
-
-/*
- * 64-bit carry-lookahead adder.
- */
-iverilog -o LCUAdder64_test.vvp LCUAdder64_test.v LCUAdder64.v LCUAdder16.v CLFullAdder.v Xor.v Or16.v Or.v And16.v And.v Not.v
-vvp LCUAdder64_test.vvp
-iverilog LCUAdder64_test.v LCUAdder64.v LCUAdder16.v CLFullAdder.v Xor.v Or16.v Or.v And16.v And.v Not.v
-gtkwave LCUAdder64_test.vcd
+iverilog -o add_test.vvp add_test.v
+vvp add_test.vvp
+iverilog add_test.v
+gtkwave add_test.vcd

@@ -42,8 +42,17 @@ gtkwave dmux_test.vcd
 
 /*
  * Adder.
+ * Reference from wikipedia: https://zh.wikipedia.org/zh-tw/%E5%8A%A0%E6%B3%95%E5%99%A8
  */
 iverilog -o add_test.vvp add_test.v
 vvp add_test.vvp
 iverilog add_test.v
 gtkwave add_test.vcd
+
+/*
+ * 16-bit incrementor.
+ */
+iverilog -o Inc16_test.vvp Inc16_test.v
+vvp Inc16_test.vvp
+iverilog Inc16_test.v
+gtkwave Inc16_test.vcd

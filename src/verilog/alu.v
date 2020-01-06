@@ -137,3 +137,17 @@ module Add64(sum, cout, pg, gg, a, b, cin);
     CLAdd16 g3(sum[63:48], carry[4], p[3], g[3], a[63:48], b[63:48], carry[3]);
 
 endmodule
+
+
+/*
+ * 16-bit incrementor.
+ */
+module Inc16(out, in);
+
+    input[15:0] in;
+    output[15:0] out;
+    wire cout, pg, gg;
+
+    CLAdd16 add(out, cout, pg, gg, in, 64'b1, 1'b0);
+
+endmodule

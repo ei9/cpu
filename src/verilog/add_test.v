@@ -1,4 +1,4 @@
-`include "add.v"
+`include "alu.v"
 
 module add_test;
 

@@ -151,3 +151,17 @@ module Inc16(out, in);
     CLAdd16 add(out, cout, pg, gg, in, 64'b1, 1'b0);
 
 endmodule
+
+
+/*
+ * 64-bit incrementor.
+ */
+module Inc64(out, in);
+
+    input[63:0] in;
+    output[63:0] out;
+    wire cout, pg, gg;
+
+    Add64 add(out, cout, pg, gg, in, 64'b1, 1'b0);
+
+endmodule

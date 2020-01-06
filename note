@@ -50,9 +50,9 @@ iverilog add_test.v
 gtkwave add_test.vcd
 
 /*
- * 16-bit incrementor.
+ * Incrementor (16-bit and 64-bit).
  */
-iverilog -o Inc16_test.vvp Inc16_test.v
-vvp Inc16_test.vvp
-iverilog Inc16_test.v
-gtkwave Inc16_test.vcd
+iverilog -o inc_test.vvp inc_test.v
+vvp inc_test.vvp
+iverilog inc_test.v
+gtkwave inc_test.vcd

@@ -3,17 +3,18 @@
 module gate16_test;
 
     reg[15:0] a, b;
-    wire[15:0] aNot, abAnd, abOr;
+    wire[15:0] aNot, abAnd, abOr, abXor;
 
     Not16 not16(aNot, a);
     And16 and16(abAnd, a, b);
     Or16  or16(abOr, a, b);
+    Xor16 xor16(abXor, a, b);
 
     initial
         begin
             $dumpfile("gate16_test.vcd");
             $dumpvars(0, not16, and16, or16);
-            $monitor("a = %h, b = %h, aNot = %h, abAnd = %h, abOr = %h", a, b, aNot, abAnd, abOr);
+            $monitor("a = %h, b = %h, aNot = %h, abAnd = %h, abOr = %h, abXor = %h", a, b, aNot, abAnd, abOr, abXor);
 
             #1 a = 16'h0; b = 16'h0;
             #1 a = 16'hf; b = 16'hf;

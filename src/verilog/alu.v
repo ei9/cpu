@@ -1,4 +1,4 @@
-`include "gate16.v"
+`include "mux.v"
 
 module HalfAdder(sum, carry, a, b);
 
@@ -165,3 +165,115 @@ module Inc64(out, in);
     Add64 add(out, cout, pg, gg, in, 64'b1, 1'b0);
 
 endmodule
+
+module NotIn (out, su, in);
+
+    output[15:0] out;
+    input su;
+    input[15:0] in;
+
+    Xor g0(out[0], su, in[0]);
+    Xor g1(out[1], su, in[1]);
+    Xor g2(out[2], su, in[2]);
+    Xor g3(out[3], su, in[3]);
+    Xor g4(out[4], su, in[4]);
+    Xor g5(out[5], su, in[5]);
+    Xor g6(out[6], su, in[6]);
+    Xor g7(out[7], su, in[7]);
+    Xor g8(out[8], su, in[8]);
+    Xor g9(out[9], su, in[9]);
+    Xor g10(out[10], su, in[10]);
+    Xor g11(out[11], su, in[11]);
+    Xor g12(out[12], su, in[12]);
+    Xor g13(out[13], su, in[13]);
+    Xor g14(out[14], su, in[14]);
+    Xor g15(out[15], su, in[15]);
+
+endmodule // not in (1's complement)
+
+module ZeroIn (out, z, in);
+
+    output[15:0] out;
+    input z;
+    input[15:0] in;
+
+    wire notz;
+
+    Not g0(notz, z);
+    And g1(out[0], notz, in[0]);
+    And g2(out[1], notz, in[1]);
+    And g3(out[2], notz, in[2]);
+    And g4(out[3], notz, in[3]);
+    And g5(out[4], notz, in[4]);
+    And g6(out[5], notz, in[5]);
+    And g7(out[6], notz, in[6]);
+    And g8(out[7], notz, in[7]);
+    And g9(out[8], notz, in[8]);
+    And g10(out[9], notz, in[9]);
+    And g11(out[10], notz, in[10]);
+    And g12(out[11], notz, in[11]);
+    And g13(out[12], notz, in[12]);
+    And g14(out[13], notz, in[13]);
+    And g15(out[14], notz, in[14]);
+    And g16(out[15], notz, in[15]);
+
+endmodule // Andin
+
+module Alu16(out, zr, ng, zx, nx, zy, ny, f, no, x, y);
+
+    output[15:0] out;
+    output zr, ng;
+    input zx, nx, zy, ny, f, no;
+    input[15:0] x, y;
+
+    // x = 0
+    wire zx_not;
+    Not g0(zx_not, zx);
+
+    wire[15:0] xzero;
+    ZeroIn g1(xzero, zx, x);
+
+    // x = !x
+    wire[15:0] xout;
+    NotIn g3(xout, nx, xzero);
+
+    // y = 0
+    wire zy_not;
+    Not g4(zy_not, zy);
+
+    wire[15:0] yzero;
+    ZeroIn g5(yzero, zy, y);
+
+    // y = !y
+    wire[15:0] yout;
+    NotIn g6(yout, ny, yzero);
+
+    // x + y
+    wire[15:0] xplusy;
+    wire cout, pg, gg;
+    Add16 g7(xplusy, xout, yout);
+    // CLAdd16 g7(xplusy, cout, pg, gg, xout, yout, 1'b0);
+
+    // out = x & y
+    wire[15:0] xandy;
+    And16 g8(xandy, xout, yout);
+
+    // f == 1, out = x + y
+    // f == 0, out = x & y
+    wire[15:0] result;
+    Mux16 g9(result, f, xandy, xplusy);
+
+    // out = !out
+    NotIn g10(out, no, result);
+
+    // out == 0, zr = 1
+    wire part0, part1, p1orp2;
+    Or8Way g11(part0, out[7:0]);
+    Or8Way g12(part1, out[15:8]);
+    Or g13(p1orp2, part0, part1);
+    Not g14(zr, p1orp2);
+
+    // out < 0, ng = 1;
+    assign ng = out[15];
+
+endmodule // 16-bit alu.

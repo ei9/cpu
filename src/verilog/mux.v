@@ -1,4 +1,4 @@
-`include "gate.v"
+`include "gate16.v"
 
 module Mux(out, sel, a, b);
 

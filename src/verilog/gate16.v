@@ -73,27 +73,3 @@ module Or16(out, a, b);
     Or or15(out[15], a[15], b[15]);
 
 endmodule
-
-module Xor16 (out, a, b);
-
-    output[15:0] out;
-    input[15:0] a, b;
-
-    Xor g0(out[0], a[0], b[0]);
-    Xor g1(out[1], a[1], b[1]);
-    Xor g2(out[2], a[2], b[2]);
-    Xor g3(out[3], a[3], b[3]);
-    Xor g4(out[4], a[4], b[4]);
-    Xor g5(out[5], a[5], b[5]);
-    Xor g6(out[6], a[6], b[6]);
-    Xor g7(out[7], a[7], b[7]);
-    Xor g8(out[8], a[8], b[8]);
-    Xor g9(out[9], a[9], b[9]);
-    Xor g10(out[10], a[10], b[10]);
-    Xor g11(out[11], a[11], b[11]);
-    Xor g12(out[12], a[12], b[12]);
-    Xor g13(out[13], a[13], b[13]);
-    Xor g14(out[14], a[14], b[14]);
-    Xor g15(out[15], a[15], b[15]);
-
-endmodule // Xor16

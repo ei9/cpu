@@ -3,46 +3,46 @@ module Not(out, in);
     input in;
     output out;
 
-    nand nand0(out, in, in);
+    nand g(out, in, in);
 
 endmodule
 
 
 module And(out, a, b);
 
-    output out;
     input a, b;
-    wire w;
+    output out;
+    wire aNandb;
 
-    nand nand0(w, a, b);
-    Not not0(out, w);
+    nand g0(aNandb, a, b);
+    Not  g1(out, aNandb);
 
 endmodule
 
 
 module Or(out, a, b);
 
-    output out;
     input a, b;
-    wire w0, w1;
+    output out;
+    wire nata, natb;
 
-    Not not0(w0, a);
-    Not not1(w1, b);
-    nand nand0(out, w0, w1);
+    Not  g0(nota, a);
+    Not  g1(notb, b);
+    nand g3(out, nota, notb);
 
 endmodule
 
 
 module Xor(out, a, b);
 
-    output out;
     input a, b;
-    wire w0, w1, w2;
+    output out;
+    wire aNandb, w0, w1;
 
-    nand nand0(w0, a, b);
-    nand nand1(w1, a, w0);
-    nand nand2(w2, w0, b);
-    nand nand3(out, w1, w2);
+    nand g0(aNandb, a, b);
+    nand g1(w0, a, aNandb);
+    nand g2(w1, aNandb, b);
+    nand g3(out, w0, w1);
 
 endmodule
 

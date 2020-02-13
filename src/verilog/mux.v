@@ -4,12 +4,12 @@ module Mux(out, sel, a, b);
 
     output out;
     input sel, a, b;
-    wire w0, w1, w2;
+    wire notsel, g1_out, g2_out;
 
-    Not not0(w0, sel);
-    nand nand0(w1, a, w0);
-    nand nand1(w2, b, sel);
-    nand nand2(out, w1, w2);
+    Not  g0(notsel, sel);
+    nand g1(g1_out, a, notsel);
+    nand g2(g2_out, b, sel);
+    nand g3(out, g1_out, g2_out);
 
 endmodule
 
@@ -72,11 +72,11 @@ module DMux(a, b, in, sel);
 
     input in, sel;
     output a, b;
-    wire w;
+    wire notsel;
 
-    Not not0(w1, sel);
-    And and0(a, in, w1);
-    And and1(b, in, sel);
+    Not g0(notsel, sel);
+    And g1(a, in, notsel);
+    And g2(b, in, sel);
 
 endmodule
 

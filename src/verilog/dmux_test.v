@@ -15,7 +15,7 @@ module dmux_test;
     initial begin
         $dumpfile("dmux_test.vcd");
         $dumpvars(0, g0, g1, g2);
-        $monitor("%4dns in = %b, sel = %d, dmux = %d, dmux4 = %d, dmux8 = %d", $stime, in, sel, dmux, dmux4, dmux8);
+        $monitor("%4dns in = %b, sel = %d, dmux = %b, dmux4 = %d, dmux8 = %d", $stime, in, sel, dmux, dmux4, dmux8);
 
         in = 0;
         sel = 0;

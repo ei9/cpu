@@ -1,0 +1,4 @@
+# ignore .vvp, .vcd and .out files
+*.vvp
+*.vcd
+*.out

@@ -1,4 +1,4 @@
 # ignore .vvp, .vcd and .out files
-*.vvp
-*.vcd
-*.out
+/src/verilog/*.vvp
+/src/verilog/*.vcd
+/src/verilog/*.out

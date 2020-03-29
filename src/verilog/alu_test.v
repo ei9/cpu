@@ -7,7 +7,7 @@ module alu_test;
     wire[15:0] out;
     wire zr, ng;
 
-    Alu16 g0(out, zr, ng, ins[5], ins[4], ins[3], ins[2], ins[1], ins[0], x, y);
+    ALU16 g0(out, zr, ng, x, y, ins[5], ins[4], ins[3], ins[2], ins[1], ins[0]);
 
     initial begin
         $dumpfile("alu_test.vcd");

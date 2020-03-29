@@ -57,6 +57,19 @@ endmodule
 
 
 /*
+ * 16-bit incrementor.
+ */
+module Inc16(out, in);
+
+    input[15:0] in;
+    output[15:0] out;
+
+    Add16 g0(out, in, 16'b1);
+
+endmodule
+
+
+/*
  * 1-bit full adder for carry-lookahead adder.
  */
 module CLFullAdder(sum, p, g, a, b, cin);
@@ -140,15 +153,15 @@ endmodule
 
 
 /*
- * 16-bit incrementor.
+ * Carry-lookahead version of 16-bit incrementor.
  */
-module Inc16(out, in);
+module CLInc16(out, in);
 
     input[15:0] in;
     output[15:0] out;
     wire cout, pg, gg;
 
-    CLAdd16 add(out, cout, pg, gg, in, 64'b1, 1'b0);
+    CLAdd16 add(out, cout, pg, gg, in, 16'b1, 1'b0);
 
 endmodule
 

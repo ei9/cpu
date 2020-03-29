@@ -4,7 +4,7 @@
 iverilog -o sample_test.vvp sample_test.v  # Generate sample.vvp
 vvp sample_test.vvp                        # Execute.
 
-To test.
+Testing:
 Under "src/verilog" directory.
 
 /*

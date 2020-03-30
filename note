@@ -59,8 +59,16 @@ gtkwave inc_test.vcd
 
 /*
  * ALU (16-bit)
- /
+ */
 iverilog -o alu_test.vvp alu_test.v
 vvp alu_test.vvp
 iverilog alu_test.v
 gtkwave alu_test.vcd
+
+/*
+ * Carry-lookahead 16-bit ALU.
+ */
+ iverilog -o cl_alu_test.vvp cl_alu_test.v
+ vvp cl_alu_test.vvp
+ iverilog cl_alu_test.v
+ gtkwave cl_alu_test.vcd

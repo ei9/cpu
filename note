@@ -44,10 +44,10 @@ gtkwave dmux_test.vcd
  * Adder.
  * Reference from wikipedia: https://zh.wikipedia.org/zh-tw/%E5%8A%A0%E6%B3%95%E5%99%A8
  */
-iverilog -o add_test.vvp add_test.v
-vvp add_test.vvp
-iverilog add_test.v
-gtkwave add_test.vcd
+iverilog -o cl_add_test.vvp cl_add_test.v
+vvp cl_add_test.vvp
+iverilog cl_add_test.v
+gtkwave cl_add_test.vcd
 
 /*
  * Incrementor (16-bit and 64-bit).

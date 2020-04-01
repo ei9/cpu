@@ -1,6 +1,6 @@
-`include "alu.v"
+`include "cl_alu.v"
 
-module add_test;
+module cl_add_test;
 
     reg[63:0] a, b;
     reg cin;
@@ -10,7 +10,7 @@ module add_test;
     Add64 g0(sum, cout, pg, gg, a, b, cin);
 
     initial begin
-        $dumpfile("add_test.vcd");
+        $dumpfile("cl_add_test.vcd");
         $dumpvars(0, g0);
         $monitor("%4dns cin = %b; a = %h, b = %h, sum = %h, cout = %b, pg = %b, gg = %b", $stime, cin, a, b, sum, cout, pg, gg);
 

@@ -1,4 +1,4 @@
-`include "gate.v"
+`include "alu.v"
 
 module SR_latch(q, qbar, sbar, rbar);
 
@@ -60,5 +60,18 @@ module DFF(q, qbar, clk, d);
 
     Not g0(dbar, d);
     SR_FF g1(q, qbar, clk, d, dbar);
-    
+
 endmodule  // D Flop-Flip.
+
+
+module Bit(out, clk, load, in);
+
+    input clk, load, in;
+    output out;
+
+    wire dffin, outbar;
+
+    Mux g0(dffin, load, out, in);
+    DFF g1(out, outbar, clk, dffin);
+
+endmodule  // 1-bit register.

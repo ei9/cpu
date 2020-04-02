@@ -1,4 +1,4 @@
-`include "FF.v"
+`include "ram.v"
 
 module SR_latch_test;
 

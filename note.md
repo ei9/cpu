@@ -146,3 +146,14 @@ vvp DFF_test.vvp
 iverilog DFF_test.v
 gtkwave DFF_test.vcd
 ```
+
+
+### 1-bit register.
+> Reference from [cccbook](https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/memory.v).
+
+```
+iverilog -o Bit_test.vvp Bit_test.v
+vvp Bit_test.vvp
+iverilog Bit_test.v
+gtkwave Bit_test.vcd
+```

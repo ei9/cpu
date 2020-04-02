@@ -1,4 +1,4 @@
-`include "FF.v"
+`include "ram.v"
 
 module SR_FF_test;
 

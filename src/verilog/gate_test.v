@@ -25,5 +25,4 @@ module gate_test;
 
     initial #9 $finish;
 
-
 endmodule

@@ -125,3 +125,14 @@ vvp en_latch_test.vvp
 iverilog en_latch_test.v
 gtkwave en_latch_test.vcd
 ```
+
+
+### SR Flip-Flop
+> Reference from [programmermagazine(zh-TW)](https://programmermagazine.github.io/201311/htm/article4.html).
+
+```
+iverilog -o SR_FF_test.vvp SR_FF_test.v
+vvp SR_FF_test.vvp
+iverilog SR_FF_test.v
+gtkwave SR_FF_test.vcd
+```

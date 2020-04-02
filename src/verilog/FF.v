@@ -36,3 +36,16 @@ module en_latch(q, qbar, en, s, r);
     SR_latch g3(q, qbar, snanden, rnanden);
 
 endmodule  // SR-latch with enable pin.
+
+
+module SR_FF(q, qbar, clk, s, r);
+
+    input clk, s, r;
+    output q, qbar;
+
+    wire en;
+
+    PTD g0(en, clk);
+    en_latch g1(q, qbar, en, s, r);
+
+endmodule  // SR-Flip-Flop.

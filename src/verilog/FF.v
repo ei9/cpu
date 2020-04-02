@@ -49,3 +49,16 @@ module SR_FF(q, qbar, clk, s, r);
     en_latch g1(q, qbar, en, s, r);
 
 endmodule  // SR-Flip-Flop.
+
+
+module DFF(q, qbar, clk, d);
+
+    input clk, d;
+    output q, qbar;
+
+    wire dbar;
+
+    Not g0(dbar, d);
+    SR_FF g1(q, qbar, clk, d, dbar);
+    
+endmodule  // D Flop-Flip.

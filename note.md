@@ -136,3 +136,13 @@ vvp SR_FF_test.vvp
 iverilog SR_FF_test.v
 gtkwave SR_FF_test.vcd
 ```
+
+
+### DFF, D Flip-Flip
+
+```
+iverilog -o DFF_test.vvp DFF_test.v
+vvp DFF_test.vvp
+iverilog DFF_test.v
+gtkwave DFF_test.vcd
+```

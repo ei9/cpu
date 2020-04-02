@@ -104,6 +104,7 @@ iverilog SR_latch_test.v
 gtkwave SR_latch_test.vcd
 ```
 
+
 ### Pulse Transition Detector, PTD
 > Reference from [programmermagazine(zh-TW)](https://programmermagazine.github.io/201311/htm/article4.html).
 
@@ -112,4 +113,15 @@ iverilog -o PTD_test.vvp PTD_test.v
 vvp PTD_test.vvp
 iverilog PTD_test.v
 gtkwave PTD_test.vcd
+```
+
+
+### Latch with enable pin.
+> Reference from [programmermagazine(zh-TW)](https://programmermagazine.github.io/201311/htm/article4.html).
+
+```
+iverilog -o en_latch_test.vvp en_latch_test.v
+vvp en_latch_test.vvp
+iverilog en_latch_test.v
+gtkwave en_latch_test.vcd
 ```

@@ -10,6 +10,7 @@ module SR_latch(q, qbar, sbar, rbar);
 
 endmodule  // nand SR-latch
 
+
 module PTD(ppulse, clk);
 
     input clk;
@@ -21,3 +22,17 @@ module PTD(ppulse, clk);
     and #1 g1(ppulse, clk_bar, clk);
 
 endmodule  // Pulse Transition Detector.
+
+
+module en_latch(q, qbar, en, s, r);
+
+    input en, s, r;
+    output q, qbar;
+
+    wire snanden, rnanden;
+
+    nand g0(snanden, s, en);
+    nand g1(rnanden, en, r);
+    SR_latch g3(q, qbar, snanden, rnanden);
+
+endmodule  // SR-latch with enable pin.

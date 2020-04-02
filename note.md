@@ -1,7 +1,7 @@
 # Notes
 
 ## compile & test
-> Learn more about iverilog. Click [here (zh-TW)](!https://sites.google.com/site/verilog710/xiang-guan-gong-ju/icarus-verilog).
+> Learn more about iverilog. Click [here (zh-TW)](https://sites.google.com/site/verilog710/xiang-guan-gong-ju/icarus-verilog).
 
 ```
 iverilog -o sample_test.vvp sample_test.v  # Generate sample.vvp

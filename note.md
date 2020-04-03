@@ -179,3 +179,14 @@ vvp RAM8_test.vvp
 iverilog RAM8_test.v
 gtkwave RAM8_test.vcd
 ```
+
+
+### RAM64
+> Reference from [cccbook](https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/memory.v).
+
+```
+iverilog -o RAM64_test.vvp RAM64_test.v
+vvp RAM64_test.vvp
+iverilog RAM64_test.v
+gtkwave RAM64_test.vcd
+```

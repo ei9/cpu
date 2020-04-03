@@ -75,3 +75,29 @@ module Bit(out, clk, load, in);
     DFF g1(out, outbar, clk, dffin);
 
 endmodule  // 1-bit register.
+
+
+module Register(out, clk, load, in);
+
+    input clk, load;
+    input[15:0] in;
+    output[15:0] out;
+
+    Bit g0(out[0], clk, load, in[0]);
+    Bit g1(out[1], clk, load, in[1]);
+    Bit g2(out[2], clk, load, in[2]);
+    Bit g3(out[3], clk, load, in[3]);
+    Bit g4(out[4], clk, load, in[4]);
+    Bit g5(out[5], clk, load, in[5]);
+    Bit g6(out[6], clk, load, in[6]);
+    Bit g7(out[7], clk, load, in[7]);
+    Bit g8(out[8], clk, load, in[8]);
+    Bit g9(out[9], clk, load, in[9]);
+    Bit g10(out[10], clk, load, in[10]);
+    Bit g11(out[11], clk, load, in[11]);
+    Bit g12(out[12], clk, load, in[12]);
+    Bit g13(out[13], clk, load, in[13]);
+    Bit g14(out[14], clk, load, in[14]);
+    Bit g15(out[15], clk, load, in[15]);
+
+endmodule

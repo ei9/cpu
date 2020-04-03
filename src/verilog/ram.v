@@ -100,4 +100,30 @@ module Register(out, clk, load, in);
     Bit g14(out[14], clk, load, in[14]);
     Bit g15(out[15], clk, load, in[15]);
 
-endmodule
+endmodule  // Register
+
+
+module RAM8 (out, clk, load, address, in);
+
+    input clk, load;
+    input[2:0] address;
+    input[15:0] in;
+    output[15:0] out;
+
+    wire l0, l1, l2, l3, l4, l5, l6, l7;
+    wire[15:0] o0, o1, o2, o3, o4, o5, o6, o7;
+
+    DMux8Way g0(l0, l1, l2, l3, l4, l5, l6, l7, load, address);
+
+    Register r0(o0, clk, l0, in);
+    Register r1(o1, clk, l1, in);
+    Register r2(o2, clk, l2, in);
+    Register r3(o3, clk, l3, in);
+    Register r4(o4, clk, l4, in);
+    Register r5(o5, clk, l5, in);
+    Register r6(o6, clk, l6, in);
+    Register r7(o7, clk, l7, in);
+
+    Mux8Way16 g1(out, address, o0, o1, o2, o3, o4, o5, o6, o7);
+
+endmodule  // RAM8

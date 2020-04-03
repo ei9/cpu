@@ -168,3 +168,14 @@ vvp Register_test.vvp
 iverilog Register_test.v
 gtkwave Register_test.vcd
 ```
+
+
+### RAM8
+> Reference from [cccbook](https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/memory.v).
+
+```
+iverilog -o RAM8_test.vvp RAM8_test.v
+vvp RAM8_test.vvp
+iverilog RAM8_test.v
+gtkwave RAM8_test.vcd
+```

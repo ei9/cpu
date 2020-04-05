@@ -179,3 +179,21 @@ module RAM512(out, clk, load, address, in);
     Mux8Way16 g1(out, address[8:6], o0, o1, o2, o3, o4, o5, o6, o7);
 
 endmodule  // RAM512
+
+
+module RAM4K(out, clk, load, address, in);
+
+    input clk, load;
+    input[11:0] address;
+    input[15:0] in;
+    output[15:0] out;
+
+    reg[15:0] m[0:2**12-1];  // 0 ~ (2 ** 4 - 1) = 0 ~ 15
+
+    assign out = m[address];
+
+    always @(posedge clk) begin
+      if (load) m[address] = in;
+    end
+
+endmodule  // RAM4K

@@ -197,3 +197,21 @@ module RAM4K(out, clk, load, address, in);
     end
 
 endmodule  // RAM4K
+
+
+module RAM16K(out, clk, load, address, in);
+
+    input clk, load;
+    input[13:0] address;
+    input[15:0] in;
+    output[15:0] out;
+
+    reg[15:0] m[0:2**14-1];
+
+    assign out = m[address];
+
+    always @ (posedge clk) begin
+        if(load) m[address] = in;
+    end
+
+endmodule  // RAM16K

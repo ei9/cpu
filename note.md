@@ -214,3 +214,16 @@ vvp RAM4K_test.vvp
 iverilog RAM4K_test.v
 gtkwave RAM4K_test.vcd
 ```
+
+
+### RAM16K
+> Reference from [cccbook](https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/memory.v),
+  [chipverify.com](https://www.chipverify.com/verilog/verilog-arrays-memories),
+  [stackoverflow.com](https://stackoverflow.com/questions/21311597/verilog-notation).
+
+```
+iverilog -o tb_RAM16K.vvp tb_RAM16K.v
+vvp tb_RAM16K.vvp
+iverilog tb_RAM16K.v
+gtkwave tb_RAM16K.vcd
+```

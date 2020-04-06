@@ -215,3 +215,25 @@ module RAM16K(out, clk, load, address, in);
     end
 
 endmodule  // RAM16K
+
+
+module PC(out, clk, inc, load, reset, in);
+
+    input clk, inc, load, reset;
+    input[15:0] in;
+    output[15:0] out;
+
+    reg[15:0] m;
+
+    assign out = m;
+
+    always @ (posedge clk) begin
+        if(reset)
+            m = 16'b0;
+        else if(load)
+            m = in;
+        else if(inc)
+            m = m + 1;
+    end
+
+endmodule  // 16-bit counter.

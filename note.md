@@ -227,3 +227,15 @@ vvp tb_RAM16K.vvp
 iverilog tb_RAM16K.v
 gtkwave tb_RAM16K.vcd
 ```
+
+
+# PC (counter)
+> Reference from [cccbook](https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/memory.v),
+  [chipverify.com](https://www.chipverify.com/verilog/verilog-if-else-if)
+
+```
+iverilog -o tb_PC.vvp tb_PC.v
+vvp tb_PC.vvp
+iverilog tb_PC.v
+gtkwave tb_PC.vcd
+```

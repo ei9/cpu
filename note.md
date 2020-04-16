@@ -1,13 +1,15 @@
 # Notes
 
 ## Index
-* Hardware
- * [compile & test](#compile--test)
- * [Verilog](#verilog)
-* [Machine Language](#machine-language)
- * [Registers](#registers)
- * [The A-Instruction](#the-a-instruction)
- * [The C-Instruction](#the-c-instruction)
+
+### Hardware
+* [compile & test](#compile--test)
+* [Verilog](#verilog)
+
+### [Machine Language](#machine-language)
+* [Registers](#registers)
+* [The A-Instruction](#the-a-instruction)
+* [The C-Instruction](#the-c-instruction)
 
 ***
 
@@ -274,10 +276,10 @@ gtkwave tb_PC.vcd
 0000 0000 0000 0101  // @5, A <- 5
 ```
 
-* **A register** is used to :
- 1. Enter a constant into the computer.
- 2. Set to a certain data memory loacation before C-instruction designed to manipulate it.
- 3. Loading the address of the jump destination before C-instruction specifies a jump.
+**A register** is used to :
+1. Enter a constant into the computer.
+2. Set to a certain data memory loacation before C-instruction designed to manipulate it.
+3. Loading the address of the jump destination before C-instruction specifies a jump.
 
 
 ### The C-Instruction

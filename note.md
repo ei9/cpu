@@ -3,10 +3,12 @@
 ## Index
 
 ### Hardware
+
 * [compile & test](#compile--test)
 * [Verilog](#verilog)
 
-### [Machine Language](#machine-language)
+### Machine Language
+
 * [Registers](#registers)
 * [The A-Instruction](#the-a-instruction)
 * [The C-Instruction](#the-c-instruction)

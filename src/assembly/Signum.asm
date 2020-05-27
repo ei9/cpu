@@ -23,4 +23,4 @@
 
 (END)
     @10
-    0;JMP  // infinity loop (end)
+    0;JMP  // infinite loop (end)

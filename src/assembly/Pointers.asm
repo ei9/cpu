@@ -1,5 +1,5 @@
 // Program: Pointers.asm
-// Computes: arr[0:n] = -1
+// Computes: arr[0:(n - 1)] = -1
 // Usage: put a number (arr) in RAM[0] as pointer.
 //        put a number (n) in RAM[1]
 //

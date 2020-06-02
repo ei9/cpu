@@ -245,4 +245,10 @@ iverilog tb_PC.v
 gtkwave tb_PC.vcd
 ```
 
-***
+
+### CPU (Central Processing Unit)
+> Reference from [cccbook](https://github.com/cccbook/co/blob/1c86da267d19d5e2ec1b5e2dfcb6f53cac2cf74e/code/verilog/nand2tetris/computer.v#L18)
+
+```
+iverilog CPU.v  # Compile only.
+```

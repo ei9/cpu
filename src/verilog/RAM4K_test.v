@@ -1,4 +1,4 @@
-`include "ram.v"
+`include "memory.v"
 
 module RAM4K_test;
 

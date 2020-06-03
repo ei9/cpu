@@ -1,4 +1,4 @@
-`include "ram.v"
+`include "memory.v"
 
 /*
  * Changed from: https://github.com/cccbook/co/blob/1c86da267d19d5e2ec1b5e2dfcb6f53cac2cf74e/code/verilog/nand2tetris/computer.v#L18

@@ -221,6 +221,19 @@ gtkwave RAM4K_test.vcd
 ```
 
 
+### RAM8K
+> Reference from [cccbook](https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/memory.v),
+  [chipverify.com](https://www.chipverify.com/verilog/verilog-arrays-memories),
+  [stackoverflow.com](https://stackoverflow.com/questions/21311597/verilog-notation).
+
+```
+iverilog -o tb_RAM8K.vvp tb_RAM8K.v
+vvp tb_RAM8K.vvp
+iverilog tb_RAM8K.v
+gtkwave tb_RAM8K.vcd
+```
+
+
 ### RAM16K
 > Reference from [cccbook](https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/memory.v),
   [chipverify.com](https://www.chipverify.com/verilog/verilog-arrays-memories),

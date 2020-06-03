@@ -1,8 +1,9 @@
+/*
+ * Changed from: https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/computer.v
+ */
+
 `include "memory.v"
 
-/*
- * Changed from: https://github.com/cccbook/co/blob/1c86da267d19d5e2ec1b5e2dfcb6f53cac2cf74e/code/verilog/nand2tetris/computer.v#L18
- */
 module CPU(outM, writeM, addressM, pc, clock, reset, inM, I);
 
     input clock, reset;

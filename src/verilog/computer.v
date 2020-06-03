@@ -52,3 +52,27 @@ module CPU(outM, writeM, addressM, pc, clock, reset, inM, I);
     And16 g15(outM, ALUout, ALUout);  // Just a buffer;
 
 endmodule  // CPU
+
+
+module Memory(out, clock, load, in, address);
+
+    input clock, load;
+    input[15:0] in;
+    input[14:0] address;
+
+    output[15:0] out;
+
+    wire[15:0] outM, outS, outK, outSK;
+
+    Not g0(N14, address[14]);  // ram[13:0]
+    And g1(Mload, N14, load);  // Load ram.
+    And g2(Sload, address[14], load);  // Load screen.
+
+    RAM16K ram(outM, clock, Mload, address[13:0], in);
+    RAM8K  screen(outS, clock, Sload, address[12:0], in);
+    Register keyboard(outK, clock, 1'b0, 16'h0f0f);  // Read-only keyboard.
+
+    Mux16 g3(out, address[14], outM, outSK);
+    Mux16 g4(outSK, address[13], outS, outK);
+
+endmodule  // memory

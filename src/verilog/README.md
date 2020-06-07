@@ -143,13 +143,13 @@ gtkwave SR_FF_test.vcd
 ```
 
 
-### DFF, D Flip-Flip
+### DFF, Data Flip-Flip
+> Reference: [cccbook](https://github.com/cccbook/co/blob/1c86da267d19d5e2ec1b5e2dfcb6f53cac2cf74e/code/verilog/nand2tetris/memory.v#L12)
 
 ```
-iverilog -o DFF_test.vvp DFF_test.v
-vvp DFF_test.vvp
-iverilog DFF_test.v
-gtkwave DFF_test.vcd
+iverilog -o tb_DFF.vvp tb_DFF.v
+vvp tb_DFF.vvp
+gtkwave tb_DFF.vcd
 ```
 
 

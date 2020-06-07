@@ -51,15 +51,13 @@ module SR_FF(q, qbar, clk, s, r);
 endmodule  // SR-Flip-Flop.
 
 
-module DFF(q, qbar, clk, d);
+module DFF(output out, input clk, in);
 
-    input clk, d;
-    output q, qbar;
-
-    wire dbar;
-
-    Not g0(dbar, d);
-    SR_FF g1(q, qbar, clk, d, dbar);
+    reg q;
+    assign out = q;
+    always @ (posedge clk) begin
+        q = in;
+    end
 
 endmodule  // D Flop-Flip.
 
@@ -72,7 +70,7 @@ module Bit(out, clk, load, in);
     wire dffin, outbar;
 
     Mux g0(dffin, load, out, in);
-    DFF g1(out, outbar, clk, dffin);
+    DFF g1(out, clk, dffin);
 
 endmodule  // 1-bit register.
 

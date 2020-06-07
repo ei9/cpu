@@ -67,7 +67,7 @@ module Bit(out, clk, load, in);
     input clk, load, in;
     output out;
 
-    wire dffin, outbar;
+    wire dffin;
 
     Mux g0(dffin, load, out, in);
     DFF g1(out, clk, dffin);

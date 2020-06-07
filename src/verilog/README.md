@@ -205,3 +205,13 @@ gtkwave tb_PC.vcd
 
 ### ROM32K
 > Reference from [cccbook](https://github.com/cccbook/co/blob/1c86da267d19d5e2ec1b5e2dfcb6f53cac2cf74e/code/verilog/nand2tetris/memory.v#L95)
+
+
+### Computer
+**!! Warning !!** I am still working on it. So it's still buggy.
+> Reference from [cccbook](https://github.com/cccbook/co/tree/1c86da267d19d5e2ec1b5e2dfcb6f53cac2cf74e/code/verilog/nand2tetris)
+
+```
+iverilog -o tb_Computer.vvp tb_Computer.v
+vvp tb_Computer.vvp
+```

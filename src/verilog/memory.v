@@ -1,6 +1,6 @@
 `include "alu.v"
 
-module DFF(output out, input clk, in);
+module DFF(output out, input clk,in);
 
     reg q;
     assign out = q;
@@ -182,11 +182,7 @@ module RAM16K(out, clk, load, address, in);
 endmodule  // RAM16K
 
 
-module PC(out, clk, inc, load, reset, in);
-
-    input clk, inc, load, reset;
-    input[15:0] in;
-    output[15:0] out;
+module PC(output[15:0] out, input clk,inc,load,reset, input[15:0] in);
 
     reg[15:0] m;
 

@@ -72,12 +72,7 @@ endmodule
 /*
  * 16-bit ALU.
  */
-module ALU16(out, zr, ng, x, y, zx, nx, zy, ny, f, no);
-
-    input[15:0] x, y;
-    input zx, nx, zy, ny, f, no;
-    output[15:0] out;
-    output zr, ng;
+module ALU16(output[15:0] out, output zr,ng, input[15:0] x,y, input zx,nx,zy,ny,f,no);
 
     // zx, x = 0
     wire[15:0] zx_out;

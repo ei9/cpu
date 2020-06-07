@@ -9,8 +9,8 @@
 > Learn more about iverilog. Click [here (zh-TW)](https://sites.google.com/site/verilog710/xiang-guan-gong-ju/icarus-verilog).
 
 ```
-iverilog -o sample_test.vvp sample_test.v  # Generate sample.vvp
-vvp sample_test.vvp                        # Execute.
+iverilog -o tb_sample.vvp tb_sample.v  # Generate tb_sample.vvp
+vvp tb_sample.vvp                      # Execute.
 ```
 
 
@@ -22,20 +22,20 @@ Under "src/verilog" directory.
 ### gate (Not, And, Or, Xor, Or8Way)
 
 ```
-iverilog -o gate_test.vvp gate_test.v  # Generate gate_test.vvp
-vvp gate_test.vvp                      # Execute.
-iverilog gate_test.v                   # Generate gate_test.vcd
-gtkwave gate_test.vcd                  # See graphical wave output.
+iverilog -o tb_gate.vvp tb_gate.v  # Generate tb_gate.vvp
+vvp tb_gate.vvp                    # Execute.
+iverilog tb_gate.v                 # Generate tb_gate.vcd
+gtkwave tb_gate.vcd                # See graphical wave output.
 ```
 
 
 ### gate16
 
 ```
-iverilog -o gate16_test.vvp gate16_test.v
-vvp gate16_test.vvp
-iverilog gate16_test.v
-gtkwave gate16_test.vcd
+iverilog -o tb_gate16.vvp tb_gate16.v
+vvp tb_gate16.vvp
+iverilog tb_gate16.v
+gtkwave tb_gate16.vcd
 ```
 
 
@@ -43,39 +43,39 @@ gtkwave gate16_test.vcd
 > Reference from [ccckmit](https://github.com/ccckmit/nand2tetris_verilog/blob/master/mux_test.v)
 
 ```
-iverilog -o mux_test.vvp mux_test.v
-vvp mux_test.vvp
-iverilog mux_test.v
-gtkwave mux_test.vcd
+iverilog -o tb_mux.vvp tb_mux.v
+vvp tb_mux.vvp
+iverilog tb_mux.v
+gtkwave tb_mux.vcd
 ```
 
 
 ### Demultiplexor
 ```
-iverilog -o dmux_test.vvp dmux_test.v
-vvp dmux_test.vvp
-iverilog dmux_test.v
-gtkwave dmux_test.vcd
+iverilog -o tb_dmux.vvp tb_dmux.v
+vvp tb_dmux.vvp
+iverilog tb_dmux.v
+gtkwave tb_dmux.vcd
 ```
 
 
 ### Incrementor (16-bit and 64-bit)
 
 ```
-iverilog -o inc_test.vvp inc_test.v
-vvp inc_test.vvp
-iverilog inc_test.v
-gtkwave inc_test.vcd
+iverilog -o tb_inc.vvp tb_inc.v
+vvp tb_inc.vvp
+iverilog tb_inc.v
+gtkwave tb_inc.vcd
 ```
 
 
 ### ALU (16-bit)
 
 ```
-iverilog -o alu_test.vvp alu_test.v
-vvp alu_test.vvp
-iverilog alu_test.v
-gtkwave alu_test.vcd
+iverilog -o tb_alu.vvp tb_alu.v
+vvp tb_alu.vvp
+iverilog tb_alu.v
+gtkwave tb_alu.vcd
 ```
 
 
@@ -93,10 +93,10 @@ gtkwave tb_DFF.vcd
 > Reference from [cccbook](https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/memory.v).
 
 ```
-iverilog -o Bit_test.vvp Bit_test.v
-vvp Bit_test.vvp
-iverilog Bit_test.v
-gtkwave Bit_test.vcd
+iverilog -o tb_Bit.vvp tb_Bit.v
+vvp tb_Bit.vvp
+iverilog tb_Bit.v
+gtkwave tb_Bit.vcd
 ```
 
 
@@ -104,10 +104,10 @@ gtkwave Bit_test.vcd
 > Reference from [cccbook](https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/memory.v).
 
 ```
-iverilog -o Register_test.vvp Register_test.v
-vvp Register_test.vvp
-iverilog Register_test.v
-gtkwave Register_test.vcd
+iverilog -o tb_Register.vvp tb_Register.v
+vvp tb_Register.vvp
+iverilog tb_Register.v
+gtkwave tb_Register.vcd
 ```
 
 
@@ -115,10 +115,10 @@ gtkwave Register_test.vcd
 > Reference from [cccbook](https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/memory.v).
 
 ```
-iverilog -o RAM8_test.vvp RAM8_test.v
-vvp RAM8_test.vvp
-iverilog RAM8_test.v
-gtkwave RAM8_test.vcd
+iverilog -o tb_RAM8.vvp tb_RAM8.v
+vvp tb_RAM8.vvp
+iverilog tb_RAM8.v
+gtkwave tb_RAM8.vcd
 ```
 
 
@@ -126,10 +126,10 @@ gtkwave RAM8_test.vcd
 > Reference from [cccbook](https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/memory.v).
 
 ```
-iverilog -o RAM64_test.vvp RAM64_test.v
-vvp RAM64_test.vvp
-iverilog RAM64_test.v
-gtkwave RAM64_test.vcd
+iverilog -o tb_RAM64.vvp tb_RAM64.v
+vvp tb_RAM64.vvp
+iverilog tb_RAM64.v
+gtkwave tb_RAM64.vcd
 ```
 
 
@@ -137,10 +137,10 @@ gtkwave RAM64_test.vcd
 > Reference from [cccbook](https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/memory.v).
 
 ```
-iverilog -o RAM512_test.vvp RAM512_test.v
-vvp RAM512_test.vvp
-iverilog RAM512_test.v
-gtkwave RAM512_test.vcd
+iverilog -o tb_RAM512.vvp tb_RAM512.v
+vvp tb_RAM512.vvp
+iverilog tb_RAM512.v
+gtkwave tb_RAM512.vcd
 ```
 
 
@@ -150,10 +150,10 @@ gtkwave RAM512_test.vcd
   [stackoverflow.com](https://stackoverflow.com/questions/21311597/verilog-notation).
 
 ```
-iverilog -o RAM4K_test.vvp RAM4K_test.v
-vvp RAM4K_test.vvp
-iverilog RAM4K_test.v
-gtkwave RAM4K_test.vcd
+iverilog -o tb_RAM4K.vvp tb_RAM4K.v
+vvp tb_RAM4K.vvp
+iverilog tb_RAM4K.v
+gtkwave tb_RAM4K.vcd
 ```
 
 
@@ -208,7 +208,6 @@ gtkwave tb_PC.vcd
 
 
 ### Computer
-**!! Warning !!** I am still working on it. So it's still buggy.
 > Reference from [cccbook](https://github.com/cccbook/co/tree/1c86da267d19d5e2ec1b5e2dfcb6f53cac2cf74e/code/verilog/nand2tetris)
 
 ```

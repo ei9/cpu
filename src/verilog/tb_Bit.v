@@ -1,17 +1,16 @@
 `include "memory.v"
 
-module Register_test;
+module tb_Bit;
 
-    reg clk, load;
-    reg[15:0] in;
-    wire[15:0] out;
+    reg clk, load, in;
+    wire out;
 
-    Register g0(out, clk, load, in);
+    Bit g0(out, clk, load, in);
 
     initial begin
-        $dumpfile("Register_test.vcd");
+        $dumpfile("tb_Bit.vcd");
         $dumpvars(0, g0);
-        $monitor("%4dns clk = %b, load = %b, in = %x, out = %x", $stime, clk, load, in, out);
+        $monitor("%4dns clk = %b, load = %b, in = %b, out = %b", $stime, clk, load, in, out);
 
         clk = 0;
         load = 0;

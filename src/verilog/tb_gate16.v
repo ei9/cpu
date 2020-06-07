@@ -1,6 +1,6 @@
 `include "gate16.v"
 
-module gate16_test;
+module tb_gate16;
 
     reg[15:0] a, b;
     wire[15:0] aNot, abAnd, abOr;
@@ -11,7 +11,7 @@ module gate16_test;
 
     initial
         begin
-            $dumpfile("gate16_test.vcd");
+            $dumpfile("tb_gate16.vcd");
             $dumpvars(0, not16, and16, or16);
             $monitor("a = %h, b = %h, aNot = %h, abAnd = %h, abOr = %h", a, b, aNot, abAnd, abOr);
 

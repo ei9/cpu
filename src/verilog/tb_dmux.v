@@ -1,6 +1,6 @@
 `include "mux.v"
 
-module dmux_test;
+module tb_dmux;
 
     reg in;
     reg[2:0] sel;
@@ -13,7 +13,7 @@ module dmux_test;
     DMux8Way g2(dmux8[7], dmux8[6], dmux8[5], dmux8[4], dmux8[3], dmux8[2], dmux8[1], dmux8[0], in, sel);
 
     initial begin
-        $dumpfile("dmux_test.vcd");
+        $dumpfile("tb_dmux.vcd");
         $dumpvars(0, g0, g1, g2);
         $monitor("%4dns in = %b, sel = %d, dmux = %b, dmux4 = %d, dmux8 = %d", $stime, in, sel, dmux, dmux4, dmux8);
 

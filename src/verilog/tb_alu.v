@@ -1,6 +1,6 @@
 `include "alu.v"
 
-module alu_test;
+module tb_alu;
 
     reg[5:0] ins;  // zx, nx, zy, ny, f, no;
     reg[15:0] x, y;
@@ -10,7 +10,7 @@ module alu_test;
     ALU16 g0(out, zr, ng, x, y, ins[5], ins[4], ins[3], ins[2], ins[1], ins[0]);
 
     initial begin
-        $dumpfile("alu_test.vcd");
+        $dumpfile("tb_alu.vcd");
         $dumpvars(0, g0);
         $monitor("%4dns x = %d, y = %d, out = %d, zr = %b, ng = %b", $stime, x, y, out, zr, ng);
 

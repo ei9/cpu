@@ -2,7 +2,7 @@
 
 `include "mux.v"
 
-module Mux_test;
+module tb_mux;
 
     reg[15:0] a, b, c, d, e, f, g, h;
     reg[2:0] sel;
@@ -15,7 +15,7 @@ module Mux_test;
     Mux8Way16 g3(mux8, sel[2:0], a, b, c, d, e, f, g, h);
 
     initial begin
-        $dumpfile("mux_test.vcd");
+        $dumpfile("tb_mux.vcd");
         $dumpvars(0, g0, g1, g2, g3);
         $monitor("%4dns sel = %d, mux0 = %x, mux2 = %x, mux4 = %x, mux8 = %x", $stime, sel, mux0, mux2, mux4, mux8);
 

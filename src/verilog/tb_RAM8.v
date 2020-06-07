@@ -1,6 +1,6 @@
 `include "memory.v"
 
-module RAM8_test;
+module tb_RAM8;
 
     reg clk, load;
     reg[2:0] address;
@@ -10,7 +10,7 @@ module RAM8_test;
     RAM8 m0(out, clk, load, address, in);
 
     initial begin
-        $dumpfile("RAM8_test.vcd");
+        $dumpfile("tb_RAM8.vcd");
         $dumpvars(0, m0);
         $monitor("%4dns clk = %b, load = %b, address = %d in = %x, out = %x", $stime, clk, load, address, in, out);
 

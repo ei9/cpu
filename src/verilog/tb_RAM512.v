@@ -1,16 +1,16 @@
 `include "memory.v"
 
-module RAM4K_test;
+module tb_RAM512;
 
     reg clk, load;
-    reg[11:0] address;
+    reg[8:0] address;
     reg[15:0] in;
     wire[15:0] out;
 
-    RAM4K m0(out, clk, load, address, in);
+    RAM512 m0(out, clk, load, address, in);
 
     initial begin
-        $dumpfile("RAM4K_test.vcd");
+        $dumpfile("tb_RAM512.vcd");
         $dumpvars(0, m0);
         $monitor("%4dns clk = %b, load = %b, address = %d in = %x, out = %x", $stime, clk, load, address, in, out);
 
@@ -24,19 +24,19 @@ module RAM4K_test;
         clk = ~clk;
     end
 
-    always #10 begin
+    always #20 begin
         address = address + 1;
         address = address % 20;
     end
 
-    always #20 begin
+    always #40 begin
         in = in + 1;
     end
 
-    always #100 begin
+    always #200 begin
         load = load + 1;
     end
 
-    initial #250 $finish;
+    initial #500 $finish;
 
-endmodule  // RAM4K_test
+endmodule  // RAM512_test

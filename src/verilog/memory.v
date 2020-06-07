@@ -257,7 +257,7 @@ module PC(out, clk, inc, load, reset, in);
 endmodule  // 16-bit counter.
 
 
-module RAM32K(output[15:0] out, input[14:0] address);
+module ROM32K(output[15:0] out, input[14:0] address);
 
     reg[15:0] m[0:2**15-1];
     assign out = m[address];

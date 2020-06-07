@@ -8,7 +8,7 @@ module tb_Computer;
     integer i;
 
     initial begin
-        $readmemb("sum.hack", c.rom.m);
+        $readmemb("../assembly/Mult_2.hack", c.rom.m);
         for(i = 0 ; i < 32 ; i = i + 1) begin
             $display("%4x: %x", i, c.rom.m[i]);
         end

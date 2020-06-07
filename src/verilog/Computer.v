@@ -69,7 +69,7 @@ module Computer(input clock, reset);
     wire[15:0] inM, outM, I;
     wire[14:0] addressM, pc;
 
-    Memory ram(inM, !clock, writeM, outM, addressM);
+    Memory ram(inM, clock, writeM, outM, addressM);
     ROM32K rom(I, pc);
     CPU    cpu(writeM, outM, addressM,pc, clock,reset, inM,I);
 endmodule  // Computer.

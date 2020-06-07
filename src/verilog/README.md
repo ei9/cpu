@@ -59,17 +59,6 @@ gtkwave dmux_test.vcd
 ```
 
 
-### Carry-lookahead adder
-> Reference from [wikipedia (zh-TW)](https://zh.wikipedia.org/zh-tw/%E5%8A%A0%E6%B3%95%E5%99%A8).
-
-```
-iverilog -o cl_add_test.vvp cl_add_test.v
-vvp cl_add_test.vvp
-iverilog cl_add_test.v
-gtkwave cl_add_test.vcd
-```
-
-
 ### Incrementor (16-bit and 64-bit)
 
 ```
@@ -87,15 +76,6 @@ iverilog -o alu_test.vvp alu_test.v
 vvp alu_test.vvp
 iverilog alu_test.v
 gtkwave alu_test.vcd
-```
-
-
-### Carry-lookahead 16-bit ALU
-```
-iverilog -o cl_alu_test.vvp cl_alu_test.v
-vvp cl_alu_test.vvp
-iverilog cl_alu_test.v
-gtkwave cl_alu_test.vcd
 ```
 
 

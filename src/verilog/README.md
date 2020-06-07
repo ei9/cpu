@@ -79,50 +79,6 @@ gtkwave alu_test.vcd
 ```
 
 
-### SR latch
-> Reference from [ccckmit](http://ccckmit.wikidot.com/ve:latch).
-
-```
-iverilog -o SR_latch_test.vvp SR_latch_test.v
-vvp SR_latch_test.vvp
-iverilog SR_latch_test.v
-gtkwave SR_latch_test.vcd
-```
-
-
-### Pulse Transition Detector, PTD
-> Reference from [programmermagazine(zh-TW)](https://programmermagazine.github.io/201311/htm/article4.html).
-
-```
-iverilog -o PTD_test.vvp PTD_test.v
-vvp PTD_test.vvp
-iverilog PTD_test.v
-gtkwave PTD_test.vcd
-```
-
-
-### Latch with enable pin.
-> Reference from [programmermagazine(zh-TW)](https://programmermagazine.github.io/201311/htm/article4.html).
-
-```
-iverilog -o en_latch_test.vvp en_latch_test.v
-vvp en_latch_test.vvp
-iverilog en_latch_test.v
-gtkwave en_latch_test.vcd
-```
-
-
-### SR Flip-Flop
-> Reference from [programmermagazine(zh-TW)](https://programmermagazine.github.io/201311/htm/article4.html).
-
-```
-iverilog -o SR_FF_test.vvp SR_FF_test.v
-vvp SR_FF_test.vvp
-iverilog SR_FF_test.v
-gtkwave SR_FF_test.vcd
-```
-
-
 ### DFF, Data Flip-Flip
 > Reference: [cccbook](https://github.com/cccbook/co/blob/1c86da267d19d5e2ec1b5e2dfcb6f53cac2cf74e/code/verilog/nand2tetris/memory.v#L12)
 

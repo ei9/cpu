@@ -7,7 +7,7 @@ Here are some shortcut to test the chip component.
 * [gate16](#gate16)
 * [Multiplexor](#multiplexor)
 * [Demultiplexor](#demultiplexor)
-* [Incrementor (16-bit and 64-bit)](#incrementor-16-bit-and-64-bit)
+* [Incrementor (16-bit)](#incrementor-16-bit)
 * [ALU (16-bit)](#alu-16-bit)
 * [DFF, Data Flip-Flip](#dff-data-flip-flip)
 * [1-bit register](#1-bit-register)
@@ -80,7 +80,7 @@ gtkwave tb_dmux.vcd
 ```
 
 
-### Incrementor (16-bit and 64-bit)
+### Incrementor (16-bit)
 
 ```
 iverilog -o tb_inc.vvp tb_inc.v

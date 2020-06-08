@@ -1,11 +1,32 @@
 ## Hardware
 
+Here are some shortcut to test the chip component.
+
 * [Compile & Test](#compile--test)
-* [Verilog](#verilog)
+* [gate (Not, And, Or, Xor, Or8Way)](#gate-not-and-or-xor-or8way)
+* [gate16](#gate16)
+* [Multiplexor](#multiplexor)
+* [Demultiplexor](#demultiplexor)
+* [Incrementor (16-bit and 64-bit)](#incrementor-16-bit-and-64-bit)
+* [ALU (16-bit)](#alu-16-bit)
+* [DFF, Data Flip-Flip](#dff-data-flip-flip)
+* [1-bit register](#1-bit-register)
+* [Register](#register)
+* [RAM8](#ram8)
+* [RAM64](#ram64)
+* [RAM512](#ram512)
+* [RAM4K](#ram4k)
+* [RAM8K](#ram8k)
+* [RAM16K](#ram16k)
+* [PC (counter)](#pc-counter)
+* [CPU (Central Processing Unit)](#cpu-central-processing-unit)
+* [Memory](#memory)
+* [ROM32K](#rom32k)
+* [Computer](#computer)
 
 ***
 
-## compile & test
+## Compile & Test
 > Learn more about iverilog. Click [here (zh-TW)](https://sites.google.com/site/verilog710/xiang-guan-gong-ju/icarus-verilog).
 
 ```

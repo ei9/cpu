@@ -190,21 +190,21 @@ $ | 36 | | | Z | 90
 . | 46 | |
 / | 47 | |
 
-key | code | key | code
----:|:---|---:|:---
-a | 97 | newline | 128
-b | 98 | backspace | 129
-c | 99 | left arrow | 130
-... | ... | up arrow | 131
-z | 122 | right arrow | 132
- | | down arrow | 133
-{ | 123 | home | 134
-\| | 124 | end | 135
-} | 125 | Page up | 136
-~ | 126 | Page down | 137
- | | insert | 138
- | | delete | 139
- | | esc | 140
- | | f1 | 141
- | | ... | ...
- | | f12 | 152
+| key | code | key | code |
+|---:|:---|---:|:---|
+| a | 97 | newline | 128 |
+| b | 98 | backspace | 129 |
+| c | 99 | left arrow | 130 |
+| ... | ... | up arrow | 131 |
+| z | 122 | right arrow | 132 |
+| | | down arrow | 133 |
+| { | 123 | home | 134 |
+| \| | 124 | end | 135 |
+| } | 125 | Page up | 136 |
+| ~ | 126 | Page down | 137 |
+| | | insert | 138 |
+| | | delete | 139 |
+| | | esc | 140 |
+| | | f1 | 141 |
+| | | ... | ... |
+| | | f12 | 152 |

@@ -1,16 +1,15 @@
 `include "memory.v"
 
 module tb_Register;
-
     reg clk, load;
     reg[15:0] in;
     wire[15:0] out;
 
-    Register g0(out, clk, load, in);
+    Register m(out, clk, load, in);
 
     initial begin
         $dumpfile("tb_Register.vcd");
-        $dumpvars(0, g0);
+        $dumpvars(0, m);
         $monitor("%4dns clk = %b, load = %b, in = %x, out = %x", $stime, clk, load, in, out);
 
         clk = 0;
@@ -31,5 +30,4 @@ module tb_Register;
     end
 
     initial #100 $finish;
-
-endmodule
+endmodule  // tb_Register.

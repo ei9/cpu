@@ -1,7 +1,6 @@
 `include "memory.v"
 
 module tb_DFF;
-
     reg clk, in;
     wire out;
 
@@ -25,5 +24,4 @@ module tb_DFF;
     end
 
     initial #100 $finish;
-
-endmodule
+endmodule  // tb_DFF.

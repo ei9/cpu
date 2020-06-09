@@ -1,39 +1,26 @@
 `include "mux.v"
 
-module HalfAdder(sum, carry, a, b);
-
-    output sum, carry;
-    input a, b;
+module HalfAdder(output sum,carry, input a,b);
     wire w0, w1, w2;
 
     nand g0(w0, a, b);
     nand g1(w1, a, w0);
     nand g2(w2, w0, b);
     nand g3(sum, w1, w2);
-    Not  g4(carry, w0);
+    not  g4(carry, w0);
+endmodule  // HalfAdder.
 
-endmodule
-
-
-module FullAdder(sum, carry, a, b, cin);
-
-    output sum, carry;
-    input a, b, cin;
+module FullAdder(output sum,carry, input a,b,cin);
     wire axorb, g2_out, anandb;
 
-    Xor  g0(axorb, a, b);
-    Xor  g1(sum, axorb, cin);
+    xor  g0(axorb, a, b);
+    xor  g1(sum, axorb, cin);
     nand g2(g2_out, axorb, cin);
     nand g3(anandb, a, b);
     nand g4(carry, g2_out, anandb);
+endmodule  // FullAdder.
 
-endmodule
-
-
-module Add16(out, a, b);
-
-    output[15:0] out;
-    input[15:0] a, b;
+module Add16(output[15:0] out, input[15:0] a,b);
     wire[15:0] carry;
 
     FullAdder g0(out[0], carry[0], a[0], b[0], 0);
@@ -52,28 +39,19 @@ module Add16(out, a, b);
     FullAdder g13(out[13], carry[13], a[13], b[13], carry[12]);
     FullAdder g14(out[14], carry[14], a[14], b[14], carry[13]);
     FullAdder g15(out[15], carry[15], a[15], b[15], carry[14]);
-
-endmodule
-
+endmodule  // Add16.
 
 /*
  * 16-bit incrementor.
  */
-module Inc16(out, in);
-
-    input[15:0] in;
-    output[15:0] out;
-
-    Add16 g0(out, in, 16'b1);
-
-endmodule
-
+module Inc16(output[15:0] out, input[15:0] in);
+    Add16 g(out, in, 16'b1);
+endmodule  // Inc16.
 
 /*
  * 16-bit ALU.
  */
 module ALU16(output[15:0] out, output zr,ng, input[15:0] x,y, input zx,nx,zy,ny,f,no);
-
     // zx, x = 0
     wire[15:0] zx_out;
     Mux16 g0(zx_out, zx, x, 16'b0);
@@ -109,10 +87,9 @@ module ALU16(output[15:0] out, output zr,ng, input[15:0] x,y, input zx,nx,zy,ny,
     wire part0, part1, p1orp2;
     Or8Way g11(part0, out[7:0]);
     Or8Way g12(part1, out[15:8]);
-    Or g13(p1orp2, part0, part1);
-    Not g14(zr, p1orp2);
+    or g13(p1orp2, part0, part1);
+    not g14(zr, p1orp2);
 
     // out < 0, ng = 1
-    And g15(ng, out[15], 1'b1);
-
+    and g15(ng, out[15], 1'b1);
 endmodule  // 16-bit ALU.

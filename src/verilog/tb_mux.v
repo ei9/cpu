@@ -3,7 +3,6 @@
 `include "mux.v"
 
 module tb_mux;
-
     reg[15:0] a, b, c, d, e, f, g, h;
     reg[2:0] sel;
     wire[15:0] mux2, mux4, mux8;
@@ -35,5 +34,4 @@ module tb_mux;
     end
 
     initial #10 $finish;
-
-endmodule
+endmodule  // tb_mux.

@@ -3,7 +3,7 @@
 Here are some shortcut to test the chip component.
 
 * [Compile & Test](#compile--test)
-* [gate (Not, And, Or, Xor, Or8Way)](#gate-not-and-or-xor-or8way)
+* [gate (Or8Way)](#gate-or8way)
 * [gate16](#gate16)
 * [Multiplexor](#multiplexor)
 * [Demultiplexor](#demultiplexor)
@@ -32,6 +32,8 @@ Here are some shortcut to test the chip component.
 ```
 iverilog -o tb_sample.vvp tb_sample.v  # Generate tb_sample.vvp
 vvp tb_sample.vvp                      # Execute.
+iverilog tb_sample.v                   # Generate tb_sample.vcd
+gtkwave tb_sample.vcd                  # See graphical wave output.
 ```
 
 
@@ -40,12 +42,11 @@ vvp tb_sample.vvp                      # Execute.
 
 Under "src/verilog" directory.
 
-### gate (Not, And, Or, Xor, Or8Way)
+### gate (Or8Way)
 
 ```
 iverilog -o tb_gate.vvp tb_gate.v  # Generate tb_gate.vvp
 vvp tb_gate.vvp                    # Execute.
-iverilog tb_gate.v                 # Generate tb_gate.vcd
 gtkwave tb_gate.vcd                # See graphical wave output.
 ```
 
@@ -55,7 +56,6 @@ gtkwave tb_gate.vcd                # See graphical wave output.
 ```
 iverilog -o tb_gate16.vvp tb_gate16.v
 vvp tb_gate16.vvp
-iverilog tb_gate16.v
 gtkwave tb_gate16.vcd
 ```
 
@@ -66,7 +66,6 @@ gtkwave tb_gate16.vcd
 ```
 iverilog -o tb_mux.vvp tb_mux.v
 vvp tb_mux.vvp
-iverilog tb_mux.v
 gtkwave tb_mux.vcd
 ```
 
@@ -75,7 +74,6 @@ gtkwave tb_mux.vcd
 ```
 iverilog -o tb_dmux.vvp tb_dmux.v
 vvp tb_dmux.vvp
-iverilog tb_dmux.v
 gtkwave tb_dmux.vcd
 ```
 
@@ -85,7 +83,6 @@ gtkwave tb_dmux.vcd
 ```
 iverilog -o tb_inc.vvp tb_inc.v
 vvp tb_inc.vvp
-iverilog tb_inc.v
 gtkwave tb_inc.vcd
 ```
 
@@ -95,7 +92,6 @@ gtkwave tb_inc.vcd
 ```
 iverilog -o tb_alu.vvp tb_alu.v
 vvp tb_alu.vvp
-iverilog tb_alu.v
 gtkwave tb_alu.vcd
 ```
 
@@ -116,7 +112,6 @@ gtkwave tb_DFF.vcd
 ```
 iverilog -o tb_Bit.vvp tb_Bit.v
 vvp tb_Bit.vvp
-iverilog tb_Bit.v
 gtkwave tb_Bit.vcd
 ```
 
@@ -127,7 +122,6 @@ gtkwave tb_Bit.vcd
 ```
 iverilog -o tb_Register.vvp tb_Register.v
 vvp tb_Register.vvp
-iverilog tb_Register.v
 gtkwave tb_Register.vcd
 ```
 
@@ -138,7 +132,6 @@ gtkwave tb_Register.vcd
 ```
 iverilog -o tb_RAM8.vvp tb_RAM8.v
 vvp tb_RAM8.vvp
-iverilog tb_RAM8.v
 gtkwave tb_RAM8.vcd
 ```
 
@@ -149,7 +142,6 @@ gtkwave tb_RAM8.vcd
 ```
 iverilog -o tb_RAM64.vvp tb_RAM64.v
 vvp tb_RAM64.vvp
-iverilog tb_RAM64.v
 gtkwave tb_RAM64.vcd
 ```
 
@@ -160,7 +152,6 @@ gtkwave tb_RAM64.vcd
 ```
 iverilog -o tb_RAM512.vvp tb_RAM512.v
 vvp tb_RAM512.vvp
-iverilog tb_RAM512.v
 gtkwave tb_RAM512.vcd
 ```
 
@@ -173,7 +164,6 @@ gtkwave tb_RAM512.vcd
 ```
 iverilog -o tb_RAM4K.vvp tb_RAM4K.v
 vvp tb_RAM4K.vvp
-iverilog tb_RAM4K.v
 gtkwave tb_RAM4K.vcd
 ```
 
@@ -186,7 +176,6 @@ gtkwave tb_RAM4K.vcd
 ```
 iverilog -o tb_RAM8K.vvp tb_RAM8K.v
 vvp tb_RAM8K.vvp
-iverilog tb_RAM8K.v
 gtkwave tb_RAM8K.vcd
 ```
 
@@ -199,7 +188,6 @@ gtkwave tb_RAM8K.vcd
 ```
 iverilog -o tb_RAM16K.vvp tb_RAM16K.v
 vvp tb_RAM16K.vvp
-iverilog tb_RAM16K.v
 gtkwave tb_RAM16K.vcd
 ```
 
@@ -211,7 +199,6 @@ gtkwave tb_RAM16K.vcd
 ```
 iverilog -o tb_PC.vvp tb_PC.v
 vvp tb_PC.vvp
-iverilog tb_PC.v
 gtkwave tb_PC.vcd
 ```
 

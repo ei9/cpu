@@ -1,15 +1,14 @@
 `include "memory.v"
 
 module tb_Bit;
-
     reg clk, load, in;
     wire out;
 
-    Bit g0(out, clk, load, in);
+    Bit g(out, clk, load, in);
 
     initial begin
         $dumpfile("tb_Bit.vcd");
-        $dumpvars(0, g0);
+        $dumpvars(0, g);
         $monitor("%4dns clk = %b, load = %b, in = %b, out = %b", $stime, clk, load, in, out);
 
         clk = 0;
@@ -30,5 +29,4 @@ module tb_Bit;
     end
 
     initial #100 $finish;
-
-endmodule
+endmodule  // tb_Bit.

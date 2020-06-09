@@ -1,19 +1,17 @@
 `include "alu.v"
 
 module tb_inc;
+    reg[15:0] in;
+    wire[15:0] out;
 
-    reg[63:0] in;
-    wire[15:0] out16;
-    wire[63:0] out64;
-
-    Inc16 g0(out16, in[63:48]);
+    Inc16 g(out, in);
 
     initial begin
         $dumpfile("tb_inc.vcd");
-        $dumpvars(0, g0);
-        $monitor("%4dns in = %h, out16 = %h", $stime, in, out16);
+        $dumpvars(0, g);
+        $monitor("%4dns in = %h, out16 = %h", $stime, in, out);
 
-        in = 64'hffff;
+        in = 16'hffff;
     end
 
     always #1 begin
@@ -21,5 +19,4 @@ module tb_inc;
     end
 
     initial #16 $finish;
-
-endmodule
+endmodule  // tb_inc.

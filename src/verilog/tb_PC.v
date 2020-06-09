@@ -1,7 +1,6 @@
 `include "memory.v"
 
 module tb_PC;
-
     reg clk, inc, load, reset;
     reg[15:0] in;
     wire[15:0] out;
@@ -33,5 +32,4 @@ module tb_PC;
     always #1 begin
         clk = ~clk;
     end
-
-endmodule
+endmodule  // tb_PC.

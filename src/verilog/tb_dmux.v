@@ -1,7 +1,6 @@
 `include "mux.v"
 
 module tb_dmux;
-
     reg in;
     reg[2:0] sel;
     wire[1:0] dmux;
@@ -30,5 +29,4 @@ module tb_dmux;
     end
 
     initial #16 $finish;
-
-endmodule
+endmodule  // tb_dmux.

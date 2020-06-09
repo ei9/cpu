@@ -1,7 +1,6 @@
 `include "alu.v"
 
 module tb_alu;
-
     reg[5:0] ins;  // zx, nx, zy, ny, f, no;
     reg[15:0] x, y;
     wire[15:0] out;
@@ -37,5 +36,4 @@ module tb_alu;
         #1 ins = 6'b010101;  // x | y
         #1 $finish;
     end
-
-endmodule // alu_test
+endmodule // tb_alu.

@@ -1,35 +1,21 @@
 `include "alu.v"
 
 module DFF(output out, input clk,in);
-
     reg q;
     assign out = q;
     always @ (posedge clk) begin
         q = in;
     end
-
 endmodule  // D Flop-Flip.
 
-
-module Bit(out, clk, load, in);
-
-    input clk, load, in;
-    output out;
-
+module Bit(output out, input clk,load,in);
     wire dffin;
 
     Mux g0(dffin, load, out, in);
     DFF g1(out, clk, dffin);
-
 endmodule  // 1-bit register.
 
-
-module Register(out, clk, load, in);
-
-    input clk, load;
-    input[15:0] in;
-    output[15:0] out;
-
+module Register(output[15:0] out, input clk,load, input[15:0] in);
     Bit g0(out[0], clk, load, in[0]);
     Bit g1(out[1], clk, load, in[1]);
     Bit g2(out[2], clk, load, in[2]);
@@ -46,17 +32,9 @@ module Register(out, clk, load, in);
     Bit g13(out[13], clk, load, in[13]);
     Bit g14(out[14], clk, load, in[14]);
     Bit g15(out[15], clk, load, in[15]);
+endmodule  // Register.
 
-endmodule  // Register
-
-
-module RAM8 (out, clk, load, address, in);
-
-    input clk, load;
-    input[2:0] address;
-    input[15:0] in;
-    output[15:0] out;
-
+module RAM8(output[15:0] out, input clk,load, input[2:0] address, input[15:0] in);
     wire l0, l1, l2, l3, l4, l5, l6, l7;
     wire[15:0] o0, o1, o2, o3, o4, o5, o6, o7;
 
@@ -72,17 +50,9 @@ module RAM8 (out, clk, load, address, in);
     Register r7(o7, clk, l7, in);
 
     Mux8Way16 g1(out, address, o0, o1, o2, o3, o4, o5, o6, o7);
+endmodule  // RAM8.
 
-endmodule  // RAM8
-
-
-module RAM64 (out, clk, load, address, in);
-
-    input clk, load;
-    input[5:0] address;
-    input[15:0] in;
-    output[15:0] out;
-
+module RAM64(output[15:0] out, input clk,load, input[5:0] address, input[15:0] in);
     wire l0, l1, l2, l3, l4, l5, l6, l7;
     wire[15:0] o0, o1, o2, o3, o4, o5, o6, o7;
 
@@ -98,17 +68,9 @@ module RAM64 (out, clk, load, address, in);
     RAM8 m7(o7, clk, l7, address[2:0], in);
 
     Mux8Way16 g1(out, address[5:3], o0, o1, o2, o3, o4, o5, o6, o7);
+endmodule // RAM64.
 
-endmodule // RAM64
-
-
-module RAM512(out, clk, load, address, in);
-
-    input clk, load;
-    input[8:0] address;
-    input[15:0] in;
-    output[15:0] out;
-
+module RAM512(output[15:0] out, input clk,load, input[8:0] address, input[15:0] in);
     wire l0, l1, l2, l3, l4, l5, l6, l7;
     wire[15:0] o0, o1, o2, o3, o4, o5, o6, o7;
 
@@ -124,68 +86,37 @@ module RAM512(out, clk, load, address, in);
     RAM64 m7(o7, clk, l7, address[5:0], in);
 
     Mux8Way16 g1(out, address[8:6], o0, o1, o2, o3, o4, o5, o6, o7);
+endmodule  // RAM512.
 
-endmodule  // RAM512
-
-
-module RAM4K(out, clk, load, address, in);
-
-    input clk, load;
-    input[11:0] address;
-    input[15:0] in;
-    output[15:0] out;
-
+module RAM4K(output[15:0] out, input clk,load, input[11:0] address, input[15:0] in);
     reg[15:0] m[0:2**12-1];  // 0 ~ (2 ** 4 - 1) = 0 ~ 15
-
     assign out = m[address];
 
     always @(posedge clk) begin
       if (load) m[address] = in;
     end
+endmodule  // RAM4K.
 
-endmodule  // RAM4K
-
-
-module RAM8K(out, clk, load, address, in);
-
-    input clk, load;
-    input[12:0] address;
-    input[15:0] in;
-    output[15:0] out;
-
+module RAM8K(output[15:0] out, input clk,load, input[12:0] address, input[15:0] in);
     reg[15:0] m[0:2**13-1];
-
     assign out = m[address];
 
     always @(posedge clk) begin
         if (load) m[address] = in;
     end
+endmodule  // RAM8K.
 
-endmodule  // RAM8K
-
-
-module RAM16K(out, clk, load, address, in);
-
-    input clk, load;
-    input[13:0] address;
-    input[15:0] in;
-    output[15:0] out;
-
+module RAM16K(output[15:0] out, input clk,load, input[13:0] address, input[15:0] in);
     reg[15:0] m[0:2**14-1];
-
     assign out = m[address];
 
     always @ (posedge clk) begin
         if(load) m[address] = in;
     end
-
-endmodule  // RAM16K
-
+endmodule  // RAM16K.
 
 module PC(output[15:0] out, input clk,inc,load,reset, input[15:0] in);
-
     reg[15:0] m;
-
     assign out = m;
 
     always @ (posedge clk) begin
@@ -196,13 +127,9 @@ module PC(output[15:0] out, input clk,inc,load,reset, input[15:0] in);
         else if(inc)
             m = m + 1;
     end
-
 endmodule  // 16-bit counter.
 
-
 module ROM32K(output[15:0] out, input[14:0] address);
-
     reg[15:0] m[0:2**15-1];
     assign out = m[address];
-
 endmodule  // ROM32K.

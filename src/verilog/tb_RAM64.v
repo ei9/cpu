@@ -1,17 +1,16 @@
 `include "memory.v"
 
 module tb_RAM64;
-
     reg clk, load;
     reg[5:0] address;
     reg[15:0] in;
     wire[15:0] out;
 
-    RAM64 m0(out, clk, load, address, in);
+    RAM64 m(out, clk, load, address, in);
 
     initial begin
         $dumpfile("tb_RAM64.vcd");
-        $dumpvars(0, m0);
+        $dumpvars(0, m);
         $monitor("%4dns clk = %b, load = %b, address = %d in = %x, out = %x", $stime, clk, load, address, in, out);
 
         clk = 0;
@@ -38,5 +37,4 @@ module tb_RAM64;
     end
 
     initial #500 $finish;
-
-endmodule
+endmodule  // tb_RAM64.

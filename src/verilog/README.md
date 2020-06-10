@@ -9,8 +9,6 @@ Here are some shortcut to test the chip component.
 * [Demultiplexor](#demultiplexor)
 * [Incrementor (16-bit)](#incrementor-16-bit)
 * [ALU (16-bit)](#alu-16-bit)
-* [DFF, Data Flip-Flip](#dff-data-flip-flip)
-* [1-bit register](#1-bit-register)
 * [Register](#register)
 * [RAM8K](#ram8k)
 * [RAM16K](#ram16k)
@@ -89,26 +87,6 @@ gtkwave tb_inc.vcd
 iverilog -o tb_alu.vvp tb_alu.v
 vvp tb_alu.vvp
 gtkwave tb_alu.vcd
-```
-
-
-### DFF, Data Flip-Flip
-> Reference: [cccbook](https://github.com/cccbook/co/blob/1c86da267d19d5e2ec1b5e2dfcb6f53cac2cf74e/code/verilog/nand2tetris/memory.v#L12)
-
-```
-iverilog -o tb_DFF.vvp tb_DFF.v
-vvp tb_DFF.vvp
-gtkwave tb_DFF.vcd
-```
-
-
-### 1-bit register
-> Reference from [cccbook](https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/memory.v).
-
-```
-iverilog -o tb_Bit.vvp tb_Bit.v
-vvp tb_Bit.vvp
-gtkwave tb_Bit.vcd
 ```
 
 

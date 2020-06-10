@@ -12,10 +12,6 @@ Here are some shortcut to test the chip component.
 * [DFF, Data Flip-Flip](#dff-data-flip-flip)
 * [1-bit register](#1-bit-register)
 * [Register](#register)
-* [RAM8](#ram8)
-* [RAM64](#ram64)
-* [RAM512](#ram512)
-* [RAM4K](#ram4k)
 * [RAM8K](#ram8k)
 * [RAM16K](#ram16k)
 * [PC (counter)](#pc-counter)
@@ -123,48 +119,6 @@ gtkwave tb_Bit.vcd
 iverilog -o tb_Register.vvp tb_Register.v
 vvp tb_Register.vvp
 gtkwave tb_Register.vcd
-```
-
-
-### RAM8
-> Reference from [cccbook](https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/memory.v).
-
-```
-iverilog -o tb_RAM8.vvp tb_RAM8.v
-vvp tb_RAM8.vvp
-gtkwave tb_RAM8.vcd
-```
-
-
-### RAM64
-> Reference from [cccbook](https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/memory.v).
-
-```
-iverilog -o tb_RAM64.vvp tb_RAM64.v
-vvp tb_RAM64.vvp
-gtkwave tb_RAM64.vcd
-```
-
-
-### RAM512
-> Reference from [cccbook](https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/memory.v).
-
-```
-iverilog -o tb_RAM512.vvp tb_RAM512.v
-vvp tb_RAM512.vvp
-gtkwave tb_RAM512.vcd
-```
-
-
-### RAM4K
-> Reference from [cccbook](https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/memory.v),
-  [chipverify.com](https://www.chipverify.com/verilog/verilog-arrays-memories),
-  [stackoverflow.com](https://stackoverflow.com/questions/21311597/verilog-notation).
-
-```
-iverilog -o tb_RAM4K.vvp tb_RAM4K.v
-vvp tb_RAM4K.vvp
-gtkwave tb_RAM4K.vcd
 ```
 
 

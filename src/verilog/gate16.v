@@ -1,5 +1,3 @@
-`include "gate.v"
-
 module Not16(output[15:0] out, input[15:0] in);
     not g0(out[0], in[0]);
     not g1(out[1], in[1]);

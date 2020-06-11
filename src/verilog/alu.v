@@ -84,11 +84,7 @@ module ALU16(output[15:0] out, output zr,ng, input[15:0] x,y, input zx,nx,zy,ny,
     Mux16 g10(out, no, f_out, nf_out);
 
     // out = 0, zr = 1
-    wire part0, part1, p1orp2;
-    Or8Way g11(part0, out[7:0]);
-    Or8Way g12(part1, out[15:8]);
-    or g13(p1orp2, part0, part1);
-    not g14(zr, p1orp2);
+    assign zr = out == 0;
 
     // out < 0, ng = 1
     and g15(ng, out[15], 1'b1);

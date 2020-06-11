@@ -3,7 +3,6 @@
 Here are some shortcut to test the chip component.
 
 * [Compile & Test](#compile--test)
-* [gate (Or8Way)](#gate-or8way)
 * [gate16](#gate16)
 * [Multiplexor](#multiplexor)
 * [Demultiplexor](#demultiplexor)
@@ -35,14 +34,6 @@ gtkwave tb_sample.vcd                  # See graphical wave output.
 ## Verilog
 
 Under "src/verilog" directory.
-
-### gate (Or8Way)
-
-```
-iverilog -o tb_gate.vvp tb_gate.v  # Generate tb_gate.vvp
-vvp tb_gate.vvp                    # Execute.
-gtkwave tb_gate.vcd                # See graphical wave output.
-```
 
 
 ### gate16

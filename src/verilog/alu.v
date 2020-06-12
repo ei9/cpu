@@ -1,13 +1,6 @@
 `include "mux.v"
 
 /*
- * 16-bit incrementor.
- */
-module Inc16(output[15:0] out, input[15:0] in);
-    Add16 g(out, in, 16'b1);
-endmodule  // Inc16.
-
-/*
  * 16-bit ALU.
  */
 module ALU16(output[15:0] out, output zr,ng, input[15:0] x,y, input zx,nx,zy,ny,f,no);

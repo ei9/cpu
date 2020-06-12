@@ -3,7 +3,6 @@
 Here are some shortcut to test the chip component.
 
 * [Compile & Test](#compile--test)
-* [Incrementor (16-bit)](#incrementor-16-bit)
 * [ALU (16-bit)](#alu-16-bit)
 * [Register](#register)
 * [RAM8K](#ram8k)
@@ -31,15 +30,6 @@ gtkwave tb_sample.vcd                  # See graphical wave output.
 ## Verilog
 
 Under "src/verilog" directory.
-
-
-### Incrementor (16-bit)
-
-```
-iverilog -o tb_inc.vvp tb_inc.v
-vvp tb_inc.vvp
-gtkwave tb_inc.vcd
-```
 
 
 ### ALU (16-bit)

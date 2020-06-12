@@ -19,7 +19,7 @@ module CPU(output writeM, output[15:0] outM, output[14:0] addressM,pc, input clk
     and g7(PCload, I[15], pass);  // PCload = I15&J
 
     // 16-bit ALU.
-    Mux16 g8(AorM, I[12], Aout, inM); // Mux ALU in : cAorM = I[12]
+    assign AorM = I[12] ? inM : Aout;
 
     ALU16 alu(ALUout, zr, ng, Dout, AorM, I[11], I[10], I[9], I[8], I[7], I[6]);
 
@@ -31,7 +31,7 @@ module CPU(output writeM, output[15:0] outM, output[14:0] addressM,pc, input clk
     and g10(AluToA, I[15], I[5]);  // AluToA = I[15] & d1
     or  g11(Aload, Atype, AluToA);  // A-instruction or load to A-register
 
-    Mux16 g12(Ain, AluToA, I, ALUout);  // sel = I[15]
+    assign Ain = AluToA ? ALUout : I;
     Register A(Aout, clk, Aload, Ain);
 
     // Data register.
@@ -41,7 +41,7 @@ module CPU(output writeM, output[15:0] outM, output[14:0] addressM,pc, input clk
     // output
     assign addressM = Aout[14:0];
     and g14(writeM, I[15], I[3]);  // writeM = I[15] & d3
-    And16 g15(outM, ALUout, ALUout);  // Just a buffer;
+    assign outM = ALUout & ALUout;
 endmodule  // CPU.
 
 module Memory(output[15:0] out, input clk,load, input[15:0] in, input[14:0] address);
@@ -55,8 +55,8 @@ module Memory(output[15:0] out, input clk,load, input[15:0] in, input[14:0] addr
     RAM8K  screen(outS, clk, Sload, address[12:0], in);
     Register keyboard(outK, clk, 1'b0, 16'h0f0f);  // Read-only keyboard.
 
-    Mux16 g3(out, address[14], outM, outSK);
-    Mux16 g4(outSK, address[13], outS, outK);
+    assign out = address[14] ? outSK : outM;
+    assign outSK = address[13] ? outK : outS;
 endmodule  // Memory.
 
 module Computer(input clk, reset);

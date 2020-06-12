@@ -3,7 +3,6 @@
 Here are some shortcut to test the chip component.
 
 * [Compile & Test](#compile--test)
-* [Demultiplexor](#demultiplexor)
 * [Incrementor (16-bit)](#incrementor-16-bit)
 * [ALU (16-bit)](#alu-16-bit)
 * [Register](#register)
@@ -32,14 +31,6 @@ gtkwave tb_sample.vcd                  # See graphical wave output.
 ## Verilog
 
 Under "src/verilog" directory.
-
-
-### Demultiplexor
-```
-iverilog -o tb_dmux.vvp tb_dmux.v
-vvp tb_dmux.vvp
-gtkwave tb_dmux.vcd
-```
 
 
 ### Incrementor (16-bit)

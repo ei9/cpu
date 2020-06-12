@@ -31,11 +31,18 @@
 //
 // END:
 
+    @343
+    D=A
+    @R0
+    M=D    // R0 = 343
+    @7
+    D=A
+    @R1
+    M=D    // R1 = 7
     @i
     M=0    // i = 0
     @R2
     M=0    // R2 = 0
-
 (LOOP)
     @i
     D=M    // D = i
@@ -43,17 +50,15 @@
     D=D-M  // D = i - RAM[1]
     @END
     D;JEQ  // if (i - RAM[1]) == 0 goto END
-
     @R0
     D=M    // D = RAM[0]
     @R2
     M=M+D  // RAM[2] = RAM[2] + RAM[0]
     @i
     M=M+1  // i += 1
-
     @LOOP
     0;JMP  // goto LOOP
-
 (END)
     @END
     0;JMP
+    

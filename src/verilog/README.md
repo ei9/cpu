@@ -7,7 +7,7 @@ Here are some shortcut to test the chip component.
 * [Register](#register)
 * [RAM8K](#ram8k)
 * [RAM16K](#ram16k)
-* [PC (counter)](#pc-program-counter)
+* [PC (Program Counter)](#pc-program-counter)
 * [CPU (Central Processing Unit)](#cpu-central-processing-unit)
 * [Memory](#memory)
 * [ROM32K](#rom32k)

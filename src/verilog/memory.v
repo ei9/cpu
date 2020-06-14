@@ -36,7 +36,7 @@ module PC(output[15:0] out, input clk,inc,load,reset, input[15:0] in);
             m = 16'b0;
         else if (load)
             m = in;
-        else
+        else if (inc)
             m = m + 1'b1;
     end
 endmodule  // 16-bit program counter.

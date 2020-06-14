@@ -75,8 +75,8 @@ gtkwave tb_RAM16K.vcd
 ```
 
 
-### PC (counter)
-> Reference from [cccbook](https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/memory.v),
+### PC (Program Counter)
+> Reference from [cccbook](https://github.com/cccbook/co/tree/master/code/verilog/nand2tetris),
   [chipverify.com](https://www.chipverify.com/verilog/verilog-if-else-if)
 
 ```

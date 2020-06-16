@@ -4,7 +4,6 @@ Here are some shortcut to test the chip component.
 
 * [Compile & Test](#compile--test)
 * [ALU (16-bit)](#alu-16-bit)
-* [Register](#register)
 * [RAM8K](#ram8k)
 * [RAM16K](#ram16k)
 * [PC (Program Counter)](#pc-program-counter)
@@ -38,16 +37,6 @@ Under "src/verilog" directory.
 iverilog -o tb_alu.vvp tb_alu.v
 vvp tb_alu.vvp
 gtkwave tb_alu.vcd
-```
-
-
-### Register
-> Reference from [cccbook](https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/memory.v).
-
-```
-iverilog -o tb_Register.vvp tb_Register.v
-vvp tb_Register.vvp
-gtkwave tb_Register.vcd
 ```
 
 

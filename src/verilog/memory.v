@@ -1,14 +1,5 @@
 `include "alu.v"
 
-module Register(output[15:0] out, input clk,load, input[15:0] in);
-    reg[15:0] m;
-    assign out = m;
-
-    always @ (posedge clk) begin
-        if(load)  m = in;
-    end
-endmodule  // Register.
-
 module RAM8K(output[15:0] out, input clk,load, input[12:0] address, input[15:0] in);
     reg[15:0] m[0:2**13-1];  // 0 ~ (2 ** 4 - 1) = 0 ~ 15
     assign out = m[address];

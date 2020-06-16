@@ -7,6 +7,10 @@
 module CPU(output writeM, output[15:0] outM, output[14:0] addressM,pc, input clk,reset, input[15:0] inM,I);
     wire[15:0] Ain, Aout, AorM, ALUout, Dout, pcOut, addressMOut;
 
+    reg[15:0] A, D;
+    assign Aout = A;
+    assign Dout = D;
+
     // PC load.
     wire g = ~(ng | zr);            // g = out > 0 = !(ng|zr)
     wire passLT = ng & I[2];        // ngLT = (ng&LT) = out < 0
@@ -31,16 +35,19 @@ module CPU(output writeM, output[15:0] outM, output[14:0] addressM,pc, input clk
     wire Aload = Atype | AluToA;  // A-instruction or data load to A-register
 
     assign Ain = AluToA ? ALUout : I;
-    Register A(Aout, clk, Aload, Ain);
 
     // Data register.
     wire Dload = I[15] & I[4];  // Dload = I[15] & d2
-    Register D(Dout, clk, Dload, ALUout);
 
     // output
     assign addressM = Aout[14:0];
     wire writeM = I[15] & I[3];  // writeM = I[15] & d3
     assign outM = ALUout;
+
+    always @ (posedge clk) begin
+        if(Aload)  A = Ain;
+        if(Dload)  D = ALUout;
+    end
 endmodule  // CPU.
 
 module Memory(output[15:0] out, input clk,load, input[15:0] in, input[14:0] address);
@@ -51,10 +58,16 @@ module Memory(output[15:0] out, input clk,load, input[15:0] in, input[14:0] addr
 
     RAM16K ram(outM, clk, Mload, address[13:0], in);
     RAM8K  screen(outS, clk, Sload, address[12:0], in);
-    Register keyboard(outK, clk, 1'b0, 16'h0f0f);  // Read-only keyboard.
 
     assign out = address[14] ? outSK : outM;
     assign outSK = address[13] ? outK : outS;
+
+    reg[15:0] keyboard;
+    assign outK = keyboard;
+
+    always @ (posedge clk) begin
+        if(1'b0)  keyboard = 16'h0f0f;  // Read-only keyboard.
+    end
 endmodule  // Memory.
 
 module Computer(input clk, reset);

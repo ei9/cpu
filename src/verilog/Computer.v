@@ -2,6 +2,7 @@
  * Changed from: https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/computer.v
  */
 
+`include "alu.v"
 `include "memory.v"
 
 module CPU(output writeM, output[15:0] outM, output[14:0] addressM,pc, input clk,reset, input[15:0] inM,I);
@@ -51,22 +52,11 @@ module CPU(output writeM, output[15:0] outM, output[14:0] addressM,pc, input clk
 endmodule  // CPU.
 
 module Memory(output[15:0] out, input clk,load, input[15:0] in, input[14:0] address);
-    wire[15:0] outM, outS, outK, outSK;
-
-    wire Mload = (~address[14]) & load;  // Load ram (ram[13:0]).
-    wire Sload = address[14] & load;   // Load screen.
-
-    RAM16K ram(outM, clk, Mload, address[13:0], in);
-    RAM8K  screen(outS, clk, Sload, address[12:0], in);
-
-    assign out = address[14] ? outSK : outM;
-    assign outSK = address[13] ? outK : outS;
-
-    reg[15:0] keyboard;
-    assign outK = keyboard;
+    reg[15:0] m[0:24591];  // 16k + 8k + 16bit - 1 = 2 ^ 14 + 2 ^ 13 + 16 - 1 = 24591
+    assign out = m[address];
 
     always @ (posedge clk) begin
-        if(1'b0)  keyboard = 16'h0f0f;  // Read-only keyboard.
+        if(load)  m[address] = in;
     end
 endmodule  // Memory.
 

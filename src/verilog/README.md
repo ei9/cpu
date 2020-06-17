@@ -4,8 +4,6 @@ Here are some shortcut to test the chip component.
 
 * [Compile & Test](#compile--test)
 * [ALU (16-bit)](#alu-16-bit)
-* [RAM8K](#ram8k)
-* [RAM16K](#ram16k)
 * [PC (Program Counter)](#pc-program-counter)
 * [CPU (Central Processing Unit)](#cpu-central-processing-unit)
 * [Memory](#memory)
@@ -37,30 +35,6 @@ Under "src/verilog" directory.
 iverilog -o tb_alu.vvp tb_alu.v
 vvp tb_alu.vvp
 gtkwave tb_alu.vcd
-```
-
-
-### RAM8K
-> Reference from [cccbook](https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/memory.v),
-  [chipverify.com](https://www.chipverify.com/verilog/verilog-arrays-memories),
-  [stackoverflow.com](https://stackoverflow.com/questions/21311597/verilog-notation).
-
-```
-iverilog -o tb_RAM8K.vvp tb_RAM8K.v
-vvp tb_RAM8K.vvp
-gtkwave tb_RAM8K.vcd
-```
-
-
-### RAM16K
-> Reference from [cccbook](https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/memory.v),
-  [chipverify.com](https://www.chipverify.com/verilog/verilog-arrays-memories),
-  [stackoverflow.com](https://stackoverflow.com/questions/21311597/verilog-notation).
-
-```
-iverilog -o tb_RAM16K.vvp tb_RAM16K.v
-vvp tb_RAM16K.vvp
-gtkwave tb_RAM16K.vcd
 ```
 
 

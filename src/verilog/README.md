@@ -4,7 +4,6 @@ Here are some shortcut to test the chip component.
 
 * [Compile & Test](#compile--test)
 * [ALU (16-bit)](#alu-16-bit)
-* [PC (Program Counter)](#pc-program-counter)
 * [CPU (Central Processing Unit)](#cpu-central-processing-unit)
 * [Memory](#memory)
 * [ROM32K](#rom32k)
@@ -35,17 +34,6 @@ Under "src/verilog" directory.
 iverilog -o tb_alu.vvp tb_alu.v
 vvp tb_alu.vvp
 gtkwave tb_alu.vcd
-```
-
-
-### PC (Program Counter)
-> Reference from [cccbook](https://github.com/cccbook/co/tree/master/code/verilog/nand2tetris),
-  [chipverify.com](https://www.chipverify.com/verilog/verilog-if-else-if)
-
-```
-iverilog -o tb_PC.vvp tb_PC.v
-vvp tb_PC.vvp
-gtkwave tb_PC.vcd
 ```
 
 

@@ -3,7 +3,6 @@
 Here are some shortcut to test the chip component.
 
 * [Compile & Test](#compile--test)
-* [ALU (16-bit)](#alu-16-bit)
 * [CPU (Central Processing Unit)](#cpu-central-processing-unit)
 * [Memory](#memory)
 * [ROM32K](#rom32k)
@@ -26,15 +25,6 @@ gtkwave tb_sample.vcd                  # See graphical wave output.
 ## Verilog
 
 Under "src/verilog" directory.
-
-
-### ALU (16-bit)
-
-```
-iverilog -o tb_alu.vvp tb_alu.v
-vvp tb_alu.vvp
-gtkwave tb_alu.vcd
-```
 
 
 ### CPU (Central Processing Unit)

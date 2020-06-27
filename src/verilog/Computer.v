@@ -1,7 +1,3 @@
-/*
- * Changed from: https://github.com/cccbook/co/blob/master/code/verilog/nand2tetris/computer.v
- */
-
 module CPU(output writeM, output[15:0] outM, output[14:0] addressM,pc, input clk,reset, input[15:0] inM,I);
     wire[15:0] Aout, AorM, ALUout, Dout;
 
@@ -50,7 +46,7 @@ module CPU(output writeM, output[15:0] outM, output[14:0] addressM,pc, input clk
 
     // output
     assign addressM = Aout[14:0];
-    wire writeM = I[15] & I[3];  // writeM = I[15] & d3
+    assign writeM = I[15] & I[3];  // writeM = I[15] & d3
     assign outM = ALUout;
 
     // Address register.

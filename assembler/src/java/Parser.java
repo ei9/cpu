@@ -46,7 +46,7 @@ class Parser {
                     line = line.substring(0, line.indexOf(LINE_COMMENT));
 
                 // Replace all white spaces with empty string.
-                line.replaceAll("\\s+", "");
+                line = line.replaceAll("\\s+", "");
 
                 // Set current command to line.
                 currentCommand = line;

@@ -7,5 +7,5 @@ I am still working on it. So there might be some bugs!
 
 ### Note
 
-* [Hardware](src/verilog/README.md)
-* [Machine Language](src/assembly/README.md)
+* [Hardware](hardware/src/verilog/README.md)
+* [Machine Language](sample_program/assembly/README.md)

@@ -1,3 +1,7 @@
+# verilog files
 hardware/src/verilog/*.o
 hardware/src/verilog/*.vcd
 hardware/src/verilog/*.out
+
+# java files
+assembler/src/java/*.class

@@ -5,6 +5,7 @@ import java.io.IOException;
 class Parser {
     private static final String LINE_COMMENT = "//";
     private String currentCommand;
+    private String tempCommand;
     private FileReader fr;
     private BufferedReader br;
 
@@ -26,17 +27,6 @@ class Parser {
 
     boolean hasMoreCommands(){
         try{
-            if(br.ready())
-                return true;
-            fr.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    void advance(){
-        try{
             while(br.ready()){
                 String line = br.readLine();
                 // Remove empty lines and comments.
@@ -49,12 +39,18 @@ class Parser {
                 line = line.replaceAll("\\s+", "");
 
                 // Set current command to line.
-                currentCommand = line;
-                break;
+                tempCommand = line;
+                return true;
             }
+            fr.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return false;
+    }
+
+    void advance(){
+        currentCommand = tempCommand;
     }
 
     CommandType commandType(){

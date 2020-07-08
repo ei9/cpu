@@ -6,6 +6,7 @@ class Parser {
     private static final String LINE_COMMENT = "//";
     private String currentCommand;
     private String tempCommand;
+    private CommandType currentCommandType;
     private FileReader fr;
     private BufferedReader br;
 
@@ -55,20 +56,26 @@ class Parser {
 
     CommandType commandType(){
         if(currentCommand.startsWith("@"))
-            return CommandType.A_COMMAND;
+            return currentCommandType = CommandType.A_COMMAND;
         else if (currentCommand.contains("=") || currentCommand.contains(";"))
-            return CommandType.C_COMMAND;
+            return currentCommandType = CommandType.C_COMMAND;
         else if(currentCommand.startsWith("(") && currentCommand.endsWith(")"))
-            return CommandType.L_COMMAND;
-        return CommandType.NOT_A_COMMAND;
+            return currentCommandType = CommandType.L_COMMAND;
+        return currentCommandType = CommandType.NOT_A_COMMAND;
     }
 
     String symbol(){
-        return currentCommand.substring(1, currentCommand.indexOf(")"));
+        if(currentCommandType == CommandType.L_COMMAND)
+            return currentCommand.substring(1, currentCommand.indexOf(")"));
+        else
+            return currentCommand.substring(1);
     }
 
     String dest(){
-        return currentCommand.substring(0, currentCommand.indexOf("="));
+        if(currentCommand.contains("="))
+            return currentCommand.substring(0, currentCommand.indexOf("="));
+        else
+            return "";
     }
 
     String comp(){

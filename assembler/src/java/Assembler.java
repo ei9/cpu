@@ -29,9 +29,10 @@ public class Assembler{
                 String line = "";
                 parser.advance();
                 if(parser.commandType() == Parser.CommandType.A_COMMAND
-                    || parser.commandType() == Parser.CommandType.L_COMMAND)
-                    line = parser.symbol();
-                else if(parser.commandType() == Parser.CommandType.C_COMMAND){
+                    || parser.commandType() == Parser.CommandType.L_COMMAND){
+                    int i = Integer.valueOf(parser.symbol()) & 0xffff;
+                    line = "0" + String.format("%15s", Integer.toBinaryString(i)).replaceAll("\\s", "0");
+                }else if(parser.commandType() == Parser.CommandType.C_COMMAND){
                     String c = parser.comp();
                     String d = parser.dest();
                     String j = parser.jump();

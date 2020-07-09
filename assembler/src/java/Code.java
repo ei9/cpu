@@ -9,11 +9,11 @@ class Code {
         {"",     "000"},
         {"M",    "001"},
         {"D",    "010"},
-        {"MD",   "011"},
+        {"MD",   "011"}, {"DM",   "011"},
         {"A",    "100"},
-        {"AM",   "101"},
-        {"AD",   "110"},
-        {"AMD",  "111"}
+        {"AM",   "101"}, {"MA",   "101"},
+        {"AD",   "110"}, {"DA",   "110"},
+        {"AMD",  "111"}, {"ADM",  "111"}, {"DAM",  "111"}, {"DMA",  "111"}, {"MAD",  "111"}, {"MDA",  "111"}
     };
 
     private static final String[][] compCode = {
@@ -26,25 +26,25 @@ class Code {
         {"!A",  "0110001"},
         {"-D",  "0001111"},
         {"-A",  "0110011"},
-        {"D+1", "0011111"},
-        {"A+1", "0110111"},
+        {"D+1", "0011111"}, {"1+D", "0011111"},
+        {"A+1", "0110111"}, {"1+A", "0110111"},
         {"D-1", "0001110"},
         {"A-1", "0110010"},
-        {"D+A", "0000010"},
+        {"D+A", "0000010"}, {"A+D", "0000010"},
         {"D-A", "0010011"},
         {"A-D", "0000111"},
-        {"D&A", "0000000"},
-        {"D|A", "0010101"},
+        {"D&A", "0000000"}, {"A&D", "0000000"},
+        {"D|A", "0010101"}, {"A|D", "0010101"},
         {"M",   "1110000"},
         {"!M",  "1110001"},
         {"-M",  "1110011"},
-        {"M+1", "1110111"},
+        {"M+1", "1110111"}, {"1+M", "1110111"},
         {"M-1", "1110010"},
-        {"D+M", "1000010"},
+        {"D+M", "1000010"}, {"M+D", "1000010"},
         {"D-M", "1010011"},
         {"M-D", "1000111"},
-        {"D&M", "1000000"},
-        {"D|M", "1010101"}
+        {"D&M", "1000000"}, {"M&D", "1000000"},
+        {"D|M", "1010101"}, {"M|D", "1010101"}
     };
 
     private static final String[][] jumpCode = {
@@ -73,19 +73,20 @@ class Code {
         if(destMap.containsKey(mnemonic))
             return destMap.get(mnemonic);
         else
-            throw new IllegalStateException("Unsupported dest code.");
+            throw new IllegalStateException("Unsupported dest code \"" + mnemonic + "\"");
     }
 
     static String comp(String mnemonic){
         if(compMap.containsKey(mnemonic))
             return compMap.get(mnemonic);
         else
-            throw new IllegalStateException("Unsupported comp code.");
+            throw new IllegalStateException("Unsupported comp code \"" + mnemonic + "\"");
     }
 
     static String jump(String mnemonic){
         if(jumpMap.containsKey(mnemonic))
             return jumpMap.get(mnemonic);
-        else throw new IllegalStateException("Unsupported jump code.");
+        else
+            throw new IllegalStateException("Unsupported jump code \"" + mnemonic + "\"");
     }
 }

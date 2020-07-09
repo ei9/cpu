@@ -5,3 +5,5 @@ hardware/src/verilog/*.out
 
 # java files
 assembler/src/java/*.class
+assembler/src/java/*.MF
+assembler/src/java/*.jar

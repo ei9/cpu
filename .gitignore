@@ -1,9 +1,9 @@
 # verilog files
-hack/hardware/src/verilog/*.o
-hack/hardware/src/verilog/*.vcd
-hack/hardware/src/verilog/*.out
+hardware/src/verilog/*.o
+hardware/src/verilog/*.vcd
+hardware/src/verilog/*.out
 
 # java files
-hack/assembler/src/java/*.class
-hack/assembler/src/java/*.MF
-hack/assembler/src/java/*.jar
+assembler/src/java/*.class
+assembler/src/java/*.MF
+assembler/src/java/*.jar

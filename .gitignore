@@ -1,9 +1,9 @@
 # verilog files
-hardware/src/verilog/*.o
-hardware/src/verilog/*.vcd
-hardware/src/verilog/*.out
+hardware/*.o
+hardware/*.vcd
+hardware/*.out
 
 # java files
-assembler/src/java/*.class
-assembler/src/java/*.MF
-assembler/src/java/*.jar
+assembler/*.class
+assembler/*.MF
+assembler/*.jar

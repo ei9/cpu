@@ -1,6 +1,6 @@
-This is an assembler in Java.
+Inside 'assembler' folder. Is an assembler written in Java.
 
-Compile this assembler:
+Compile the assembler:
 
 ```
 javac Assembler.java

@@ -9,7 +9,7 @@ iverilog tb_sample.v                 # Generate tb_sample.vcd
 gtkwave tb_sample.vcd                # See the graphical result.
 ```
 
-Under "src/verilog" directory:
+Under "hardware" directory:
 
 ```
 iverilog -o tb_Computer.o tb_Computer.v

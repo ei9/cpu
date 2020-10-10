@@ -1,6 +1,6 @@
 cpu
 ===
 
-This is my tiny Verilog cpu and assembler. Currently include
-Hack computer and assembler of nand2tertris. This is my first
-implementation. So don't expect there are anything useful.
+This is my tiny Verilog cpu and assembler. Currently include Hack computer and
+assembler of nand2tertris. This is my first implementation. So don't expect
+there are anything useful.

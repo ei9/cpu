@@ -1,0 +1,5 @@
+To assemble a 8051 assembly program:
+
+sdas8051 -los your_program.s
+sdld -i your_program
+packihx your_program.ihx > your_program.hex

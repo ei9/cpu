@@ -7,3 +7,10 @@ hardware/*.out
 assembler/*.class
 assembler/*.MF
 assembler/*.jar
+
+# assembly files
+sample_program/*.hex
+sample_program/*.ihx
+sample_program/*.lst
+sample_program/*.rel
+sample_program/*.sym

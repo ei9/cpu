@@ -4,6 +4,7 @@
 This is a  simple Von Neumann architecture cpu. It includes:
 
 - 5 instructions.
+
 | Instruction | Opcode | Meaning | Example |
 | :----: | :----: | :---- | :---- |
 | LDA | 0000 | Load the accumulator | LDA 9H |

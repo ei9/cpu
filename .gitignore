@@ -1,16 +1,4 @@
 # verilog files
-hardware/*.o
-hardware/*.vcd
-hardware/*.out
-
-# java files
-assembler/*.class
-assembler/*.MF
-assembler/*.jar
-
-# assembly files
-sample_program/*.hex
-sample_program/*.ihx
-sample_program/*.lst
-sample_program/*.rel
-sample_program/*.sym
+src/*.o
+src/*.vcd
+src/*.out

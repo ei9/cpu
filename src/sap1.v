@@ -71,14 +71,14 @@ endmodule  // Adder and subtractor.
 // Version 1: Hard-wired.
 // module ctrl_seq (output[11:0] cb, output hlt, input clk,clr, input[3:0] i);
 //     reg[5:0] sc;  // State counter.
-//
+
 //     // Instructions
 //     parameter LDA = 4'b0000;
 //     parameter ADD = 4'b0001;
 //     parameter SUB = 4'b0010;
 //     parameter OUT = 4'b1110;
 //     parameter HLT = 4'b1111;
-//
+
 //     assign cb[0] = (i == OUT) & sc[3];  // LO
 //     assign cb[1] = ((i == ADD) | (i == SUB)) & sc[4];  // LB
 //     assign cb[2] = ((i == ADD) | (i == SUB)) & sc[5];  // EU
@@ -92,7 +92,7 @@ endmodule  // Adder and subtractor.
 //     assign cb[10] = sc[0];  // EP
 //     assign cb[11] = sc[1];  // CP
 //     assign hlt = (i == HLT);
-//
+
 //     always @ (negedge clk or posedge clr) begin
 //         if (clr)  sc = 4'b0;
 //         else if (!clk) begin
@@ -102,70 +102,68 @@ endmodule  // Adder and subtractor.
 //     end
 // endmodule // Controller-Sequencer.
 
-/*
 // Version 2: Microprogramming.
-module ctrl_seq (output[11:0] cb, output hlt, input clk,clr, input[3:0] i);
-    // Instructions
-    parameter LDA = 4'b0000;
-    parameter ADD = 4'b0001;
-    parameter SUB = 4'b0010;
-    parameter OUT = 4'b1110;
-    parameter HLT = 4'b1111;
+// module ctrl_seq (output[11:0] cb, output hlt, input clk,clr, input[3:0] i);
+//     // Instructions
+//     parameter LDA = 4'b0000;
+//     parameter ADD = 4'b0001;
+//     parameter SUB = 4'b0010;
+//     parameter OUT = 4'b1110;
+//     parameter HLT = 4'b1111;
 
-    reg[3:0] addr[0:15];   // Address ROM.
-    reg[11:0] ctrl[0:15];  // Control ROM.
-    reg[5:0] sc;           // State counter.
-    reg[3:0] counter;      // Counter.
+//     reg[3:0] addr[0:15];   // Address ROM.
+//     reg[11:0] ctrl[0:15];  // Control ROM.
+//     reg[5:0] sc;           // State counter.
+//     reg[3:0] counter;      // Counter.
 
-    reg[11:0] cb;
-    assign hlt = i == HLT;
+//     reg[11:0] cb;
+//     assign hlt = i == HLT;
 
-    always @ (negedge clk or posedge clr) begin
-        // Initialize address ROM.
-        addr[LDA] = 4'b0011;
-        addr[ADD] = 4'b0110;
-        addr[SUB] = 4'b1001;
-        addr[OUT] = 4'b1100;
+//     always @ (negedge clk or posedge clr) begin
+//         // Initialize address ROM.
+//         addr[LDA] = 4'b0011;
+//         addr[ADD] = 4'b0110;
+//         addr[SUB] = 4'b1001;
+//         addr[OUT] = 4'b1100;
 
-        // Initialize control ROM.
-        ctrl[0] = 12'h600;  // 提取
-        ctrl[1] = 12'h800;
-        ctrl[2] = 12'h180;
-        ctrl[3] = 12'h240;  // LDA
-        ctrl[4] = 12'h120;
-        ctrl[5] = 12'h000;
-        ctrl[6] = 12'h240;  // ADD
-        ctrl[7] = 12'h102;
-        ctrl[8] = 12'h024;
-        ctrl[9] = 12'h240;  // SUB
-        ctrl[10] = 12'h102;
-        ctrl[11] = 12'h02c;
-        ctrl[12] = 12'h011;  // OUT
-        ctrl[13] = 12'h000;
-        ctrl[14] = 12'h000;
+//         // Initialize control ROM.
+//         ctrl[0] = 12'h600;  // 提取
+//         ctrl[1] = 12'h800;
+//         ctrl[2] = 12'h180;
+//         ctrl[3] = 12'h240;  // LDA
+//         ctrl[4] = 12'h120;
+//         ctrl[5] = 12'h000;
+//         ctrl[6] = 12'h240;  // ADD
+//         ctrl[7] = 12'h102;
+//         ctrl[8] = 12'h024;
+//         ctrl[9] = 12'h240;  // SUB
+//         ctrl[10] = 12'h102;
+//         ctrl[11] = 12'h02c;
+//         ctrl[12] = 12'h011;  // OUT
+//         ctrl[13] = 12'h000;
+//         ctrl[14] = 12'h000;
 
-        // State counter.
-        if (clr) begin
-            sc = 4'b0;
-            counter = 4'b0;
-        end else if (!clk) begin
-            if(sc[2])
-                counter = addr[i];  // Load address in T3.
-            else
-                counter = counter + 1;
+//         // State counter.
+//         if (clr) begin
+//             sc = 4'b0;
+//             counter = 4'b0;
+//         end else if (!clk) begin
+//             if(sc[2])
+//                 counter = addr[i];  // Load address in T3.
+//             else
+//                 counter = counter + 1;
 
-            sc = sc << 1;
-            if (sc == 0)
-                sc = 6'b1;
-        end
+//             sc = sc << 1;
+//             if (sc == 0)
+//                 sc = 6'b1;
+//         end
 
-        if (sc[0])
-            counter = 4'b0;
+//         if (sc[0])
+//             counter = 4'b0;
 
-        cb = ctrl[counter];
-    end
-endmodule // Controller-Sequencer.
-*/
+//         cb = ctrl[counter];
+//     end
+// endmodule // Controller-Sequencer.
 
 // Version 3: Skip nop.
 module ctrl_seq (output[11:0] cb, output hlt, input clk,clr, input[3:0] i);
@@ -210,11 +208,6 @@ module ctrl_seq (output[11:0] cb, output hlt, input clk,clr, input[3:0] i);
         ctrl[13] = 12'h000;  // NOP
         ctrl[14] = 12'h000;  // NOP
 
-        // State counter.
-        if (clr | nop) begin
-            sc = 6'b0;
-        end
-
         if (!clk) begin
             if(sc[2])
                 counter = addr[i];  // Load address in T3.
@@ -227,12 +220,13 @@ module ctrl_seq (output[11:0] cb, output hlt, input clk,clr, input[3:0] i);
             end
         end
 
+        // Reset state counter.
         if (clr | sc[0] | nop) begin
+            sc = 6'b1;
             counter = 4'b0;
         end
     end
 endmodule // Controller-Sequencer.
-
 
 // control bus:
 // 11 10 9  8  7  6  5  4  3  2  1  0

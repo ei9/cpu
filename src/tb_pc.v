@@ -1,21 +1,30 @@
-`include "sap1.v"
+`include "sap2_mini.v"
 
 module tb_pc;
-    reg clk, clr, cp, ep;
-    wire[3:0] out;
-    pc m(out, clk, clr, cp, ep);
+    reg lp,cp,clk,clr,ep;
+    wire[7:0] bus;
+
+    assign bus = lp ? 8'haa : 8'hzz;
+
+    pc m(bus, lp,cp,clk,clr,ep);
 
     initial begin
-        $monitor("%4dns clk=%d clr=%d cp=%d ep=%d pc=%d ", $stime, clk, clr, cp, ep, out);
+        $monitor("%4dns clk=%d clr=%d cp=%d ep=%d lp=%b bus=%d ", $stime, clk, clr, cp, ep, lp, bus);
         clk = 0;
         clr = 0;
         cp = 0;
         ep = 0;
-        #10 ep = 1;
-        #10 clr = 1;
+        lp = 0;
+
+        // Count test.
+        #10 ep = 1;  clr = 1;
+        #10 clr = 0; cp = 1;
+        #10 cp = 0; clr = 1;
+
+        // Load test.
         #10 clr = 0;
-        #10 cp = 1;
-        #10 cp = 0;
+        #10 lp = 1;
+        #10 lp = 0;  cp = 1;
         #10 clr = 1;
     end
 
@@ -23,5 +32,5 @@ module tb_pc;
         clk = ~clk;
     end
 
-    initial #64 $finish;
+    initial #80 $finish;
 endmodule  // tb_pc.

@@ -1,7 +1,13 @@
 module pc(inout[7:0] bus, input lp,cp,clk,clr,ep);
-
+    reg[7:0] m;
+    assign bus = ep ? (lp ? 8'hzz : m) : 8'hzz;
+    
+    always @ (posedge clr or posedge clk) begin
+        m = clr ? 8'h00 : (lp ? bus : (cp ? (m + 1) : m));
+    end
 endmodule  // Program counter.
 
+/*
 module sc(inout[7:0] bus, input ls,cs,clk,es);
 
 endmodule  // Subroutine counter.
@@ -53,3 +59,4 @@ endmodule  // Output port.
 module sap2_mini();
 
 endmodule  // SAP2 mini.
+*/

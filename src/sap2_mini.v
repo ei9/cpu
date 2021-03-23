@@ -24,11 +24,16 @@ module mar(output[7:0] out, input lm,clk, input[7:0] in);
     end
 endmodule  // Memory address register.
 
-/*
-module ram(output[11:0] out, input we,ce, input[11:0] in);
+module ram256x12(output[11:0] out, input clk,we,prog,ce, input[7:0] a, input[11:0] d);
+    reg[11:0] m[0:255];
+    assign out = prog ? 12'bz : (ce ? m[a] : 12'bz);  // If prog = 1, out = z;
 
+    always @ (posedge clk) begin
+        if (we)  m[a] = d;  // If we = 0, m[a] = d;
+    end
 endmodule  // 256 x 12 RAM.
 
+/*
 module mdr(output[11:0] to_ram, inout[11:0] bus, input ld,clk,ed);
 
 endmodule  // Memory data register. It is used to change contents of ram.

@@ -7,11 +7,16 @@ module pc(inout[7:0] bus, input lp,cp,clk,clr,ep);
     end
 endmodule  // Program counter.
 
-/*
 module sc(inout[7:0] bus, input ls,cs,clk,es);
+    reg[7:0] m;
+    assign bus = es ? (ls ? 8'hzz : m) : 8'hzz;
 
+    always @ (posedge clk) begin
+        m = ls ? bus : (cs ? (m + 1) : m);
+    end
 endmodule  // Subroutine counter.
 
+/*
 module mar(output[7:0] out, input lm,clk, input[7:0] in);
 
 endmodule  // Memory address register.

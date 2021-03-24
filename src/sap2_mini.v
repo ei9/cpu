@@ -31,13 +31,19 @@ module ram256x12(output[11:0] out, input clk,we,prog,ce, input[7:0] a, input[11:
     always @ (posedge clk) begin
         if (we)  m[a] = d;  // If we = 0, m[a] = d;
     end
-endmodule  // 256 x 12 RAM.
+endmodule  // 256 x 12 RAM
 
-/*
 module mdr(output[11:0] to_ram, inout[11:0] bus, input ld,clk,ed);
+    reg[11:0] m;
+    assign to_ram = m;
+    assign bus = ld ? 12'bz : (ed ? m : 12'bz);
 
+    always @ (posedge clk) begin
+        if (ld)  m = bus;
+    end
 endmodule  // Memory data register. It is used to change contents of ram.
 
+/*
 module ir(output[7:0] to_ctrl, inout[11:0] bus, input li,clk,clr,ei);
 
 endmodule  // Instruction register.

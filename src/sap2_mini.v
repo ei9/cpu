@@ -43,11 +43,17 @@ module mdr(output[11:0] to_ram, inout[11:0] bus, input ld,clk,ed);
     end
 endmodule  // Memory data register. It is used to change contents of ram.
 
-/*
 module ir(output[7:0] to_ctrl, inout[11:0] bus, input li,clk,clr,ei);
+    reg[11:0] m;
+    assign bus = li ? 12'bz : (ei ? m[7:0] : 12'bz);
+    assign to_ctrl = m[11:4];
 
+    always @ (posedge clk or posedge clr) begin
+        m = clr ? 12'b0 : (li ? bus : m);
+    end
 endmodule  // Instruction register.
 
+/*
 module ctrl(output[29:0] con, output clk,clr, input am,az,xm,xz, input[7:0] ins);
 
 endmodule  // Control unit.

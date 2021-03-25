@@ -57,11 +57,18 @@ endmodule  // Instruction register.
 module ctrl(output[29:0] con, output clk,clr, input am,az,xm,xz, input[7:0] ins);
 
 endmodule  // Control unit.
+*/
 
 module i(output[11:0] out, input ln,clk,en, input[11:0] in);
+    reg[11:0] m;
+    assign out = en ? m : 12'bz;
 
+    always @ (posedge clk) begin
+        if (ln) m = in;
+    end
 endmodule  // Input register.
 
+/*
 module acc(output[11:0] out, output am,az, inout[11:0] bus, input la,clk,ea);
 
 endmodule  // Accumulator.

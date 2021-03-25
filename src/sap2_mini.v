@@ -68,11 +68,20 @@ module i(output[11:0] out, input ln,clk,en, input[11:0] in);
     end
 endmodule  // Input register.
 
-/*
 module acc(output[11:0] out, output am,az, inout[11:0] bus, input la,clk,ea);
+    reg[11:0] m;
+    assign out = m;
+    assign am = m[11];  // MSB as negative flag.
+    // Zero flag.
+    assign az=~(m[11]|m[10]|m[9]|m[8]|m[7]|m[6]|m[5]|m[4]|m[3]|m[2]|m[1]|m[0]);
+    assign bus = la ? 12'bz : (ea ? m :12'bz);
 
+    always @ (posedge clk) begin
+        if (la)  m = bus;
+    end
 endmodule  // Accumulator.
 
+/*
 module alu(output[11:0] out, input s3,s2,s1,s0,m,ci,eu, input[11:0] a,b);
 
 endmodule  // ALU.

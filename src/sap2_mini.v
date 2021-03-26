@@ -81,11 +81,28 @@ module acc(output[11:0] out, output am,az, inout[11:0] bus, input la,clk,ea);
     end
 endmodule  // Accumulator.
 
-/*
 module alu(output[11:0] out, input s3,s2,s1,s0,m,ci,eu, input[11:0] a,b);
+    wire[5:0] con = {s3, s2, s1, s0, m, ci};
+    reg[11:0] result;
+    assign out = eu ? result : 12'hz;
 
+    always @ (con) begin
+        case(con)
+            6'b00001x : result = ~a;        // cma
+            6'b00011x : result = ~(a | b);  // nor
+            6'b00111x : result = 12'b0;     // cla
+            6'b01001x : result = ~(a & b);  // man 
+            6'b01011x : result = ~b;        // cmb 
+            6'b011000 : result = a - b;     // sub 
+            6'b01101x : result = a ^ b;     // xor 
+            6'b100101 : result = a + b;     // add 
+            6'b10111x : result = a & b;     // and 
+            6'b11101x : result = a | b;     // ior 
+        endcase
+    end
 endmodule  // ALU.
 
+/*
 module b(output[11:0] out, input lb,clk, input[11:0] in);
 
 endmodule  // B register.

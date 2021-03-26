@@ -102,11 +102,15 @@ module alu(output[11:0] out, input s3,s2,s1,s0,m,ci,eu, input[11:0] a,b);
     end
 endmodule  // ALU.
 
-/*
 module b(output[11:0] out, input lb,clk, input[11:0] in);
+    reg[11:0] out;
 
+    always @ (posedge clk) begin
+        if (lb)  out = in;
+    end
 endmodule  // B register.
 
+/*
 module x(output im,iz, input[11:0] bus, input lx,inx,clk,dex,ex);
 
 endmodule  // Pointer register.

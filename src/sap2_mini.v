@@ -110,15 +110,32 @@ module b(output[11:0] out, input lb,clk, input[11:0] in);
     end
 endmodule  // B register.
 
-/*
-module x(output im,iz, input[11:0] bus, input lx,inx,clk,dex,ex);
+module x(output im,iz, inout[11:0] bus, input lx,inx,clk,dex,ex);
+    reg[11:0] m;
+    assign im = m[11];
+    assign iz = ~(m[11]|m[10]|m[9]|m[8]|m[7]|m[6]|m[5]|m[4]|m[3]|m[2]|m[1]|m[0]);
+    assign bus = lx ? 12'bz : (ex ? m : 12'bz);
 
+    always @ (posedge clk) begin
+        if (lx) begin
+            m = bus;
+        end else if (inx) begin
+            m = m + 1;
+        end else if (dex) begin
+            m = m - 1;
+        end
+    end
 endmodule  // Pointer register.
 
 module output_port(output[11:0] out, input lo,clk, input[11:0] in);
+    reg[11:0] out;
 
+    always @ (posedge clk) begin
+        if (lo)  out = in;
+    end
 endmodule  // Output port.
 
+/*
 module sap2_mini();
 
 endmodule  // SAP2 mini.

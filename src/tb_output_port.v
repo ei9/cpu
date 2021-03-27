@@ -1,18 +1,18 @@
-`include "sap1.v"
+`include "sap2_mini.v"
 
 module tb_output_port;
-    reg clk, lo;
-    reg[7:0] in;
-    wire[7:0] out;
-    output_port m(out, clk, lo, in);
+    reg lo, clk;
+    reg[11:0] in;
+    wire[11:0] out;
+    output_port m(out, lo,clk, in);
 
     initial begin
-        $monitor("%4dns clk=%b lo=%b in=%d out=%d", $stime, clk, lo, in, out);
+        $monitor("%2dns clk=%b lo=%b in=%d out=%d", $stime, clk, lo, in, out);
         clk = 0;
         lo = 0;
         in = 0;
-        #10 lo = 1;
-        #10 lo = 0;
+        #4 lo = 1;
+        #4 lo = 0;
     end
 
     always #1 begin
@@ -23,5 +23,5 @@ module tb_output_port;
         in = in + 1;
     end
 
-    initial #32 $finish;
+    initial #10 $finish;
 endmodule  // tb_output_port

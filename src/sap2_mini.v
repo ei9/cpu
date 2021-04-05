@@ -53,11 +53,82 @@ module ir(output[7:0] to_ctrl, inout[11:0] bus, input li,clk,clr,ei);
     end
 endmodule  // Instruction register.
 
-/*
-module ctrl(output[29:0] con, output clk,clr, input am,az,xm,xz, input[7:0] ins);
+// Version 1: Hard-wired.
+module ctrl(output[29:0] con, output hlt, input clk,clr,am,az,xm,xz, input[7:0] i);
+    reg[5:0] sc;  // State counter.
 
+    assign hlt = HLT;
+
+    // Instructions
+    wire LDA = i[7:4] == 4'b0000;
+    wire ADD = i[7:4] == 4'b0001;
+    wire SUB = i[7:4] == 4'b0010;
+    wire STA = i[7:4] == 4'b0011;
+    wire LDB = i[7:4] == 4'b0100;
+    wire LDX = i[7:4] == 4'b0101;
+    wire JMP = i[7:4] == 4'b0110;
+    wire JAN = (i[7:4] == 4'b0111) & am;
+    wire JAZ = (i[7:4] == 4'b1000) & az;
+    wire JIN = (i[7:4] == 4'b1001) & xm;
+    wire JIZ = (i[7:4] == 4'b1010) & xz;
+    wire JMS = i[7:4] == 4'b1011;
+    wire OPR = i[7:4] == 4'b1111;
+    wire NOP = i == 8'b1111_0000;
+    wire CLA = i == 8'b1111_0001;
+    wire XCH = i == 8'b1111_0010;
+    wire DEX = i == 8'b1111_0011;
+    wire INX = i == 8'b1111_0100;
+    wire CMA = i == 8'b1111_0101;
+    wire CMB = i == 8'b1111_0110;
+    wire IOR = i == 8'b1111_0111;
+    wire AND = i == 8'b1111_1000;
+    wire NOR = i == 8'b1111_1001;
+    wire NAN = i == 8'b1111_1010;
+    wire XOR = i == 8'b1111_1011;
+    wire BRB = i == 8'b1111_1100;
+    wire INP = i == 8'b1111_1101;
+    wire OUT = i == 8'b1111_1110;
+    wire HLT = i == 8'b1111_1111;
+
+    assign con[29] = sc[3] & (JMP|JAN|JAZ||JIN|JIZ);  // LP
+    assign con[28] = sc[1];  // CP
+    assign con[27] = sc[0];  // EP
+    assign con[26] = (sc[3] & (JMP|JAN|JAZ|JIN|JIZ)) | (sc[4] & JMS);  // LS
+    assign con[25] = sc[1];  // CS
+    assign con[24] = sc[0];  // ES
+    assign con[23] = sc[0] | (sc[3] & (LDA|ADD|SUB|STA|LDB|LDX));  // LM
+    assign con[22] = sc[5] & STA;  // WE
+    assign con[21] = (sc[4] & (LDA|ADD|SUB|LDB|LDX)) | sc[5] | sc[2];  // CE
+    assign con[20] = (sc[3] & XCH) | (sc[4] & STA);  // LD
+    assign con[19] = sc[5] & XCH;  // ED
+    assign con[18] = sc[2];  // LI
+    assign con[17] = (sc[3] & (LDA|ADD|SUB|STA|LDB|LDX|JMP|JAZ|JIN)) | (sc[4] & JMS);  // EI
+    assign con[16] = sc[3] & INP;  // LN
+    assign con[15] = sc[4] & INP;  // EN
+    assign con[14] = (sc[3] & (CLA|CMA|IOR|AND|NOR|NAN|XOR)) | (sc[4] & (LDA|XCH)) | (sc[5] & (ADD|SUB));  // LA
+    assign con[13] = (sc[3] & (XCH|OUT)) | (sc[4] & STA);  // EA
+    assign con[12] = (sc[3] & (IOR|AND)) | (sc[5] & ADD);  // S3
+    assign con[11] = (sc[3] & (CMB|IOR|AND|XOR)) | (sc[5] & SUB);  // S2
+    assign con[10] = (sc[3] & (CLA|IOR|AND|XOR)) | (sc[5] & SUB);  // S1
+    assign con[9] = (sc[3] & (CLA|CMB|AND|NOR)) | (sc[5] & ADD);  // S0
+    assign con[8] = sc[3] & (CLA|CMA|CMB|IOR|AND|NOR|NAN|XOR);  // M
+    assign con[7] = sc[3] & ADD;  // CI
+    assign con[6] = (sc[3] & (CMA|CMB|IOR|AND|NOR|NAN|XOR|CLA)) | (sc[5] & ADD);  // EU
+    assign con[5] = (sc[3] & (CMB | (sc[4] & (ADD|SUB|CMB))));  // LB
+    assign con[4] = (sc[4] & LDX) | (sc[5] & XCH);  // LX
+    assign con[3] = sc[3] & INX;  // INX
+    assign con[2] = sc[4] & XCH;  // DEX
+    assign con[1] = sc[4] & XCH;  // EX
+    assign con[0] = sc[3] & OUT;  // LO
+
+    always @ (negedge clk or posedge clr) begin
+        if (clr)  sc = 4'b0;
+        else if (!clk) begin
+            sc = sc << 1;
+            if (sc == 0)  sc = 6'b1;
+        end
+    end
 endmodule  // Control unit.
-*/
 
 module i(output[11:0] out, input ln,clk,en, input[11:0] in);
     reg[11:0] m;

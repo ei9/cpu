@@ -16,13 +16,14 @@ module sc(inout[7:0] bus, input ls,cs,clk,es);
     end
 endmodule  // Subroutine counter.
 
-module mar(output[7:0] out, input lm,clk, input[7:0] in);
-    reg[7:0] out;
+module input_and_mar (output[7:0] out, input clk,lm,prog, input[7:0] a,in);
+    reg[7:0] m;
+    assign out = prog ? a : m;  // If prog = 1, out = a.
 
     always @ (posedge clk) begin
-        if (lm)  out = in;
+        if (lm)  m = in;
     end
-endmodule  // Memory address register.
+endmodule  // Input and Memory address register.
 
 module ram256x12(output[11:0] out, input clk,we,prog,ce, input[7:0] a, input[11:0] d);
     reg[11:0] m[0:255];

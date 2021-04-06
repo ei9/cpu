@@ -57,8 +57,12 @@ endmodule  // Instruction register.
 // Version 1: Hard-wired.
 module ctrl(output[29:0] con, output hlt, input clk,clr,am,az,xm,xz, input[7:0] i);
     reg[5:0] sc;  // State counter.
-
+    
     assign hlt = HLT;
+
+    reg q;  // jkff to select to enable pc or subroutine counter.
+    wire j = JMS & sc[3];
+    wire k = BRB & sc[3];
 
     // Instructions
     wire LDA = i[7:4] == 4'b0000;
@@ -73,7 +77,6 @@ module ctrl(output[29:0] con, output hlt, input clk,clr,am,az,xm,xz, input[7:0] 
     wire JIN = (i[7:4] == 4'b1001) & xm;
     wire JIZ = (i[7:4] == 4'b1010) & xz;
     wire JMS = i[7:4] == 4'b1011;
-    wire OPR = i[7:4] == 4'b1111;
     wire NOP = i == 8'b1111_0000;
     wire CLA = i == 8'b1111_0001;
     wire XCH = i == 8'b1111_0010;
@@ -92,11 +95,11 @@ module ctrl(output[29:0] con, output hlt, input clk,clr,am,az,xm,xz, input[7:0] 
     wire HLT = i == 8'b1111_1111;
 
     assign con[29] = sc[3] & (JMP|JAN|JAZ||JIN|JIZ);  // LP
-    assign con[28] = sc[1];  // CP
-    assign con[27] = sc[0];  // EP
+    assign con[28] = sc[1] & (~q);  // CP
+    assign con[27] = sc[0] & (~q);  // EP
     assign con[26] = (sc[3] & (JMP|JAN|JAZ|JIN|JIZ)) | (sc[4] & JMS);  // LS
-    assign con[25] = sc[1];  // CS
-    assign con[24] = sc[0];  // ES
+    assign con[25] = sc[1] & (q);  // CS
+    assign con[24] = sc[0] & q;  // ES
     assign con[23] = sc[0] | (sc[3] & (LDA|ADD|SUB|STA|LDB|LDX));  // LM
     assign con[22] = sc[5] & STA;  // WE
     assign con[21] = (sc[4] & (LDA|ADD|SUB|LDB|LDX)) | sc[5] | sc[2];  // CE
@@ -123,10 +126,19 @@ module ctrl(output[29:0] con, output hlt, input clk,clr,am,az,xm,xz, input[7:0] 
     assign con[0] = sc[3] & OUT;  // LO
 
     always @ (negedge clk or posedge clr) begin
-        if (clr)  sc = 4'b0;
-        else if (!clk) begin
+        if (clr)begin
+            sc = 4'b0;
+            q = 1'b0;
+        end else if (!clk) begin
             sc = sc << 1;
             if (sc == 0)  sc = 6'b1;
+
+            // jkff for subroutine.
+            case({j, k})
+                2'b01 : q = 1'b0;
+                2'b10 : q = 1'b1;
+                2'b11 : q = ~q;
+            endcase
         end
     end
 endmodule  // Control unit.
@@ -207,8 +219,31 @@ module output_port(output[11:0] out, input lo,clk, input[11:0] in);
     end
 endmodule  // Output port.
 
-/*
-module sap2_mini();
+// con:
+// 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10  9  8  7  6  5  4   3   2  1  0
+// lp cp ep ls cs es lm we ce ld ed li ei ln en la ea s3 s2 s1 s0  m ci eu lb lx inx dex ex lo
+module sap2_mini(output[11:0] out, input clk,clr,prog, input[7:0] a, input[11:0] d,i);
+    wire[11:0] bus;
+    wire[29:0] con;
+    wire[7:0] mar_to_ram;
+    wire[11:0] mdr_to_ram;
+    wire[7:0] ir_to_ctrl;
+    wire clock = ~hlt & clk;
+    wire am,az,xm,xz;
+    wire[11:0] acc_to_alu;
+    wire[11:0] b_to_alu;
 
+    pc            m0_pc(bus[7:0], con[29],con[28],clock,clr,con[27]);
+    sc            m1_sc(bus[7:0], con[26],con[25],clock,con[24]);
+    input_and_mar m2_mar(mar_to_ram, clock,con[23],prog, a,bus[7:0]);
+    ram256x12     m3_ram(bus, clock,con[22],prog,con[21], mar_to_ram, mdr_to_ram);
+    mdr           m4_mdr(mdr_to_ram, bus, con[20],clock,con[19]);
+    ir            m5_ir(ir_to_ctrl, bus, con[18],clock,clr,con[17]);
+    ctrl          m6_ctrl(con, hlt, clock,clr,am,az,xm,xz, ir_to_ctrl);
+    i             m7_i(bus, con[16],clock,con[15], i);
+    acc           m8_acc(acc_to_alu, am,az, bus, con[14],clock,con[13]);
+    alu           m9_alu(bus, con[12],con[11],con[10],con[9],con[8],con[7],con[6], acc_to_alu,b_to_alu);
+    b             m10_b(b_to_alu, con[5],clock, bus);
+    x             m11_x(xm,xz, bus, con[4],con[3],clock,con[2],con[1]);
+    output_port   m12_out(out, con[0],clock, bus);
 endmodule  // SAP2 mini.
-*/

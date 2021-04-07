@@ -102,7 +102,7 @@ module ctrl(output[29:0] con, output hlt, input clk,clr,am,az,xm,xz, input[7:0] 
     assign con[24] = sc[0] & q;  // ES
     assign con[23] = sc[0] | (sc[3] & (LDA|ADD|SUB|STA|LDB|LDX));  // LM
     assign con[22] = sc[5] & STA;  // WE
-    assign con[21] = (sc[4] & (LDA|ADD|SUB|LDB|LDX)) | (sc[5] & STA) | sc[2];  // CE sta-t6
+    assign con[21] = (sc[4] & (LDA|ADD|SUB|LDB|LDX)) | (sc[5] & STA) | sc[2];  // CE
     assign con[20] = (sc[3] & XCH) | (sc[4] & STA);  // LD
     assign con[19] = sc[5] & XCH;  // ED
     assign con[18] = sc[2];  // LI
@@ -117,7 +117,7 @@ module ctrl(output[29:0] con, output hlt, input clk,clr,am,az,xm,xz, input[7:0] 
     assign con[9] = (sc[3] & (CLA|CMB|AND|NOR)) | (sc[5] & ADD);  // S0
     assign con[8] = sc[3] & (CLA|CMA|CMB|IOR|AND|NOR|NAN|XOR);  // M
     assign con[7] = sc[5] & ADD;  // CI
-    assign con[6] = (sc[3] & (CMA|CMB|IOR|AND|NOR|NAN|XOR|CLA)) | (sc[5] & ADD);  // EU
+    assign con[6] = (sc[3] & (CMA|CMB|IOR|AND|NOR|NAN|XOR|CLA)) | (sc[5] & (ADD|SUB));  // EU
     assign con[5] = (sc[3] & CMB) | (sc[4] & (ADD|SUB|CMB));  // LB
     assign con[4] = (sc[4] & LDX) | (sc[5] & XCH);  // LX
     assign con[3] = sc[3] & INX;  // INX

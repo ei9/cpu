@@ -22,6 +22,8 @@ module tb_sap2_mini;
         #4 clr = 1;
         #4 clr = 0;
         #4 prog = 1;
+
+        // 1 + 2 + 3 - 4 = 2
         #4 a = 8'h0; d = 12'h007;  // LDA 07H
         #4 a = 8'h1; d = 12'h108;  // ADD 08H
         #4 a = 8'h2; d = 12'h109;  // ADD 09H
@@ -33,6 +35,7 @@ module tb_sap2_mini;
         #4 a = 8'h8; d = 12'h002;  // 002H
         #4 a = 8'h9; d = 12'h003;  // 003H
         #4 a = 8'ha; d = 12'h004;  // 004H
+
         #4 prog = 0; clr = 1;
         #4 clr = 0;
     end

@@ -94,7 +94,7 @@ module ctrl(output[29:0] con, output hlt, input clk,clr,am,az,xm,xz, input[7:0] 
     wire OUT = i == 8'b1111_1110;
     wire HLT = i == 8'b1111_1111;
 
-    assign con[29] = sc[3] & (JMP|JAN|JAZ||JIN|JIZ);  // LP
+    assign con[29] = sc[3] & (JMP|JAN|JAZ|JIN|JIZ);  // LP
     assign con[28] = sc[1] & (~q);  // CP
     assign con[27] = sc[0] & (~q);  // EP
     assign con[26] = (sc[3] & (JMP|JAN|JAZ|JIN|JIZ)) | (sc[4] & JMS);  // LS
@@ -109,16 +109,16 @@ module ctrl(output[29:0] con, output hlt, input clk,clr,am,az,xm,xz, input[7:0] 
     assign con[17] = (sc[3] & (LDA|ADD|SUB|STA|LDB|LDX|JMP|JAZ|JIN)) | (sc[4] & JMS);  // EI
     assign con[16] = sc[3] & INP;  // LN
     assign con[15] = sc[4] & INP;  // EN
-    assign con[14] = (sc[3] & (CLA|CMA|IOR|AND|NOR|NAN|XOR)) | (sc[4] & (LDA|XCH)) | (sc[5] & (ADD|SUB));  // LA
+    assign con[14] = (sc[3] & (CLA|CMA|IOR|AND|NOR|NAN|XOR)) | (sc[4] & (LDA|XCH|INP)) | (sc[5] & (ADD|SUB));  // LA
     assign con[13] = (sc[3] & (XCH|OUT)) | (sc[4] & STA);  // EA
     assign con[12] = (sc[3] & (IOR|AND)) | (sc[5] & ADD);  // S3
-    assign con[11] = (sc[3] & (CMB|IOR|AND|XOR)) | (sc[5] & SUB);  // S2
+    assign con[11] = (sc[3] & (CMB|IOR|XOR)) | (sc[5] & SUB);  // S2
     assign con[10] = (sc[3] & (CLA|IOR|AND|XOR)) | (sc[5] & SUB);  // S1
     assign con[9] = (sc[3] & (CLA|CMB|AND|NOR)) | (sc[5] & ADD);  // S0
     assign con[8] = sc[3] & (CLA|CMA|CMB|IOR|AND|NOR|NAN|XOR);  // M
     assign con[7] = sc[5] & ADD;  // CI
     assign con[6] = (sc[3] & (CMA|CMB|IOR|AND|NOR|NAN|XOR|CLA)) | (sc[5] & (ADD|SUB));  // EU
-    assign con[5] = (sc[3] & CMB) | (sc[4] & (ADD|SUB|CMB));  // LB
+    assign con[5] = (sc[3] & CMB) | (sc[4] & (ADD|SUB|CMB|LDB));  // LB
     assign con[4] = (sc[4] & LDX) | (sc[5] & XCH);  // LX
     assign con[3] = sc[3] & INX;  // INX
     assign con[2] = sc[4] & XCH;  // DEX
@@ -171,17 +171,17 @@ module alu(output[11:0] out, input s3,s2,s1,s0,m,ci,eu, input[11:0] a,b);
     assign out = eu ? result : 12'hz;
 
     always @ (con) begin
-        case(con)
-            6'b00001x : result = ~a;        // cma
-            6'b00011x : result = ~(a | b);  // nor
-            6'b00111x : result = 12'b0;     // cla
-            6'b01001x : result = ~(a & b);  // man 
-            6'b01011x : result = ~b;        // cmb 
-            6'b011000 : result = a - b;     // sub 
-            6'b01101x : result = a ^ b;     // xor 
-            6'b100101 : result = a + b;     // add 
-            6'b10111x : result = a & b;     // and 
-            6'b11101x : result = a | b;     // ior 
+        casex(con)
+            6'b00001? : result = ~a;        // cma
+            6'b00011? : result = ~(a | b);  // nor
+            6'b00111? : result = 12'b0;     // cla
+            6'b01001? : result = ~(a & b);  // man
+            6'b01011? : result = ~b;        // cmb
+            6'b011000 : result = a - b;     // sub
+            6'b01101? : result = a ^ b;     // xor
+            6'b100101 : result = a + b;     // add
+            6'b10111? : result = a & b;     // and
+            6'b11101? : result = a | b;     // ior
         endcase
     end
 endmodule  // ALU.

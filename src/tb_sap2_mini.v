@@ -53,18 +53,29 @@ module tb_sap2_mini;
         // #4 a = 8'hb; d = 12'h000;  // 000H
         // // End [(i&1==0)?o=0:o=fff;]
 
-        // Start [13x8=104]
-        #4 a = 8'h0; d = 12'h509;  // LDX 09H
-        #4 a = 8'h1; d = 12'hf1x;  // CLA
-        #4 a = 8'h2; d = 12'hf3x;  // DEX
-        #4 a = 8'h3; d = 12'h108;  // ADD 08H
-        #4 a = 8'h4; d = 12'ha06;  // JIZ 06H
-        #4 a = 8'h5; d = 12'h602;  // JMP 02H
-        #4 a = 8'h6; d = 12'hfex;  // OUT
-        #4 a = 8'h7; d = 12'hffx;  // HLT
-        #4 a = 8'h8; d = 12'h00d;  // 00DH
-        #4 a = 8'h9; d = 12'h008;  // 008H
-        // End [13x8=104]
+        // // Start [13x8=104]
+        // #4 a = 8'h0; d = 12'h509;  // LDX 09H
+        // #4 a = 8'h1; d = 12'hf1x;  // CLA
+        // #4 a = 8'h2; d = 12'hf3x;  // DEX
+        // #4 a = 8'h3; d = 12'h108;  // ADD 08H
+        // #4 a = 8'h4; d = 12'ha06;  // JIZ 06H
+        // #4 a = 8'h5; d = 12'h602;  // JMP 02H
+        // #4 a = 8'h6; d = 12'hfex;  // OUT
+        // #4 a = 8'h7; d = 12'hffx;  // HLT
+        // #4 a = 8'h8; d = 12'h00d;  // 00DH
+        // #4 a = 8'h9; d = 12'h008;  // 008H
+        // // End [13x8=104]
+
+        // Start [o=~i; o=i;]
+        i = 1;
+        #4 a = 8'h0; d = 12'hfdx;  // INP
+        #4 a = 8'h1; d = 12'h307;  // STA 07H
+        #4 a = 8'h2; d = 12'hf5x;  // CMA
+        #4 a = 8'h3; d = 12'hfex;  // OUT
+        #4 a = 8'h4; d = 12'h007;  // LDA 07H
+        #4 a = 8'h5; d = 12'hfex;  // OUT
+        #4 a = 8'h6; d = 12'hffx;  // HLT
+        // End [o=~i; o=i;]
 
         #4 prog = 0; clr = 1;
         #4 clr = 0;

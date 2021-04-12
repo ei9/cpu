@@ -122,6 +122,17 @@ module tb_sap2_mini;
         // HLT
         // End [Subroutine test]
 
+        // Start [Pointer test]
+        #4 a = 8'h0; d = 12'h004;  // LDA 04H
+        #4 a = 8'h1; d = 12'hf2x;  // XCH
+        #4 a = 8'h2; d = 12'hf4x;  // INX
+        #4 a = 8'h3; d = 12'h905;  // JIN 05H
+        #4 a = 8'h4; d = 12'heff;  // EFFH
+        #4 a = 8'h5; d = 12'hf2x;  // XCH
+        #4 a = 8'h6; d = 12'hfex;  // OUT
+        #4 a = 8'h7; d = 12'hffx;  // HLT
+        // End [Pointer test]
+
         #4 prog = 0; clr = 1;
         #4 clr = 0;
     end

@@ -123,7 +123,7 @@ module ctrl(output[29:0] con, output hlt, input clk,clr,am,az,xm,xz, input[7:0] 
     assign con[5] = (sc[3] & CMB) | (sc[4] & (ADD|SUB|LDB));  // LB
     assign con[4] = (sc[4] & LDX) | (sc[5] & XCH);  // LX
     assign con[3] = sc[3] & INX;  // INX
-    assign con[2] = (sc[3] & DEX) | (sc[4] & XCH);  // DEX
+    assign con[2] = sc[3] & DEX;  // DEX
     assign con[1] = sc[4] & XCH;  // EX
     assign con[0] = sc[3] & OUT;  // LO
 

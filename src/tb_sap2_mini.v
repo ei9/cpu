@@ -77,22 +77,50 @@ module tb_sap2_mini;
         // #4 a = 8'h6; d = 12'hffx;  // HLT
         // // End [o=~i; o=i;]
 
-        // Start []
-        #4 a = 8'h0; d = 12'h00c;  // LDA 
-        #4 a = 8'h1; d = 12'h40d;  // LDB
+        // // Start [ALU test]
+        // #4 a = 8'h0; d = 12'h00c;  // LDA 
+        // #4 a = 8'h1; d = 12'h40d;  // LDB
+        // #4 a = 8'h2; d = 12'hfex;  // OUT
+        // #4 a = 8'h3; d = 12'hf7x;  // IOR
+        // #4 a = 8'h4; d = 12'hfex;  // OUT
+        // #4 a = 8'h5; d = 12'hf9x;  // NOR
+        // #4 a = 8'h6; d = 12'hfex;  // OUT
+        // #4 a = 8'h7; d = 12'hfax;  // NAN
+        // #4 a = 8'h8; d = 12'hfex;  // OUT
+        // #4 a = 8'h9; d = 12'hfbx;  // XOR
+        // #4 a = 8'ha; d = 12'hfex;  // OUT
+        // #4 a = 8'hb; d = 12'hffx;  // HLT
+        // #4 a = 8'hc; d = 12'hffe;  // FFEH
+        // #4 a = 8'hd; d = 12'h001;  // 001H
+        // // End [ALU test]
+
+        // Start [Subroutine test]
+        #4 a = 8'h0; d = 12'h40b;  // LDB 0BH
+        #4 a = 8'h1; d = 12'hb05;  // JMS 05H
         #4 a = 8'h2; d = 12'hfex;  // OUT
-        #4 a = 8'h3; d = 12'hf7x;  // IOR
-        #4 a = 8'h4; d = 12'hfex;  // OUT
-        #4 a = 8'h5; d = 12'hf9x;  // NOR
-        #4 a = 8'h6; d = 12'hfex;  // OUT
-        #4 a = 8'h7; d = 12'hfax;  // NAN
-        #4 a = 8'h8; d = 12'hfex;  // OUT
-        #4 a = 8'h9; d = 12'hfbx;  // XOR
-        #4 a = 8'ha; d = 12'hfex;  // OUT
-        #4 a = 8'hb; d = 12'hffx;  // HLT
-        #4 a = 8'hc; d = 12'hffe;  // FFEH
-        #4 a = 8'hd; d = 12'h001;  // 001H
-        // End []
+        #4 a = 8'h3; d = 12'hf0x;  // NOP
+        #4 a = 8'h4; d = 12'h708;  // JAN 08H
+        #4 a = 8'h5; d = 12'hf6x;  // CMB
+        #4 a = 8'h6; d = 12'hf7x;  // IOR
+        #4 a = 8'h7; d = 12'hfcx;  // BRB
+        #4 a = 8'h8; d = 12'h00b;  // LDA 0BH
+        #4 a = 8'h9; d = 12'hfex;  // OUT
+        #4 a = 8'ha; d = 12'hffx;  // HLT
+        #4 a = 8'hb; d = 12'h000;  // 000h
+
+        // Sequence:
+        // LDB 0BH
+        // JMS 05H
+        // CMB
+        // IOR
+        // BRB
+        // OUT
+        // NOP
+        // JAN 08H
+        // LDA 0BH
+        // OUT
+        // HLT
+        // End [Subroutine test]
 
         #4 prog = 0; clr = 1;
         #4 clr = 0;

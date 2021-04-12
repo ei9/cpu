@@ -64,6 +64,8 @@ module ctrl(output[29:0] con, output hlt, input clk,clr,am,az,xm,xz, input[7:0] 
     wire j = JMS & sc[3];
     wire k = BRB & sc[3];
 
+    wire flag_jmp = (sc[3] & ((xz & JIZ)|(xm & JIN)|(az & JAZ)|(am & JAN)|JMP)) | (sc[4] & JMS);
+
     // Instructions
     wire LDA = i[7:4] == 4'b0000;
     wire ADD = i[7:4] == 4'b0001;
@@ -94,10 +96,10 @@ module ctrl(output[29:0] con, output hlt, input clk,clr,am,az,xm,xz, input[7:0] 
     wire OUT = i == 8'b1111_1110;
     wire HLT = i == 8'b1111_1111;
 
-    assign con[29] = sc[3] & (JMP|JAN|JAZ|JIN|JIZ);  // LP
+    assign con[29] = (~q) & flag_jmp;  // LP
     assign con[28] = sc[1] & (~q);  // CP
     assign con[27] = sc[0] & (~q);  // EP
-    assign con[26] = (sc[3] & (JMP|JAN|JAZ|JIN|JIZ)) | (sc[4] & JMS);  // LS
+    assign con[26] = q & flag_jmp;  // LS
     assign con[25] = sc[1] & (q);  // CS
     assign con[24] = sc[0] & q;  // ES
     assign con[23] = sc[0] | (sc[3] & (LDA|ADD|SUB|STA|LDB|LDX));  // LM
@@ -106,7 +108,7 @@ module ctrl(output[29:0] con, output hlt, input clk,clr,am,az,xm,xz, input[7:0] 
     assign con[20] = (sc[3] & XCH) | (sc[4] & STA);  // LD
     assign con[19] = sc[5] & XCH;  // ED
     assign con[18] = sc[2];  // LI
-    assign con[17] = (sc[3] & (LDA|ADD|SUB|STA|LDB|LDX|JMP|JAZ|JIN)) | (sc[4] & JMS);  // EI
+    assign con[17] = (sc[3] & (LDA|ADD|SUB|STA|LDB|LDX|JMP|JAZ|JIZ|JIN)) | (sc[4] & JMS);  // EI
     assign con[16] = sc[3] & INP;  // LN
     assign con[15] = sc[4] & INP;  // EN
     assign con[14] = (sc[3] & (CLA|CMA|IOR|AND|NOR|NAN|XOR)) | (sc[4] & (LDA|XCH|INP)) | (sc[5] & (ADD|SUB));  // LA
@@ -121,7 +123,7 @@ module ctrl(output[29:0] con, output hlt, input clk,clr,am,az,xm,xz, input[7:0] 
     assign con[5] = (sc[3] & CMB) | (sc[4] & (ADD|SUB|CMB|LDB));  // LB
     assign con[4] = (sc[4] & LDX) | (sc[5] & XCH);  // LX
     assign con[3] = sc[3] & INX;  // INX
-    assign con[2] = sc[4] & XCH;  // DEX
+    assign con[2] = (sc[3] & DEX) | (sc[4] & XCH);  // DEX
     assign con[1] = sc[4] & XCH;  // EX
     assign con[0] = sc[3] & OUT;  // LO
 

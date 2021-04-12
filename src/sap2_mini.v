@@ -114,7 +114,7 @@ module ctrl(output[29:0] con, output hlt, input clk,clr,am,az,xm,xz, input[7:0] 
     assign con[14] = (sc[3] & (CLA|CMA|IOR|AND|NOR|NAN|XOR)) | (sc[4] & (LDA|XCH|INP)) | (sc[5] & (ADD|SUB));  // LA
     assign con[13] = (sc[3] & (XCH|OUT)) | (sc[4] & STA);  // EA
     assign con[12] = (sc[3] & (IOR|AND)) | (sc[5] & ADD);  // S3
-    assign con[11] = (sc[3] & (CMB|IOR|XOR)) | (sc[5] & SUB);  // S2
+    assign con[11] = (sc[3] & (CMB|IOR|NAN|XOR)) | (sc[5] & SUB);  // S2
     assign con[10] = (sc[3] & (CLA|IOR|AND|XOR)) | (sc[5] & SUB);  // S1
     assign con[9] = (sc[3] & (CLA|CMB|AND|NOR)) | (sc[5] & ADD);  // S0
     assign con[8] = sc[3] & (CLA|CMA|CMB|IOR|AND|NOR|NAN|XOR);  // M

@@ -8,7 +8,9 @@ module tb_ctrl;
     ctrl m(con, hlt, clk,clr,am,az,xm,xz, i);
 
     initial begin
-        $monitor("%3dns clk=%b clr=%b am=%b az=%b xm=%b xz=%b i=%h con=%h hlt=%b sc=%b", $stime,clk,clr,am,az,xm,xz,i,con,hlt,m.sc);
+        $dumpfile("./tb_ctrl.vcd");
+        $dumpvars(0, m);
+        $monitor("%3dns clk=%b clr=%b am=%b az=%b xm=%b xz=%b i=%h con=%6h hlt=%b sc=%b", $stime,clk,clr,am,az,xm,xz,i,con[23:0],hlt,m.sc);
         clk = 0;
         clr = 0;
         am = 0;
@@ -40,7 +42,6 @@ module tb_ctrl;
         #12 i[7:4] = 4'b1010;  // JIZ
 
         #12 i[7:4] = 4'b1011;  // JMS
-        #12 i[7:4] = 4'b1111;  // OPR
         #12 i = 8'b1111_0000;  // NOP
         #12 i = 8'b1111_0001;  // CLA
         #12 i = 8'b1111_0010;  // XCH
@@ -63,5 +64,5 @@ module tb_ctrl;
         clk = ~clk;
     end
 
-    initial #512 $finish;
+    initial #1024 $finish;
 endmodule // tb_ctrl.

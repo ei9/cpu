@@ -54,86 +54,224 @@ module ir(output[7:0] to_ctrl, inout[11:0] bus, input li,clk,clr,ei);
     end
 endmodule  // Instruction register.
 
-// Version 1: Hard-wired.
 module ctrl(output[29:0] con, output hlt, input clk,clr,am,az,xm,xz, input[7:0] i);
-    reg[5:0] sc;  // State counter.
+    // Instructions.
+    parameter LDA = 4'b0000;
+    parameter ADD = 4'b0001;
+    parameter SUB = 4'b0010;
+    parameter STA = 4'b0011;
+    parameter LDB = 4'b0100;
+    parameter LDX = 4'b0101;
+    parameter JMP = 4'b0110;
+    parameter JAN = 4'b0111;
+    parameter JAZ = 4'b1000;
+    parameter JIN = 4'b1001;
+    parameter JIZ = 4'b1010;
+    parameter JMS = 4'b1011;
+    parameter NOP = 8'b1111_0000;
+    parameter CLA = 8'b1111_0001;
+    parameter XCH = 8'b1111_0010;
+    parameter DEX = 8'b1111_0011;
+    parameter INX = 8'b1111_0100;
+    parameter CMA = 8'b1111_0101;
+    parameter CMB = 8'b1111_0110;
+    parameter IOR = 8'b1111_0111;
+    parameter AND = 8'b1111_1000;
+    parameter NOR = 8'b1111_1001;
+    parameter NAN = 8'b1111_1010;
+    parameter XOR = 8'b1111_1011;
+    parameter BRB = 8'b1111_1100;
+    parameter INP = 8'b1111_1101;
+    parameter OUT = 8'b1111_1110;
+    parameter HLT = 8'b1111_1111;
+
+    reg[8:0] addr[255:0];      // Address ROM.
+    reg[23:0] ctrl_rom[0:86];  // con[23:0] stored in ctrl ROM.
+    reg[5:0] sc;               // State counter.
+    reg[6:0] counter;          // Counter count from 0-86.
     
-    assign hlt = HLT;
-
-    reg q;  // jkff to select to enable pc or subroutine counter.
-    wire j = JMS & sc[3];
-    wire k = BRB & sc[3];
-
-    wire flag_jmp = (sc[3] & ((xz & JIZ)|(xm & JIN)|(az & JAZ)|(am & JAN)|JMP)) | (sc[4] & JMS);
-
-    // Instructions
-    wire LDA = i[7:4] == 4'b0000;
-    wire ADD = i[7:4] == 4'b0001;
-    wire SUB = i[7:4] == 4'b0010;
-    wire STA = i[7:4] == 4'b0011;
-    wire LDB = i[7:4] == 4'b0100;
-    wire LDX = i[7:4] == 4'b0101;
-    wire JMP = i[7:4] == 4'b0110;
-    wire JAN = (i[7:4] == 4'b0111) & am;
-    wire JAZ = (i[7:4] == 4'b1000) & az;
-    wire JIN = (i[7:4] == 4'b1001) & xm;
-    wire JIZ = (i[7:4] == 4'b1010) & xz;
-    wire JMS = i[7:4] == 4'b1011;
-    wire NOP = i == 8'b1111_0000;
-    wire CLA = i == 8'b1111_0001;
-    wire XCH = i == 8'b1111_0010;
-    wire DEX = i == 8'b1111_0011;
-    wire INX = i == 8'b1111_0100;
-    wire CMA = i == 8'b1111_0101;
-    wire CMB = i == 8'b1111_0110;
-    wire IOR = i == 8'b1111_0111;
-    wire AND = i == 8'b1111_1000;
-    wire NOR = i == 8'b1111_1001;
-    wire NAN = i == 8'b1111_1010;
-    wire XOR = i == 8'b1111_1011;
-    wire BRB = i == 8'b1111_1100;
-    wire INP = i == 8'b1111_1101;
-    wire OUT = i == 8'b1111_1110;
-    wire HLT = i == 8'b1111_1111;
-
+    assign hlt = i == HLT;
     assign con[29] = (~q) & flag_jmp;  // LP
     assign con[28] = sc[1] & (~q);  // CP
     assign con[27] = sc[0] & (~q);  // EP
     assign con[26] = q & flag_jmp;  // LS
-    assign con[25] = sc[1] & (q);  // CS
+    assign con[25] = sc[1] & q;  // CS
     assign con[24] = sc[0] & q;  // ES
-    assign con[23] = sc[0] | (sc[3] & (LDA|ADD|SUB|STA|LDB|LDX));  // LM
-    assign con[22] = sc[5] & STA;  // WE
-    assign con[21] = (sc[4] & (LDA|ADD|SUB|LDB|LDX)) | (sc[5] & STA) | sc[2];  // CE
-    assign con[20] = (sc[3] & XCH) | (sc[4] & STA);  // LD
-    assign con[19] = sc[5] & XCH;  // ED
-    assign con[18] = sc[2];  // LI
-    assign con[17] = (sc[3] & (LDA|ADD|SUB|STA|LDB|LDX|JMP|JAZ|JAN|JIZ|JIN)) | (sc[4] & JMS);  // EI
-    assign con[16] = sc[3] & INP;  // LN
-    assign con[15] = sc[4] & INP;  // EN
-    assign con[14] = (sc[3] & (CLA|CMA|IOR|AND|NOR|NAN|XOR)) | (sc[4] & (LDA|XCH|INP)) | (sc[5] & (ADD|SUB));  // LA
-    assign con[13] = (sc[3] & (XCH|OUT)) | (sc[4] & STA);  // EA
-    assign con[12] = (sc[3] & (IOR|AND)) | (sc[5] & ADD);  // S3
-    assign con[11] = (sc[3] & (CMB|IOR|NAN|XOR)) | (sc[5] & SUB);  // S2
-    assign con[10] = (sc[3] & (CLA|IOR|AND|XOR)) | (sc[5] & SUB);  // S1
-    assign con[9] = (sc[3] & (CLA|CMB|AND|NOR)) | (sc[5] & ADD);  // S0
-    assign con[8] = sc[3] & (CLA|CMA|CMB|IOR|AND|NOR|NAN|XOR);  // M
-    assign con[7] = sc[5] & ADD;  // CI
-    assign con[6] = (sc[3] & (CMA|CMB|IOR|AND|NOR|NAN|XOR|CLA)) | (sc[5] & (ADD|SUB));  // EU
-    assign con[5] = (sc[3] & CMB) | (sc[4] & (ADD|SUB|LDB));  // LB
-    assign con[4] = (sc[4] & LDX) | (sc[5] & XCH);  // LX
-    assign con[3] = sc[3] & INX;  // INX
-    assign con[2] = sc[3] & DEX;  // DEX
-    assign con[1] = sc[4] & XCH;  // EX
-    assign con[0] = sc[3] & OUT;  // LO
+    assign con[23:0] = ctrl_rom[counter];
 
-    always @ (negedge clk or posedge clr) begin
-        if (clr)begin
-            sc = 4'b0;
+    wire nop = con == 30'h0;
+    
+    // jkff to select to enable pc or subroutine counter.
+    reg q;
+    wire j = jms & sc[3];
+    wire k = brb & sc[3];
+
+    wire flag_jmp = (sc[3] & ((xz & jiz)|(xm & jin)|(az & jaz)|(am & jan)|jmp)) | (sc[4] & jms);
+
+    // Jump instructions
+    wire jmp = i[7:4] == 4'b0110;
+    wire jan = (i[7:4] == 4'b0111) & am;
+    wire jaz = (i[7:4] == 4'b1000) & az;
+    wire jin = (i[7:4] == 4'b1001) & xm;
+    wire jiz = (i[7:4] == 4'b1010) & xz;
+    wire jms = i[7:4] == 4'b1011;
+    wire brb = i == 8'b1111_1100;
+
+    always @ (negedge clk or posedge clr or posedge nop) begin
+        // Address ROM.
+        addr[LDA] = 7'h03;  // LDA
+        addr[ADD] = 7'h06;  // ADD
+        addr[SUB] = 7'h09;  // SUB
+        addr[STA] = 7'h0c;  // STA
+        addr[LDB] = 7'h0f;  // LDB
+        addr[LDX] = 7'h12;  // LDX
+        addr[JMP] = 7'h15;  // JMP
+        addr[JAN] = 7'h18;  // JAN
+        addr[JAZ] = 7'h1b;  // JAZ
+        addr[JIN] = 7'h1e;  // JIN
+        addr[JIZ] = 7'h21;  // JIZ
+        addr[JMS] = 7'h24;  // JMS
+        addr[NOP] = 7'h27;  // NOP
+        addr[CLA] = 7'h2a;  // CLA
+        addr[XCH] = 7'h2d;  // XCH
+        addr[DEX] = 7'h30;  // DEX
+        addr[INX] = 7'h33;  // INX
+        addr[CMA] = 7'h36;  // CMA
+        addr[CMB] = 7'h39;  // CMB
+        addr[IOR] = 7'h3c;  // IOR
+        addr[AND] = 7'h3f;  // AND
+        addr[NOR] = 7'h42;  // NOR
+        addr[NAN] = 7'h45;  // NAN
+        addr[XOR] = 7'h48;  // XOR
+        addr[BRB] = 7'h4b;  // BRB
+        addr[INP] = 7'h4e;  // INP
+        addr[OUT] = 7'h51;  // OUT
+        addr[HLT] = 7'h54;  // HLT
+
+        // Control ROM.
+        ctrl_rom[0] = 24'h800000;  // Fetch cycle.
+        ctrl_rom[1] = 24'h000000;
+        ctrl_rom[2] = 24'h240000;
+        ctrl_rom[3] = 24'h820000;  // LDA
+        ctrl_rom[4] = 24'h204000;
+        ctrl_rom[5] = 24'h000000;
+        ctrl_rom[6] = 24'h820000;  // ADD
+        ctrl_rom[7] = 24'h200020;
+        ctrl_rom[8] = 24'h0052c0;
+        ctrl_rom[9] = 24'h820000;  // SUB
+        ctrl_rom[10] = 24'h200020;
+        ctrl_rom[11] = 24'h004c40;
+        ctrl_rom[12] = 24'h820000;  // STA
+        ctrl_rom[13] = 24'h102000;
+        ctrl_rom[14] = 24'h600000;
+        ctrl_rom[15] = 24'h820000;  // LDB
+        ctrl_rom[16] = 24'h200020;
+        ctrl_rom[17] = 24'h000000;
+        ctrl_rom[18] = 24'h820000;  // LDX
+        ctrl_rom[19] = 24'h200010;
+        ctrl_rom[20] = 24'h000000;
+        ctrl_rom[21] = 24'h020000;  // JMP
+        ctrl_rom[22] = 24'h000000;
+        ctrl_rom[23] = 24'h000000;
+        ctrl_rom[24] = 24'h020000;  // & (am<<17);  // JAN
+        ctrl_rom[25] = 24'h000000;
+        ctrl_rom[26] = 24'h000000;
+        ctrl_rom[27] = 24'h020000;  // & (az<<17);  // JAZ
+        ctrl_rom[28] = 24'h000000;
+        ctrl_rom[29] = 24'h000000;
+        ctrl_rom[30] = 24'h020000;  // & (xm<<17);  // JIN
+        ctrl_rom[31] = 24'h000000;
+        ctrl_rom[32] = 24'h000000;
+        ctrl_rom[33] = 24'h020000;  // & (xz<<17);  // JIZ
+        ctrl_rom[34] = 24'h000000;
+        ctrl_rom[35] = 24'h000000;
+        ctrl_rom[36] = 24'h000000;  // JMS
+        ctrl_rom[37] = 24'h020000;
+        ctrl_rom[38] = 24'h000000;
+        ctrl_rom[39] = 24'h000000;  // NOP
+        ctrl_rom[40] = 24'h000000;
+        ctrl_rom[41] = 24'h000000;
+        ctrl_rom[42] = 24'h004740;  // CLA
+        ctrl_rom[43] = 24'h000000;
+        ctrl_rom[44] = 24'h000000;
+        ctrl_rom[45] = 24'h102000;  // XCH
+        ctrl_rom[46] = 24'h004002;
+        ctrl_rom[47] = 24'h080010;
+        ctrl_rom[48] = 24'h000004;  // DEX
+        ctrl_rom[49] = 24'h000000;
+        ctrl_rom[50] = 24'h000000;
+        ctrl_rom[51] = 24'h000008;  // INX
+        ctrl_rom[52] = 24'h000000;
+        ctrl_rom[53] = 24'h000000;
+        ctrl_rom[54] = 24'h004140;  // CMA
+        ctrl_rom[55] = 24'h000000;
+        ctrl_rom[56] = 24'h000000;
+        ctrl_rom[57] = 24'h000b60;  // CMB
+        ctrl_rom[58] = 24'h000000;
+        ctrl_rom[59] = 24'h000000;
+        ctrl_rom[60] = 24'h005d40;  // IOR
+        ctrl_rom[61] = 24'h000000;
+        ctrl_rom[62] = 24'h000000;
+        ctrl_rom[63] = 24'h005740;  // AND
+        ctrl_rom[64] = 24'h000000;
+        ctrl_rom[65] = 24'h000000;
+        ctrl_rom[66] = 24'h004340;  // NOR
+        ctrl_rom[67] = 24'h000000;
+        ctrl_rom[68] = 24'h000000;
+        ctrl_rom[69] = 24'h004940;  // NAN
+        ctrl_rom[70] = 24'h000000;
+        ctrl_rom[71] = 24'h000000;
+        ctrl_rom[72] = 24'h004d40;  // XOR
+        ctrl_rom[73] = 24'h000000;
+        ctrl_rom[74] = 24'h000000;
+        ctrl_rom[75] = 24'h000000;  // BRB
+        ctrl_rom[76] = 24'h000000;
+        ctrl_rom[77] = 24'h000000;
+        ctrl_rom[78] = 24'h010000;  // INP
+        ctrl_rom[79] = 24'h00c000;
+        ctrl_rom[80] = 24'h000000;
+        ctrl_rom[81] = 24'h002001;  // OUT
+        ctrl_rom[82] = 24'h000000;
+        ctrl_rom[83] = 24'h000000;
+        ctrl_rom[84] = 24'h000000;  // HLT
+        ctrl_rom[85] = 24'h000000;
+        ctrl_rom[86] = 24'h000000;
+
+        if (clr) begin
             q = 1'b0;
-        end else if (!clk) begin
-            sc = sc << 1;
-            if (sc == 0)  sc = 6'b1;
+            sc = 6'b0;
+            counter = 7'b0;
+        end else if (~clk) begin
+            case (sc)
+                6'b000001 : begin
+                    sc = 6'd2;
+                    counter <= 7'h01;
+                end
+                6'b000010 : begin
+                    sc <= 6'd4;
+                    counter <= 7'h02;
+                end
+                6'b000100 : begin
+                    // Load address in T3.
+                    sc = 6'd8;
+                    counter = (i[7:4] == 4'b1111) ? addr[i] : addr[i[7:4]];
+                end
+                6'b001000 : begin
+                    sc = 6'd16;
+                    counter = counter + 1;
+                end
+                6'b010000 : begin
+                    sc = 6'd32;
+                    counter = counter + 1;
+                end
+                6'b100000 : begin
+                    sc = 6'd1;
+                    counter = 7'h00;
+                end
+            endcase
+            
+            if (sc == 6'b0)
+                sc = 6'h1;
 
             // jkff for subroutine.
             case({j, k})

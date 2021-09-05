@@ -2,8 +2,7 @@
 
 > Click [here](https://github.com/ei9/cheat_sheet#project) for more mini processor i made before.
 
-I am building a RV32I processor in Verilog.
-It has 47 instructions.
+RV32I has 47 instructions.
 
 ## Instructions
 

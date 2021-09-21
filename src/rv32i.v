@@ -30,7 +30,8 @@ module rom(
     input[31:0] address;
 
     reg[31:0] m[0:1023];  // 32 x 1024 = 4kB
-    assign out = m[address];
+    // discard last 2 bits to perform shift right (>>2 == /4)
+    assign out = m[address[31:2]];
 endmodule  // rom
 
 
@@ -105,11 +106,46 @@ module alu(
 endmodule  // alu
 
 
-module ctrl_unit;
+// control bus:
+// 10  reg_write
+// 9   alu select r2(1) or imm(0)
+// 8   mem read
+// 7   mem write
+// 6   branch
+// 5   mem or alu save to register
+// 3~0 alu ctrl
+module ctrl_unit(
+    out,
+    clk,
+    ins
+);
+
+    output[10:0] out;
+    input clk;
+    input[31:0] ins;
+
 endmodule  // ctrl unit
 
 
-module rv32i;
-    reg[31:0] pc;           // program counter.
+module rv32i(
+    clk
+);
 
+    input clk;
+
+    reg[31:0] pc;  // program counter.
+
+    wire[31:0] ins, r1, r2, r_data, alu_out, alu_in_2, imm, ram_out;
+    wire[10:0] ctrl;
+    wire[4:0] r_addr;
+    wire zero;
+
+    assign imm = 32'b0; // TODO: generate imm
+    assign alu_in_2 = ctrl[9] ? r2 : imm;
+
+    rom       im(ins, pc);
+    reg_file  rf(r1, r2, clk, ctrl[10], r_addr, r_data, ins[19:15], ins[24:20]);
+    alu       a(alu_out, zero, ctrl[3:0], r1, alu_in_2);
+    ram       dm(ram_out, clk, ctrl[8], ctrl[7], alu_out, r2);
+    ctrl_unit cu(ctrl, clk, ins);
 endmodule  // rv32i

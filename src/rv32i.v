@@ -4,7 +4,8 @@ module ram(
     read,
     write,
     address,
-    in);
+    in
+);
 
     output[31:0] out;
     input clk, read, write;
@@ -22,7 +23,8 @@ endmodule  // ram
 
 module rom(
     out,
-    address);
+    address
+);
 
     output[31:0] out;
     input[31:0] address;
@@ -40,7 +42,8 @@ module reg_file(
     write_addr,
     write_data,
     addr_1,
-    addr_2);
+    addr_2
+);
 
     output[31:0] out_1, out_2;
     input clk, write;
@@ -57,14 +60,56 @@ module reg_file(
     end
 endmodule  // register file
 
-module alu;
+
+// operation | opcode
+//    and    |  0000
+//    or     |  0001
+//    add    |  0010
+//    sub    |  0110
+`define AND 4'b0000
+`define OR  4'b0001
+`define ADD 4'b0010
+`define SUB 4'b0110
+
+module alu(
+    out,
+    zero,
+    alu_op,
+    in_1,
+    in_2
+);
+
+    output[31:0] out;
+    output zero;
+    input[3:0] alu_op;
+    input[31:0] in_1, in_2;
+
+    assign zero = ~|out;
+
+    reg[31:0] out;
+
+    always @(alu_op, in_1, in_2) begin
+        case(alu_op)
+            `AND:
+                out = in_1 & in_2;
+            `OR:
+                out = in_1 | in_2;
+            `ADD:
+                out = in_1 + in_2;
+            `SUB:
+                out = in_1 - in_2;
+            default:  // AND operation
+                out = in_1 & in_2;
+        endcase
+    end
 endmodule  // alu
 
 
 module ctrl_unit;
 endmodule  // ctrl unit
 
-module rv32i(output writeM, output[31:0] pc,addressM,outM, input clk,reset, input[31:0] inM,ins);
+
+module rv32i;
     reg[31:0] pc;           // program counter.
 
 endmodule  // rv32i

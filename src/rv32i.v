@@ -137,7 +137,7 @@ module ctrl_unit(
 
     reg[9:0] out;
 
-    always @(posedge clk or ins) begin
+    always @(*) begin
         case(opcode)
             `R_TYPE: begin
                 case(funt3)
@@ -187,7 +187,6 @@ module rv32i(
     wire zero;
 
     assign imm = 32'b0; // TODO: generate imm
-    assign alu_in_2 = ctrl[9] ? r2 : imm;
     assign r_data = ctrl[4] ? ram_out : alu_out;
     assign alu_in_2 = ctrl[8] ? r2 : imm;
 

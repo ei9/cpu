@@ -12,8 +12,8 @@ module tb_alu;
     initial begin
         $monitor("%2d op=%h i1=%h i2=%h zero=%b out=%h", $time,op,i1,i2,zero,out);
         op = 4'b0;
-        i1 = 32'hf0;
-        i2 = 32'hf;
+        i1 = 32'h0000ffff;
+        i2 = 32'hffff0000;
 
         #1 op = 4'd0;  // and
         #1 op = 4'd1;  // or

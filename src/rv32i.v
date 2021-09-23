@@ -187,6 +187,7 @@ module rv32i(
     wire zero;
 
     assign imm = 32'b0; // TODO: generate imm
+    assign r_addr = ins[11:7];
     assign r_data = ctrl[4] ? ram_out : alu_out;
     assign alu_in_2 = ctrl[8] ? r2 : imm;
 

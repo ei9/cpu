@@ -3,13 +3,13 @@
 module tb_rv32i;
     reg clk;
     wire[31:0] out;
-    assign out = m.rf.regs[0];  // x1 as output
+    assign out = m.rf.regs[1];  // x1 as output
 
     rv32i m(clk);
 
     initial begin
         $dumpfile("./tb_rv32i.vcd");
-        $dumpvars(0, m);
+        $dumpvars(0, m, out);
         $monitor("%2d clk=%b ctrl=%h out=%h", $time, clk, m.ctrl, out);
         $readmemb("program.dat", m.im.m);     // Load program to rom.
         $readmemh("reg.dat", m.rf.regs);  // Load data to register file.

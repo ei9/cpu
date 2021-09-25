@@ -62,17 +62,17 @@ module reg_file(
 endmodule  // register file
 
 
-// operation | opcode
-//    and    |  0000
-//    or     |  0001
-//    add    |  0010
-//    sub    |  0110
-//    xor    |  0111  TODO: This is temporary.
-`define AND 4'b0000
-`define OR  4'b0001
-`define ADD 4'b0010
-`define SUB 4'b0110
-`define XOR 4'b0111
+// operation opcode
+`define AND  4'b0000
+`define OR   4'b0001
+`define ADD  4'b0010
+`define SUB  4'b0110
+`define XOR  4'b0111
+`define SLL  4'b1000
+`define SLT  4'b1001
+`define SLTU 4'b1010
+`define SRL  4'b1011
+`define SRA  4'b1100
 
 module alu(
     out,
@@ -103,6 +103,16 @@ module alu(
                 out = in_1 - in_2;
             `XOR:
                 out = in_1 ^ in_2;
+            `SLL:
+                out = in_1 << in_2[4:0];
+            `SLT:
+                out = (in_1[31] ^ in_2[31]) ? in_1[31] : (in_1[30:0] < in_2[30:0]);
+            `SLTU:
+                out = in_1 < in_2;
+            `SRL:
+                out = in_1 >> in_2[4:0];
+            `SRA:
+                out = {in_1[31], in_1[30:0] >> in_2[4:0]};
             default:  // AND operation
                 out = in_1 & in_2;
         endcase
@@ -122,6 +132,7 @@ endmodule  // alu
 `define S_TYPE 7'h23
 `define B_TYPE 7'h63
 `define J_TYPE 7'h67
+
 module ctrl_unit(
     out,
     ins
@@ -142,28 +153,31 @@ module ctrl_unit(
             `R_TYPE: begin
                 case(funt3)
                     3'h0: begin
-                        if(~|funt7)
-                            out = 10'h302;  // add
-                        else
+                        if(funt7[5])
                             out = 10'h306;  // sub
+                        else
+                            out = 10'h302;  // add
                     end
-                    3'h1: begin
-                    end
-                    3'h2: begin
-                    end
-                    3'h3: begin
-                    end
-                    3'h4: begin
-                        out = 10'h307;  // xor. TODO: This is temporary.
-                    end
+                    3'h1:
+                        out = 10'h308;  // sll
+                    3'h2:
+                        out = 10'h309;  // slt
+                    3'h3:
+                        out = 10'h30a;  // sltu
+                    3'h4:
+                        out = 10'h307;  // xor.
                     3'h5: begin
+                        if(funt7[5])
+                            out = 10'h30c;  // sra
+                        else
+                            out = 10'h30b;  // srl
                     end
-                    3'h6: begin
+                    3'h6:
                         out = 10'h301;  // or
-                    end
-                    3'h7: begin
+                    3'h7:
                         out = 10'h300;  // and
-                    end
+                    default:
+                        out = 10'h300;  // and
                 endcase
             end
             default: begin

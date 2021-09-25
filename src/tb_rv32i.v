@@ -19,5 +19,5 @@ module tb_rv32i;
 
     always #1 clk = ~clk;
 
-    initial #10 $finish;
+    initial #24 $finish;
 endmodule  // tb_rv32i

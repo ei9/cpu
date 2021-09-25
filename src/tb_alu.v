@@ -15,12 +15,20 @@ module tb_alu;
         i1 = 32'h0000ffff;
         i2 = 32'hffff0000;
 
-        #1 op = 4'd0;  // and
-        #1 op = 4'd1;  // or
-        #1 op = 4'd2;  // add
-        #1 op = 4'd6;  // sub
-        #1 op = 4'd7;  // xor
+        #1 op = 4'h0;  // and
+        #1 op = 4'h1;  // or
+        #1 op = 4'h2;  // add
+        #1 op = 4'h6;  // sub
+        #1 op = 4'h7;  // xor
+
+        #1 i1 = 32'h8000f000;
+           i2 = 32'h00000004;
+           op = 4'h8;  // sll  000f0000
+        #1 op = 4'h9;  // slt  00000001
+        #1 op = 4'ha;  // sltu 00000000
+        #1 op = 4'hb;  // srl  08000f00
+        #1 op = 4'hc;  // sra  80000f00
     end
 
-    initial #6 $finish;
+    initial #10 $finish;
 endmodule  // tb_alu

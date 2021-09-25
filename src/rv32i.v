@@ -128,10 +128,17 @@ endmodule  // alu
 // 5   branch (0: pc+4, 1: pc+offset)
 // 4   mem(1) or alu(0) save to register
 // 3~0 alu ctrl
-`define R_TYPE 7'h33
-`define S_TYPE 7'h23
-`define B_TYPE 7'h63
+`define U_LUI  7'h37
+`define U_AUIP 7'h17
 `define J_TYPE 7'h67
+`define I_JALR 7'h67
+`define B_TYPE 7'h63
+`define I_LOAD 7'h03
+`define S_TYPE 7'h23
+`define I_IMM  7'h13  // I-type immediate
+`define R_TYPE 7'h33
+`define I_FENC 7'h0f
+`define I_SYS  7'h73
 
 module ctrl_unit(
     out,
@@ -180,11 +187,47 @@ module ctrl_unit(
                         out = 10'h300;  // and
                 endcase
             end
+            `I_IMM: begin  // TODO: immediate instructions
+                case(funt3)
+                    3'h0:
+                        out = 10'h  // addi
+                    default:
+
+                endcase
+            end
             default: begin
             end
         endcase
     end
 endmodule  // ctrl unit
+
+
+module imm_gen(
+    out,
+    in
+);
+
+    input[31:0] in;
+    output[31:0] out;
+
+    reg[31:0] out;
+    wire[6:0] opcode = in[6:0];
+
+    always @(*) begin
+        case(opcode)
+            `I_JALR, `I_LOAD, `I_IMM:
+                out = {20'b0, in[31:20]};
+            `S_TYPE:
+                out = {20'b0, in[31:25], in[11:7]};
+            `B_TYPE:
+                out = {20'b0, in[31], in[7], in[30:25], in[11:8]};
+            `U_AUIP, `U_LUI:
+                out = {in[31:12], 12'b0};
+            default:  //`J_TYPE:
+                out = {12'b0, in[31], in[19:12], in[20], in[30:21], 1'b0};
+        endcase
+    end
+endmodule  // generate immediate value
 
 
 module rv32i(
@@ -200,7 +243,6 @@ module rv32i(
     wire[4:0] r_addr;
     wire zero;
 
-    assign imm = 32'b0; // TODO: generate imm
     assign r_addr = ins[11:7];
     assign r_data = ctrl[4] ? ram_out : alu_out;
     assign alu_in_2 = ctrl[8] ? r2 : imm;
@@ -210,6 +252,7 @@ module rv32i(
     alu       a(alu_out, zero, ctrl[3:0], r1, alu_in_2);
     ram       dm(ram_out, clk, ctrl[7], ctrl[6], alu_out, r2);
     ctrl_unit cu(ctrl, ins);
+    imm_gen   ig(imm, ins);
 
     always @(posedge clk) begin
         pc = (ctrl[5] & zero) ? pc + imm : pc + 4;

@@ -19,7 +19,8 @@ module tb_alu;
         #1 op = 4'd1;  // or
         #1 op = 4'd2;  // add
         #1 op = 4'd6;  // sub
+        #1 op = 4'd7;  // xor
     end
 
-    initial #5 $finish;
+    initial #6 $finish;
 endmodule  // tb_alu

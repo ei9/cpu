@@ -190,9 +190,17 @@ module ctrl_unit(
             `I_IMM: begin  // TODO: immediate instructions
                 case(funt3)
                     3'h0:
-                        out = 10'h  // addi
+                        out = 10'h202;  // addi
+                    3'h2:
+                        out = 10'h209;  // slti
+                    3'h3:
+                        out = 10'h20a;  // sltiu
+                    3'h4:
+                        out = 10'h207;  // xori
+                    3'h6:
+                        out = 10'h201;  // ori
                     default:
-
+                        out = 10'h201;  // ori
                 endcase
             end
             default: begin
@@ -216,7 +224,7 @@ module imm_gen(
     always @(*) begin
         case(opcode)
             `I_JALR, `I_LOAD, `I_IMM:
-                out = {20'b0, in[31:20]};
+                out = {(in[31]?20'hfffff:20'h0), in[31:20]};
             `S_TYPE:
                 out = {20'b0, in[31:25], in[11:7]};
             `B_TYPE:

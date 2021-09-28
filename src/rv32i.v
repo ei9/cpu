@@ -191,16 +191,26 @@ module ctrl_unit(
                 case(funt3)
                     3'h0:
                         out = 10'h202;  // addi
+                    3'h1:
+                        out = 10'h208;  // slli
                     3'h2:
                         out = 10'h209;  // slti
                     3'h3:
                         out = 10'h20a;  // sltiu
                     3'h4:
                         out = 10'h207;  // xori
+                    3'h5: begin
+                        if(funt7[5])
+                            out = 10'h20c;  // srai
+                        else
+                            out = 10'h20b;  // srli
+                    end
                     3'h6:
                         out = 10'h201;  // ori
+                    3'h7:
+                        out = 10'h200;  // andi
                     default:
-                        out = 10'h201;  // ori
+                        out = 10'h200;  // andi
                 endcase
             end
             default: begin

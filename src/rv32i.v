@@ -73,6 +73,7 @@ endmodule  // register file
 `define SLTU 4'b1010
 `define SRL  4'b1011
 `define SRA  4'b1100
+`define IN2  4'b1101
 
 module alu(
     out,
@@ -113,6 +114,8 @@ module alu(
                 out = in_1 >> in_2[4:0];
             `SRA:
                 out = {in_1[31], in_1[30:0] >> in_2[4:0]};
+            `IN2:
+                out = in_2;
             default:  // AND operation
                 out = in_1 & in_2;
         endcase
@@ -121,8 +124,9 @@ endmodule  // alu
 
 
 // control bus:
-// 9   reg_write
-// 8   alu select r2(1) or imm(0)
+// 10  reg_write
+// 9   alu in1 select r1(0) or pc(1)
+// 8   alu in2 select r2(0) or imm(1)
 // 7   mem read
 // 6   mem write
 // 5   branch (0: pc+4, 1: pc+offset)
@@ -145,7 +149,7 @@ module ctrl_unit(
     ins
 );
 
-    output[9:0] out;
+    output[10:0] out;
     input clk;
     input[31:0] ins;
 
@@ -153,7 +157,7 @@ module ctrl_unit(
     wire[6:0] funt7 = ins[31:25];
     wire[2:0] funt3 = ins[14:12];
 
-    reg[9:0] out;
+    reg[10:0] out;
 
     always @(*) begin
         case(opcode)
@@ -161,57 +165,63 @@ module ctrl_unit(
                 case(funt3)
                     3'h0: begin
                         if(funt7[5])
-                            out = 10'h306;  // sub
+                            out = 11'h406;  // sub
                         else
-                            out = 10'h302;  // add
+                            out = 11'h402;  // add
                     end
                     3'h1:
-                        out = 10'h308;  // sll
+                        out = 11'h408;  // sll
                     3'h2:
-                        out = 10'h309;  // slt
+                        out = 11'h409;  // slt
                     3'h3:
-                        out = 10'h30a;  // sltu
+                        out = 11'h40a;  // sltu
                     3'h4:
-                        out = 10'h307;  // xor.
+                        out = 11'h407;  // xor.
                     3'h5: begin
                         if(funt7[5])
-                            out = 10'h30c;  // sra
+                            out = 11'h40c;  // sra
                         else
-                            out = 10'h30b;  // srl
+                            out = 11'h40b;  // srl
                     end
                     3'h6:
-                        out = 10'h301;  // or
+                        out = 11'h401;  // or
                     3'h7:
-                        out = 10'h300;  // and
+                        out = 11'h400;  // and
                     default:
-                        out = 10'h300;  // and
+                        out = 11'h400;  // and
                 endcase
             end
-            `I_IMM: begin  // TODO: immediate instructions
+            `I_IMM: begin
                 case(funt3)
                     3'h0:
-                        out = 10'h202;  // addi
+                        out = 11'h502;  // addi
                     3'h1:
-                        out = 10'h208;  // slli
+                        out = 11'h508;  // slli
                     3'h2:
-                        out = 10'h209;  // slti
+                        out = 11'h509;  // slti
                     3'h3:
-                        out = 10'h20a;  // sltiu
+                        out = 11'h50a;  // sltiu
                     3'h4:
-                        out = 10'h207;  // xori
+                        out = 11'h507;  // xori
                     3'h5: begin
                         if(funt7[5])
-                            out = 10'h20c;  // srai
+                            out = 11'h50c;  // srai
                         else
-                            out = 10'h20b;  // srli
+                            out = 11'h50b;  // srli
                     end
                     3'h6:
-                        out = 10'h201;  // ori
+                        out = 11'h501;  // ori
                     3'h7:
-                        out = 10'h200;  // andi
+                        out = 11'h500;  // andi
                     default:
-                        out = 10'h200;  // andi
+                        out = 11'h500;  // andi
                 endcase
+            end
+            `U_LUI: begin
+                out = 11'h50d;
+            end
+            `U_AUIP: begin
+                out = 11'h702;
             end
             default: begin
             end
@@ -256,18 +266,19 @@ module rv32i(
 
     reg[31:0] pc;  // program counter.
 
-    wire[31:0] ins, r1, r2, r_data, alu_out, alu_in_2, imm, ram_out;
-    wire[9:0] ctrl;
+    wire[31:0] ins, r1, r2, r_data, alu_out, alu_in_1, alu_in_2, imm, ram_out;
+    wire[10:0] ctrl;
     wire[4:0] r_addr;
     wire zero;
 
     assign r_addr = ins[11:7];
     assign r_data = ctrl[4] ? ram_out : alu_out;
-    assign alu_in_2 = ctrl[8] ? r2 : imm;
+    assign alu_in_1 = ctrl[9] ? pc  : r1;
+    assign alu_in_2 = ctrl[8] ? imm : r2;
 
     rom       im(ins, pc);
-    reg_file  rf(r1, r2, clk, ctrl[9], r_addr, r_data, ins[19:15], ins[24:20]);
-    alu       a(alu_out, zero, ctrl[3:0], r1, alu_in_2);
+    reg_file  rf(r1, r2, clk, ctrl[10], r_addr, r_data, ins[19:15], ins[24:20]);
+    alu       a(alu_out, zero, ctrl[3:0], alu_in_1, alu_in_2);
     ram       dm(ram_out, clk, ctrl[7], ctrl[6], alu_out, r2);
     ctrl_unit cu(ctrl, ins);
     imm_gen   ig(imm, ins);

@@ -306,7 +306,20 @@ module ctrl_unit(
                         out = 17'h8692;  // lhu
                 endcase
             end
+            `S_TYPE: begin
+                case(funt3)
+                    3'h0:
+                        out = 17'hc112;  // sb
+                    3'h1:
+                        out = 17'h8112;  // sh
+                    3'h2:
+                        out = 17'h112;  // sw
+                    default:
+                        out = 17'h112;  // sw
+                endcase
+            end
             default: begin
+                out = 17'h0;  // Not supported instruction.
             end
         endcase
     end

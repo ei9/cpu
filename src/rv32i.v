@@ -234,6 +234,12 @@ module ctrl_unit(
             `I_JALR: begin
                 out = 14'h2412;  // jalr
             end
+            `B_TYPE: begin
+                case(funt3)
+                    3'h0:
+                        out = 14'h806;  // beq
+                endcase
+            end
             default: begin
             end
         endcase

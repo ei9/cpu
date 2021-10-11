@@ -11,13 +11,14 @@ module tb_rv32i;
         $dumpfile("./tb_rv32i.vcd");
         $dumpvars(0, m, out);
         $monitor("%2d clk=%b ctrl=%h out=%h", $time, clk, m.ctrl, out);
-        $readmemb("program.dat", m.im.m);     // Load program to rom.
-        $readmemh("reg.dat", m.rf.regs);  // Load data to register file.
+        $readmemb("program.dat", m.im.m);  // Load program to rom.
+        $readmemh("reg.dat", m.rf.regs);   // Load data to register file.
+        $readmemh("ram.dat", m.dm.m);      // Load data to ram.
         m.pc = 32'b0;
         clk = 0;
     end
 
     always #1 clk = ~clk;
 
-    initial #60 $finish;
+    initial #70 $finish;
 endmodule  // tb_rv32i

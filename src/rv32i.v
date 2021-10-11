@@ -66,6 +66,9 @@ endmodule  // register file
 `define AND  4'b0000
 `define OR   4'b0001
 `define ADD  4'b0010
+`define EQU  4'b0011
+`define SGE  4'b0100
+`define SGEU 4'b0101
 `define SUB  4'b0110
 `define XOR  4'b0111
 `define SLL  4'b1000
@@ -101,6 +104,12 @@ module alu(
                 out = in_1 | in_2;
             `ADD:
                 out = in_1 + in_2;
+            `EQU:
+                out = in_1 == in_2;
+            `SGE:
+                out = (in_1[31] ^ in_2[31]) ? in_2[31] : (in_1[30:0] >= in_2[30:0]);
+            `SGEU:
+                out = in_1 >= in_2;
             `SUB:
                 out = in_1 - in_2;
             `XOR:
@@ -237,7 +246,19 @@ module ctrl_unit(
             `B_TYPE: begin
                 case(funt3)
                     3'h0:
-                        out = 14'h806;  // beq
+                        out = 14'h807;  // beq
+                    3'h1:
+                        out = 14'h803;  // bne
+                    3'h4:
+                        out = 14'h804;  // blt
+                    3'h5:
+                        out = 14'h809;  // bge
+                    3'h6:
+                        out = 14'h805;  // bltu
+                    3'h7:
+                        out = 14'h80a;  // bgeu
+                    default:
+                        out = 14'h80a;  // bgeu
                 endcase
             end
             default: begin
@@ -265,7 +286,7 @@ module imm_gen(
             `S_TYPE:
                 out = {20'b0, in[31:25], in[11:7]};
             `B_TYPE:
-                out = {20'b0, in[31], in[7], in[30:25], in[11:8]};
+                out = {20'b0, in[31], in[7], in[30:25], in[11:8], 1'b0};
             `U_AUIP, `U_LUI:
                 out = {in[31:12], 12'b0};
             default:  //`J_TYPE:

@@ -2,6 +2,8 @@
 
 > Click [here](https://github.com/ei9/cheat_sheet#project) for more mini processor i made before.
 
+Implements some of the RISC-V RV32I instruction set. Except:
+
 ## Not implemented instructions
 - fence, fence.i
 - ecall, ebreak

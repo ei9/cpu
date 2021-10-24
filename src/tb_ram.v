@@ -1,22 +1,20 @@
 `include "rv32i.v"
 
 module tb_ram;
-    reg clk, r, w;
-    reg[31:0] a, in;
-    wire[31:0] out;
+    reg         clk, write;
+    reg  [31:0] addr, data;
+    wire [31:0] out;
 
-    ram m(out, clk, r, w, a, in);
+    ram m(out, clk, write, addr, data);
 
     initial begin
-        $monitor("%2d clk=%b r=%b w=%b addr=%h in=%h out=%h", $time, clk, r, w, a, in, out);
-        clk = 0;
-        r = 1;
-        w = 1;
-        a = 0;
-        in = 1;
+        $monitor("%2d clk=%b w=%b addr=%h in=%h out=%h", $time, clk, write, addr, data, out);
+        clk   = 0;
+        write = 1;
+        addr  = 0;
+        data  = 1;
 
-        #5 r = 0;
-        #5 w = 0;
+        #5 write = 0;
     end
 
     always #1 begin
@@ -24,9 +22,9 @@ module tb_ram;
     end
 
     always #2 begin
-        a = a + 1;
-        in = in + 1;
+        addr = addr + 1;
+        data = data + 1;
     end
 
-    initial #12 $finish;
+    initial #10 $finish;
 endmodule  // tb_ram

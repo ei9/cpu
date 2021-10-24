@@ -2,7 +2,6 @@ module ram(
     out,
     clk,
     write,
-    read,
     address,
     in
 );
@@ -12,7 +11,7 @@ module ram(
     input[31:0] address, in;
 
     reg[31:0] m[0:511];  // 32 x 512 = 16384 = 2kB
-    assign out = read ? m[address] : 32'bz;
+    assign out = m[address];
 
     always @ (posedge clk) begin
         if (write)

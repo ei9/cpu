@@ -1,5 +1,8 @@
 `include "rv32i.v"
 
+/*
+ * Only test some opcode.
+ */
 module tb_alu;
     reg[3:0] op;
     reg[31:0] i1;
@@ -7,7 +10,13 @@ module tb_alu;
     wire zero;
     wire[31:0] out;
 
-    alu a(out, zero, op, i1, i2);
+    alu a(
+        .out    (out  ),
+        .zero   (zero ),
+        .alu_op (op   ),
+        .x      (i1   ),
+        .y      (i2   )
+    );
 
     initial begin
         $monitor("%2d op=%h i1=%h i2=%h zero=%b out=%h", $time,op,i1,i2,zero,out);

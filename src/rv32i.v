@@ -16,6 +16,21 @@ module ram(
 endmodule  // ram
 
 
+module rom(
+    output [31:0] out,
+    input  [31:0] address
+);
+
+    reg [31:0] m[0:1023];  // 32 x 1024 = 4kB
+    // discard last 2 bits to perform shift right (>>2 == /4)
+    assign out = m[address[31:2]];
+endmodule  // rom
+
+
+// ----------------------------------------------------------------------------
+// modules inside rv32i
+// ----------------------------------------------------------------------------
+
 /*
  * sign  s1  s0  out
  *  0    0   0   w(32-bit)
@@ -36,17 +51,6 @@ module ram_mask(
     assign out[15:8]  = s0 ? {8 {sign}} : in[15:8];
     assign out[7:0]   = in[7:0];
 endmodule  // ram_mask select byte, half-word, word
-
-
-module rom(
-    output [31:0] out,
-    input  [31:0] address
-);
-
-    reg [31:0] m[0:1023];  // 32 x 1024 = 4kB
-    // discard last 2 bits to perform shift right (>>2 == /4)
-    assign out = m[address[31:2]];
-endmodule  // rom
 
 
 module reg_file(
@@ -168,7 +172,7 @@ endmodule  // alu
 `define I_SYS  7'h73
 
 module ctrl_unit(
-    output [16:0] out,
+    output [15:0] out,
     input  [31:0] ins
 );
 
@@ -176,7 +180,7 @@ module ctrl_unit(
     wire [6:0]  funt7  = ins[31:25];
     wire [2:0]  funt3  = ins[14:12];
 
-    reg  [16:0] out;
+    reg  [15:0] out;
 
     always @(*) begin
         case(opcode)
@@ -184,119 +188,88 @@ module ctrl_unit(
                 case(funt3)
                     3'h0: begin
                         if(funt7[5])
-                            out = 17'h406;  // sub
+                            out = 16'h206;   // sub
                         else
-                            out = 17'h402;  // add
+                            out = 16'h202;   // add
                     end
-                    3'h1:
-                        out = 17'h408;  // sll
-                    3'h2:
-                        out = 17'h409;  // slt
-                    3'h3:
-                        out = 17'h40a;  // sltu
-                    3'h4:
-                        out = 17'h407;  // xor.
+                    3'h1:   out = 16'h208;   // sll
+                    3'h2:   out = 16'h209;   // slt
+                    3'h3:   out = 16'h20a;   // sltu
+                    3'h4:   out = 16'h207;   // xor.
                     3'h5: begin
                         if(funt7[5])
-                            out = 17'h40c;  // sra
+                            out = 16'h20c;   // sra
                         else
-                            out = 17'h40b;  // srl
+                            out = 16'h20b;   // srl
                     end
-                    3'h6:
-                        out = 17'h401;  // or
-                    3'h7:
-                        out = 17'h400;  // and
+                    3'h6:   out = 16'h201;   // or
+                    3'h7:   out = 16'h200;   // and
                     default:
-                        out = 17'h400;  // and
+                            out = 16'h200;   // and
                 endcase
             end
+
             `I_IMM: begin
                 case(funt3)
-                    3'h0:
-                        out = 17'h412;  // addi
-                    3'h1:
-                        out = 17'h418;  // slli
-                    3'h2:
-                        out = 17'h419;  // slti
-                    3'h3:
-                        out = 17'h41a;  // sltiu
-                    3'h4:
-                        out = 17'h417;  // xori
+                    3'h0:   out = 16'h212;   // addi
+                    3'h1:   out = 16'h218;   // slli
+                    3'h2:   out = 16'h219;   // slti
+                    3'h3:   out = 16'h21a;   // sltiu
+                    3'h4:   out = 16'h217;   // xori
                     3'h5: begin
                         if(funt7[5])
-                            out = 17'h41c;  // srai
+                            out = 16'h21c;   // srai
                         else
-                            out = 17'h41b;  // srli
+                            out = 16'h21b;   // srli
                     end
-                    3'h6:
-                        out = 17'h411;  // ori
-                    3'h7:
-                        out = 17'h410;  // andi
+                    3'h6:   out = 16'h211;   // ori
+                    3'h7:   out = 16'h210;   // andi
                     default:
-                        out = 17'h410;  // andi
+                            out = 16'h210;   // andi
                 endcase
             end
-            `U_LUI: begin
-                out = 17'h41e;  // lui
-            end
-            `U_AUIP: begin
-                out = 17'h432;  // auipc
-            end
-            `J_TYPE: begin
-                out = 17'h1c6d;  // jal
-            end
-            `I_JALR: begin
-                out = 17'h2412;  // jalr
-            end
+
+            `U_LUI:         out = 16'h21e;   // lui
+            `U_AUIP:        out = 16'h232;   // auipc
+            `J_TYPE:        out = 16'he6d;   // jal
+            `I_JALR:        out = 16'h1212;  // jalr
+
             `B_TYPE: begin
                 case(funt3)
-                    3'h0:
-                        out = 17'h807;  // beq
-                    3'h1:
-                        out = 17'h803;  // bne
-                    3'h4:
-                        out = 17'h804;  // blt
-                    3'h5:
-                        out = 17'h809;  // bge
-                    3'h6:
-                        out = 17'h805;  // bltu
-                    3'h7:
-                        out = 17'h80a;  // bgeu
+                    3'h0:   out = 16'h407;   // beq
+                    3'h1:   out = 16'h403;   // bne
+                    3'h4:   out = 16'h404;   // blt
+                    3'h5:   out = 16'h409;   // bge
+                    3'h6:   out = 16'h405;   // bltu
+                    3'h7:   out = 16'h40a;   // bgeu
                     default:
-                        out = 17'h80a;  // bgeu
+                            out = 16'h40a;   // bgeu
                 endcase
             end
+
             `I_LOAD: begin
                 case(funt3)
-                    3'h0:
-                        out = 17'h1c692;  // lb
-                    3'h1:
-                        out = 17'h18692;  // lh
-                    3'h2:
-                        out = 17'h692;  // lw
-                    3'h4:
-                        out = 17'hc692;  // lbu
-                    3'h5:
-                        out = 17'h8692;  // lhu
+                    3'h0:   out = 16'he312;  // lb
+                    3'h1:   out = 16'hc312;  // lh
+                    3'h2:   out = 16'h312;   // lw
+                    3'h4:   out = 16'h6312;  // lbu
+                    3'h5:   out = 16'h4312;  // lhu
                     default:
-                        out = 17'h8692;  // lhu
+                            out = 16'h4312;  // lhu
                 endcase
             end
+
             `S_TYPE: begin
                 case(funt3)
-                    3'h0:
-                        out = 17'hc112;  // sb
-                    3'h1:
-                        out = 17'h8112;  // sh
-                    3'h2:
-                        out = 17'h112;  // sw
+                    3'h0:   out = 16'h6092;  // sb
+                    3'h1:   out = 16'h4092;  // sh
+                    3'h2:   out = 16'h92;    // sw
                     default:
-                        out = 17'h112;  // sw
+                            out = 16'h92;    // sw
                 endcase
             end
-            default: begin
-                out = 17'h0;  // Not supported instruction.
-            end
+
+            default:        out = 16'h0;     // Not supported instruction.
         endcase
     end
 endmodule  // ctrl unit
@@ -338,21 +311,20 @@ module rv32i(
     input  [31:0] imem_r_data_i
 );
 
-// --------------------------------------------------------------
+// ----------------------------------------------------------------------------
 // wires, regs, assignments
-// --------------------------------------------------------------
+// ----------------------------------------------------------------------------
 
     // ctrl bus:
-    wire ram_mask_sign = ctrl[16];  // ram mask sign
-    wire ram_mask_s1   = ctrl[15];  // ram mask s1
-    wire ram_mask_s0   = ctrl[14];  // ram mask s2
-    wire jalr          = ctrl[13];  // jalr
-    wire pc_src        = ctrl[12];  // pc_src, jal or B-type
-    wire branch        = ctrl[11];  // branch
-    wire reg_write     = ctrl[10];  // reg_write
-    wire mem_alu_2_reg = ctrl[9];   // mem(1) or alu(0) saved to register
-    wire dmem_w_o      = ctrl[8];   // write data to memory
-    // 7 read data from memory. TODO: not used, need to remove
+    wire ram_mask_sign = ctrl[15];  // ram mask sign
+    wire ram_mask_s1   = ctrl[14];  // ram mask s1
+    wire ram_mask_s0   = ctrl[13];  // ram mask s2
+    wire jalr          = ctrl[12];  // jalr
+    wire pc_src        = ctrl[11];  // pc_src, jal or B-type
+    wire branch        = ctrl[10];  // branch
+    wire reg_write     = ctrl[9];  // reg_write
+    wire mem_alu_2_reg = ctrl[8];   // mem(1) or alu(0) saved to register
+    wire dmem_w_o      = ctrl[7];   // write data to memory
     wire alu_r1_src_pc = ctrl[6];   // alu r1 pc source(0: pc, 1: pc+4)
     wire alu_r1_src    = ctrl[5];   // alu r1 source(0:r1, 1:pc)
     wire alu_r2_src    = ctrl[4];   // alu r2 source(0:r2, 1:imm)
@@ -370,7 +342,7 @@ module rv32i(
     // alu
     wire [31:0] alu_out, alu_x, alu_y;
     wire [31:0] dmem_i_masked;
-    wire [16:0] ctrl;
+    wire [15:0] ctrl;
     wire        zero;
 
     // imm_gen
@@ -385,9 +357,9 @@ module rv32i(
     assign alu_x  = alu_r1_src ? (alu_r1_src_pc ? pc + 4 : pc) : r1;
     assign alu_y  = alu_r2_src ? imm : r2;
 
-// --------------------------------------------------------------
+// ----------------------------------------------------------------------------
 // ports
-// --------------------------------------------------------------
+// ----------------------------------------------------------------------------
 
     // to instruction memory
     assign imem_addr_o   = pc;
@@ -397,9 +369,9 @@ module rv32i(
     assign dmem_addr_o   = alu_out;
 
 
-// --------------------------------------------------------------
+// ----------------------------------------------------------------------------
 // instance
-// --------------------------------------------------------------
+// ----------------------------------------------------------------------------
 
     reg_file rf(
         .out_x      (r1             ),
@@ -449,9 +421,9 @@ module rv32i(
     );
 
 
-// --------------------------------------------------------------
+// ----------------------------------------------------------------------------
 // program counter
-// --------------------------------------------------------------
+// ----------------------------------------------------------------------------
 
     always @(posedge clk) begin
         if(reset)

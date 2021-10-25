@@ -44,7 +44,7 @@ module tb_rv32i;
     initial begin
         $dumpfile ("./tb_rv32i.vcd");
         $dumpvars (0, imem, cpu, dmem, out);
-        $monitor  ("%2d clk=%b ctrl=%h pc=%h x1=%h m[4]=%h", $time, clk, cpu.ctrl, pc, out, dmem.m[4]);
+        $monitor  ("%2d reset=%b clk=%b ctrl=%h pc=%h x1=%h m[4]=%h", $time, reset, clk, cpu.ctrl, pc, out, dmem.m[4]);
         $readmemb ("program.dat", imem.m);  // Load program to rom.
         $readmemh ("reg.dat", cpu.rf.regs);   // Load data to register file.
         $readmemh ("ram.dat", dmem.m);      // Load data to ram.

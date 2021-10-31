@@ -11,7 +11,7 @@ module ram(
 
     always @ (posedge clk) begin
         if (write)
-            m[address] = in;
+            m[address] <= in;
     end
 endmodule  // ram
 
@@ -71,7 +71,7 @@ module reg_file(
 
     always @(posedge clk) begin
         if((|write_addr) & write)
-            regs[write_addr] = write_data;
+            regs[write_addr] <= write_data;
     end
 endmodule  // register file
 
@@ -108,37 +108,37 @@ module alu(
     always @(alu_op, x, y) begin
         case(alu_op)
             `AND:
-                out = x & y;
+                out <= x & y;
             `OR:
-                out = x | y;
+                out <= x | y;
             `ADD:
-                out = x + y;
+                out <= x + y;
             `EQU:
-                out = x == y;
+                out <= x == y;
             `SGE:
-                out = (x[31] ^ y[31]) ? y[31] : (x[30:0] >= y[30:0]);
+                out <= (x[31] ^ y[31]) ? y[31] : (x[30:0] >= y[30:0]);
             `SGEU:
-                out = x >= y;
+                out <= x >= y;
             `SUB:
-                out = x - y;
+                out <= x - y;
             `XOR:
-                out = x ^ y;
+                out <= x ^ y;
             `SLL:
-                out = x << y[4:0];
+                out <= x << y[4:0];
             `SLT:
-                out = (x[31] ^ y[31]) ? x[31] : (x[30:0] < y[30:0]);
+                out <= (x[31] ^ y[31]) ? x[31] : (x[30:0] < y[30:0]);
             `SLTU:
-                out = x < y;
+                out <= x < y;
             `SRL:
-                out = x >> y[4:0];
+                out <= x >> y[4:0];
             `SRA:
-                out = {x[31], x[30:0] >> y[4:0]};
+                out <= {x[31], x[30:0] >> y[4:0]};
             `IN1:
-                out = x;
+                out <= x;
             `IN2:
-                out = y;
+                out <= y;
             default:  // AND operation
-                out = x & y;
+                out <= x & y;
         endcase
     end
 endmodule  // alu
@@ -188,88 +188,88 @@ module ctrl_unit(
                 case(funt3)
                     3'h0: begin
                         if(funt7[5])
-                            out = 16'h206;   // sub
+                            out <= 16'h206;   // sub
                         else
-                            out = 16'h202;   // add
+                            out <= 16'h202;   // add
                     end
-                    3'h1:   out = 16'h208;   // sll
-                    3'h2:   out = 16'h209;   // slt
-                    3'h3:   out = 16'h20a;   // sltu
-                    3'h4:   out = 16'h207;   // xor.
+                    3'h1:   out <= 16'h208;   // sll
+                    3'h2:   out <= 16'h209;   // slt
+                    3'h3:   out <= 16'h20a;   // sltu
+                    3'h4:   out <= 16'h207;   // xor.
                     3'h5: begin
                         if(funt7[5])
-                            out = 16'h20c;   // sra
+                            out <= 16'h20c;   // sra
                         else
-                            out = 16'h20b;   // srl
+                            out <= 16'h20b;   // srl
                     end
-                    3'h6:   out = 16'h201;   // or
-                    3'h7:   out = 16'h200;   // and
+                    3'h6:   out <= 16'h201;   // or
+                    3'h7:   out <= 16'h200;   // and
                     default:
-                            out = 16'h200;   // and
+                            out <= 16'h200;   // and
                 endcase
             end
 
             `I_IMM: begin
                 case(funt3)
-                    3'h0:   out = 16'h212;   // addi
-                    3'h1:   out = 16'h218;   // slli
-                    3'h2:   out = 16'h219;   // slti
-                    3'h3:   out = 16'h21a;   // sltiu
-                    3'h4:   out = 16'h217;   // xori
+                    3'h0:   out <= 16'h212;   // addi
+                    3'h1:   out <= 16'h218;   // slli
+                    3'h2:   out <= 16'h219;   // slti
+                    3'h3:   out <= 16'h21a;   // sltiu
+                    3'h4:   out <= 16'h217;   // xori
                     3'h5: begin
                         if(funt7[5])
-                            out = 16'h21c;   // srai
+                            out <= 16'h21c;   // srai
                         else
-                            out = 16'h21b;   // srli
+                            out <= 16'h21b;   // srli
                     end
-                    3'h6:   out = 16'h211;   // ori
-                    3'h7:   out = 16'h210;   // andi
+                    3'h6:   out <= 16'h211;   // ori
+                    3'h7:   out <= 16'h210;   // andi
                     default:
-                            out = 16'h210;   // andi
+                            out <= 16'h210;   // andi
                 endcase
             end
 
-            `U_LUI:         out = 16'h21e;   // lui
-            `U_AUIP:        out = 16'h232;   // auipc
-            `J_TYPE:        out = 16'he6d;   // jal
-            `I_JALR:        out = 16'h1212;  // jalr
+            `U_LUI:         out <= 16'h21e;   // lui
+            `U_AUIP:        out <= 16'h232;   // auipc
+            `J_TYPE:        out <= 16'he6d;   // jal
+            `I_JALR:        out <= 16'h1212;  // jalr
 
             `B_TYPE: begin
                 case(funt3)
-                    3'h0:   out = 16'h407;   // beq
-                    3'h1:   out = 16'h403;   // bne
-                    3'h4:   out = 16'h404;   // blt
-                    3'h5:   out = 16'h409;   // bge
-                    3'h6:   out = 16'h405;   // bltu
-                    3'h7:   out = 16'h40a;   // bgeu
+                    3'h0:   out <= 16'h407;   // beq
+                    3'h1:   out <= 16'h403;   // bne
+                    3'h4:   out <= 16'h404;   // blt
+                    3'h5:   out <= 16'h409;   // bge
+                    3'h6:   out <= 16'h405;   // bltu
+                    3'h7:   out <= 16'h40a;   // bgeu
                     default:
-                            out = 16'h40a;   // bgeu
+                            out <= 16'h40a;   // bgeu
                 endcase
             end
 
             `I_LOAD: begin
                 case(funt3)
-                    3'h0:   out = 16'he312;  // lb
-                    3'h1:   out = 16'hc312;  // lh
-                    3'h2:   out = 16'h312;   // lw
-                    3'h4:   out = 16'h6312;  // lbu
-                    3'h5:   out = 16'h4312;  // lhu
+                    3'h0:   out <= 16'he312;  // lb
+                    3'h1:   out <= 16'hc312;  // lh
+                    3'h2:   out <= 16'h312;   // lw
+                    3'h4:   out <= 16'h6312;  // lbu
+                    3'h5:   out <= 16'h4312;  // lhu
                     default:
-                            out = 16'h4312;  // lhu
+                            out <= 16'h4312;  // lhu
                 endcase
             end
 
             `S_TYPE: begin
                 case(funt3)
-                    3'h0:   out = 16'h6092;  // sb
-                    3'h1:   out = 16'h4092;  // sh
-                    3'h2:   out = 16'h92;    // sw
+                    3'h0:   out <= 16'h6092;  // sb
+                    3'h1:   out <= 16'h4092;  // sh
+                    3'h2:   out <= 16'h92;    // sw
                     default:
-                            out = 16'h92;    // sw
+                            out <= 16'h92;    // sw
                 endcase
             end
 
-            default:        out = 16'h0;     // Not supported instruction.
+            default:        out <= 16'h0;     // Not supported instruction.
         endcase
     end
 endmodule  // ctrl unit
@@ -286,15 +286,15 @@ module imm_gen(
     always @(*) begin
         case(opcode)
             `I_JALR, `I_LOAD, `I_IMM:
-                out = {{20{in[31]}}, in[31:20]};
+                out <= {{20{in[31]}}, in[31:20]};
             `S_TYPE:
-                out = {20'b0, in[31:25], in[11:7]};
+                out <= {20'b0, in[31:25], in[11:7]};
             `B_TYPE:
-                out = {20'b0, in[31], in[7], in[30:25], in[11:8], 1'b0};
+                out <= {20'b0, in[31], in[7], in[30:25], in[11:8], 1'b0};
             `U_AUIP, `U_LUI:
-                out = {in[31:12], 12'b0};
+                out <= {in[31:12], 12'b0};
             default:  //`J_TYPE:
-                out = {12'b0, in[31], in[19:12], in[20], in[30:21], 1'b0};
+                out <= {12'b0, in[31], in[19:12], in[20], in[30:21], 1'b0};
         endcase
     end
 endmodule  // generate immediate value
@@ -322,7 +322,7 @@ module rv32i(
     wire jalr          = ctrl[12];  // jalr
     wire pc_src        = ctrl[11];  // pc_src, jal or B-type
     wire branch        = ctrl[10];  // branch
-    wire reg_write     = ctrl[9];  // reg_write
+    wire reg_write     = ctrl[9];   // reg_write
     wire mem_alu_2_reg = ctrl[8];   // mem(1) or alu(0) saved to register
     wire dmem_w_o      = ctrl[7];   // write data to memory
     wire alu_r1_src_pc = ctrl[6];   // alu r1 pc source(0: pc, 1: pc+4)
@@ -331,6 +331,7 @@ module rv32i(
     wire [3:0] alu_op  = ctrl[3:0]; // alu op
 
     // program counter
+    reg  [31:0] new_pc;
     reg  [31:0] pc;
     wire [31:0] ins;
 
@@ -426,14 +427,17 @@ module rv32i(
 // ----------------------------------------------------------------------------
 
     always @(posedge clk) begin
-        if(reset)
-            pc = 32'b0;
-        else begin
-            // pc = jalr ?
+        if(reset) begin
+            new_pc <= 32'b0;
+            pc     <= 32'b0;
+        end else begin
+            pc <= new_pc;
+
+            // new_pc = jalr ?
             //          (x[rs1] + imm) & ~1 :
             //              (pc_src | (branch & zero)) ?
             //                  pc + imm : pc + 4;
-            pc = jalr ?
+            new_pc <= jalr ?
                     {alu_out[31:1], 1'b0} :
                         ((pc_src | (branch & zero)) ?
                             pc + imm : pc + 4);

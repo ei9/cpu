@@ -1,5 +1,6 @@
 # verilog files
-src/*.o
-src/*.vcd
-src/*.out
-src/*.vvp
+*.vcd
+*.vvp
+old_testbench/*.out
+# mem dump and hex
+mem

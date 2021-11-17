@@ -1,6 +1,7 @@
 # verilog files
 *.vcd
 *.vvp
+rtl/*.out
 old_testbench/*.out
 # mem dump and hex
 mem

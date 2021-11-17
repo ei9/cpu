@@ -283,6 +283,30 @@ module imm_gen(
 endmodule  // generate immediate value
 
 
+module IF_stage(
+    output [31:0] pc,
+    input  [31:0] dmem_data_i,
+    output [31:0] ins,
+    input         reset,
+    input         clk,
+    input         pc_src,
+    input  [31:0] jmp_addr_i
+);
+
+    assign ins = dmem_data_i;
+
+    reg [31:0] pc;
+
+    always @ (posedge clk) begin
+        if (reset) begin
+            pc <= 32'b0;
+        end else begin
+            pc <= pc_src ? jmp_addr_i : pc + 4;
+        end
+    end
+endmodule  // instruction fetch stage
+
+
 module rv32i(
     output [31:0] dmem_addr_o,
     input  [31:0] dmem_r_data_i,

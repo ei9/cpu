@@ -127,6 +127,35 @@ module branch_comp(
 endmodule  // branch comparator
 
 
+module imm_gen(
+    output [31:0] out,
+    input  [31:0] in
+);
+
+    reg  [31:0] out;
+    wire [6:0]  opcode = in[6:0];
+
+    always @(*) begin
+        case(opcode)
+            `I_JALR, `I_LOAD, `I_IMM:
+                out <= {{20{in[31]}}, in[31:20]};
+            `S_TYPE:
+                out <= {20'b0, in[31:25], in[11:7]};
+            `B_TYPE:
+                out <= {20'b0, in[31], in[7], in[30:25], in[11:8], 1'b0};
+            `U_AUIP, `U_LUI:
+                out <= {in[31:12], 12'b0};
+            default:  //`J_TYPE:
+                out <= {12'b0, in[31], in[19:12], in[20], in[30:21], 1'b0};
+        endcase
+    end
+endmodule  // generate immediate value
+
+
+// ----------------------------------------------------------------------------
+// 以下是一片混亂，整理中...
+// ----------------------------------------------------------------------------
+
 // control bus:
 // 16  ram mask sign
 // 15  ram mask s1
@@ -258,30 +287,9 @@ module ctrl_unit(
 endmodule  // ctrl unit
 
 
-module imm_gen(
-    output [31:0] out,
-    input  [31:0] in
-);
-
-    reg  [31:0] out;
-    wire [6:0]  opcode = in[6:0];
-
-    always @(*) begin
-        case(opcode)
-            `I_JALR, `I_LOAD, `I_IMM:
-                out <= {{20{in[31]}}, in[31:20]};
-            `S_TYPE:
-                out <= {20'b0, in[31:25], in[11:7]};
-            `B_TYPE:
-                out <= {20'b0, in[31], in[7], in[30:25], in[11:8], 1'b0};
-            `U_AUIP, `U_LUI:
-                out <= {in[31:12], 12'b0};
-            default:  //`J_TYPE:
-                out <= {12'b0, in[31], in[19:12], in[20], in[30:21], 1'b0};
-        endcase
-    end
-endmodule  // generate immediate value
-
+// ----------------------------------------------------------------------------
+// 5-stage pipeline
+// ----------------------------------------------------------------------------
 
 module IF_stage(
     output [31:0] pc,
@@ -305,6 +313,26 @@ module IF_stage(
         end
     end
 endmodule  // instruction fetch stage
+
+
+module ID_stage();
+
+endmodule  // instruction decode stage
+
+
+module EX_stage();
+
+endmodule  // execution stage
+
+
+module MA_stage();
+
+endmodule  // memory access stage
+
+
+module WB_stage();
+
+endmodule  // write back stage
 
 
 module rv32i(
@@ -392,13 +420,13 @@ module rv32i(
         .write_data (r_data         )
     );
 
-    alu a(
-        .out        (alu_out        ),
-        .zero       (zero           ),
-        .alu_op     (alu_op         ),
-        .x          (alu_x          ),
-        .y          (alu_y          )
-    );
+    // alu a(
+    //     .out        (alu_out        ),
+    //     .zero       (zero           ),
+    //     .alu_op     (alu_op         ),
+    //     .x          (alu_x          ),
+    //     .y          (alu_y          )
+    // );
 
     // data memory input through mask
     ram_mask  dm_r_mask(

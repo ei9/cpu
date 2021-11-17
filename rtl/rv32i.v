@@ -76,27 +76,11 @@ module reg_file(
 endmodule  // register file
 
 
-// operation opcode
-`define AND  4'b0000
-`define OR   4'b0001
-`define ADD  4'b0010
-`define EQU  4'b0011
-`define SGE  4'b0100
-`define SGEU 4'b0101
-`define SUB  4'b0110
-`define XOR  4'b0111
-`define SLL  4'b1000
-`define SLT  4'b1001
-`define SLTU 4'b1010
-`define SRL  4'b1011
-`define SRA  4'b1100
-`define IN1  4'b1101
-`define IN2  4'b1110
-
 module alu(
     output [31:0] out,
     output        zero,
-    input  [3:0]  alu_op,
+    input  [2:0]  alu_op,
+    input         alt,
     input  [31:0] x,
     input  [31:0] y
 );
@@ -105,39 +89,25 @@ module alu(
 
     reg [31:0] out;
 
-    always @(alu_op, x, y) begin
+    always @(alu_op, alt, x, y) begin
         case(alu_op)
-            `AND:
-                out <= x & y;
-            `OR:
-                out <= x | y;
-            `ADD:
-                out <= x + y;
-            `EQU:
-                out <= x == y;
-            `SGE:
-                out <= (x[31] ^ y[31]) ? y[31] : (x[30:0] >= y[30:0]);
-            `SGEU:
-                out <= x >= y;
-            `SUB:
-                out <= x - y;
-            `XOR:
-                out <= x ^ y;
-            `SLL:
+            3'b000:  // sub or add
+                out = alt ? (x - y) : (x + y);
+            3'b001:  // sll
                 out <= x << y[4:0];
-            `SLT:
+            3'b010:  // slt
                 out <= (x[31] ^ y[31]) ? x[31] : (x[30:0] < y[30:0]);
-            `SLTU:
+            3'b011:  // sltu
                 out <= x < y;
-            `SRL:
-                out <= x >> y[4:0];
-            `SRA:
-                out <= {x[31], x[30:0] >> y[4:0]};
-            `IN1:
-                out <= x;
-            `IN2:
-                out <= y;
-            default:  // AND operation
+            3'b100:  // xor
+                out <= x ^ y;
+            3'b101:  // sra or srl
+                out <= alt ? {x[31], x[30:0] >> y[4:0]} :  x >> y[4:0];
+            3'b110:  // or
+                out <= x | y;
+            3'b111:  // and
+                out <= x & y;
+            default:
                 out <= x & y;
         endcase
     end

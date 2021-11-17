@@ -114,6 +114,19 @@ module alu(
 endmodule  // alu
 
 
+module branch_comp(
+    output eq,
+    output lt,
+    input  unsign,
+    input [31:0] a,
+    input [31:0] b
+);
+
+    assign eq = a == b;
+    assign lt = unsign ? (a < b) : ($signed(a) < $signed(b));
+endmodule  // branch comparator
+
+
 // control bus:
 // 16  ram mask sign
 // 15  ram mask s1

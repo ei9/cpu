@@ -26,7 +26,6 @@ module rom(
     assign out = m[address[31:2]];
 endmodule  // rom
 
-
 // ----------------------------------------------------------------------------
 // modules inside rv32i
 // ----------------------------------------------------------------------------
@@ -64,14 +63,16 @@ module reg_file(
     input  [31:0] write_data
 );
 
-    reg [31:0] regs[0:31];   // 31 general purpose register.
+    reg [31:0] regs[0:31];  // 31 general purpose register.
+    reg [31:0] regt[0:31];  // 31 general purpose register.
 
     assign out_x = (~|addr_x) ? 32'b0 : regs[addr_x];
-    assign out_y = (~|addr_y) ? 32'b0 : regs[addr_y];
+    assign out_y = (~|addr_y) ? 32'b0 : regt[addr_y];
 
     always @(posedge clk) begin
         if((|write_addr) & write)
             regs[write_addr] <= write_data;
+            regt[write_addr] <= write_data;
     end
 endmodule  // register file
 
@@ -94,51 +95,52 @@ endmodule  // register file
 `define IN2  4'b1110
 
 module alu(
-    output [31:0] out,
-    output        zero,
-    input  [3:0]  alu_op,
-    input  [31:0] x,
-    input  [31:0] y
+    output reg [31:0] out,
+    output            zero,
+    input      [3:0]  alu_op,
+    input      [31:0] x,
+    input      [31:0] y
 );
 
     assign zero = ~|out;
 
-    reg [31:0] out;
+    //reg [31:0] out;
 
-    always @(alu_op, x, y) begin
+    always @* begin
+        out = 32'h0;
         case(alu_op)
             `AND:
-                out <= x & y;
+                out = x & y;
             `OR:
-                out <= x | y;
+                out = x | y;
             `ADD:
-                out <= x + y;
-            `EQU:
-                out <= x == y;
-            `SGE:
-                out <= (x[31] ^ y[31]) ? y[31] : (x[30:0] >= y[30:0]);
-            `SGEU:
-                out <= x >= y;
+                out = x + y;
             `SUB:
-                out <= x - y;
+                out = x - y;
             `XOR:
-                out <= x ^ y;
+                out = x ^ y;
             `SLL:
-                out <= x << y[4:0];
-            `SLT:
-                out <= (x[31] ^ y[31]) ? x[31] : (x[30:0] < y[30:0]);
-            `SLTU:
-                out <= x < y;
+                out = x << y[4:0];
             `SRL:
-                out <= x >> y[4:0];
+                out = x >> y[4:0];
             `SRA:
-                out <= {x[31], x[30:0] >> y[4:0]};
+                out = $signed(x) >> y[4:0];
+            `EQU:
+                out = x == y;
+            `SGE:
+                out = $signed(x) >= $signed(y);
+            `SGEU:
+                out = x >= y;
+            `SLTU:
+                out = x < y;
+            `SLT:
+                out = $signed(x) < $signed(y);
             `IN1:
-                out <= x;
+                out = x;
             `IN2:
-                out <= y;
-            default:  // AND operation
-                out <= x & y;
+                out = y;
+            default:
+                out = 32'h0;
         endcase
     end
 endmodule  // alu
@@ -182,94 +184,95 @@ module ctrl_unit(
 
     reg  [15:0] out;
 
-    always @(*) begin
+    always @* begin
+        out = 16'h0;
         case(opcode)
             `R_TYPE: begin
                 case(funt3)
                     3'h0: begin
                         if(funt7[5])
-                            out <= 16'h206;   // sub
+                            out = 16'h206;   // sub
                         else
-                            out <= 16'h202;   // add
+                            out = 16'h202;   // add
                     end
-                    3'h1:   out <= 16'h208;   // sll
-                    3'h2:   out <= 16'h209;   // slt
-                    3'h3:   out <= 16'h20a;   // sltu
-                    3'h4:   out <= 16'h207;   // xor.
+                    3'h1:   out = 16'h208;   // sll
+                    3'h2:   out = 16'h209;   // slt
+                    3'h3:   out = 16'h20a;   // sltu
+                    3'h4:   out = 16'h207;   // xor.
                     3'h5: begin
                         if(funt7[5])
-                            out <= 16'h20c;   // sra
+                            out = 16'h20c;   // sra
                         else
-                            out <= 16'h20b;   // srl
+                            out = 16'h20b;   // srl
                     end
-                    3'h6:   out <= 16'h201;   // or
-                    3'h7:   out <= 16'h200;   // and
+                    3'h6:   out = 16'h201;   // or
+                    3'h7:   out = 16'h200;   // and
                     default:
-                            out <= 16'h200;   // and
+                            out = 16'h200;   // and
                 endcase
             end
 
             `I_IMM: begin
                 case(funt3)
-                    3'h0:   out <= 16'h212;   // addi
-                    3'h1:   out <= 16'h218;   // slli
-                    3'h2:   out <= 16'h219;   // slti
-                    3'h3:   out <= 16'h21a;   // sltiu
-                    3'h4:   out <= 16'h217;   // xori
+                    3'h0:   out = 16'h212;   // addi
+                    3'h1:   out = 16'h218;   // slli
+                    3'h2:   out = 16'h219;   // slti
+                    3'h3:   out = 16'h21a;   // sltiu
+                    3'h4:   out = 16'h217;   // xori
                     3'h5: begin
                         if(funt7[5])
-                            out <= 16'h21c;   // srai
+                            out = 16'h21c;   // srai
                         else
-                            out <= 16'h21b;   // srli
+                            out = 16'h21b;   // srli
                     end
-                    3'h6:   out <= 16'h211;   // ori
-                    3'h7:   out <= 16'h210;   // andi
+                    3'h6:   out = 16'h211;   // ori
+                    3'h7:   out = 16'h210;   // andi
                     default:
-                            out <= 16'h210;   // andi
+                            out = 16'h210;   // andi
                 endcase
             end
 
-            `U_LUI:         out <= 16'h21e;   // lui
-            `U_AUIP:        out <= 16'h232;   // auipc
-            `J_TYPE:        out <= 16'he6d;   // jal
-            `I_JALR:        out <= 16'h1212;  // jalr
+            `U_LUI:         out = 16'h21e;   // lui
+            `U_AUIP:        out = 16'h232;   // auipc
+            `J_TYPE:        out = 16'he6d;   // jal
+            `I_JALR:        out = 16'h1212;  // jalr
 
             `B_TYPE: begin
                 case(funt3)
-                    3'h0:   out <= 16'h407;   // beq
-                    3'h1:   out <= 16'h403;   // bne
-                    3'h4:   out <= 16'h404;   // blt
-                    3'h5:   out <= 16'h409;   // bge
-                    3'h6:   out <= 16'h405;   // bltu
-                    3'h7:   out <= 16'h40a;   // bgeu
+                    3'h0:   out = 16'h407;   // beq
+                    3'h1:   out = 16'h403;   // bne
+                    3'h4:   out = 16'h404;   // blt
+                    3'h5:   out = 16'h409;   // bge
+                    3'h6:   out = 16'h405;   // bltu
+                    3'h7:   out = 16'h40a;   // bgeu
                     default:
-                            out <= 16'h40a;   // bgeu
+                            out = 16'h40a;   // bgeu
                 endcase
             end
 
             `I_LOAD: begin
                 case(funt3)
-                    3'h0:   out <= 16'he312;  // lb
-                    3'h1:   out <= 16'hc312;  // lh
-                    3'h2:   out <= 16'h312;   // lw
-                    3'h4:   out <= 16'h6312;  // lbu
-                    3'h5:   out <= 16'h4312;  // lhu
+                    3'h0:   out = 16'he312;  // lb
+                    3'h1:   out = 16'hc312;  // lh
+                    3'h2:   out = 16'h312;   // lw
+                    3'h4:   out = 16'h6312;  // lbu
+                    3'h5:   out = 16'h4312;  // lhu
                     default:
-                            out <= 16'h4312;  // lhu
+                            out = 16'h4312;  // lhu
                 endcase
             end
 
             `S_TYPE: begin
                 case(funt3)
-                    3'h0:   out <= 16'h6092;  // sb
-                    3'h1:   out <= 16'h4092;  // sh
-                    3'h2:   out <= 16'h92;    // sw
+                    3'h0:   out = 16'h6092;  // sb
+                    3'h1:   out = 16'h4092;  // sh
+                    3'h2:   out = 16'h92;    // sw
                     default:
-                            out <= 16'h92;    // sw
+                            out = 16'h92;    // sw
                 endcase
             end
 
-            default:        out <= 16'h0;     // Not supported instruction.
+            default:        out = 16'h0;     // Not supported instruction.
         endcase
     end
 endmodule  // ctrl unit
@@ -283,18 +286,19 @@ module imm_gen(
     reg  [31:0] out;
     wire [6:0]  opcode = in[6:0];
 
-    always @(*) begin
+    always @* begin
+        out = 32'h0;
         case(opcode)
             `I_JALR, `I_LOAD, `I_IMM:
-                out <= {{20{in[31]}}, in[31:20]};
+                out = {{20{in[31]}}, in[31:20]};
             `S_TYPE:
-                out <= {20'b0, in[31:25], in[11:7]};
+                out = {20'b0, in[31:25], in[11:7]};
             `B_TYPE:
-                out <= {20'b0, in[31], in[7], in[30:25], in[11:8], 1'b0};
+                out = {20'b0, in[31], in[7], in[30:25], in[11:8], 1'b0};
             `U_AUIP, `U_LUI:
-                out <= {in[31:12], 12'b0};
+                out = {in[31:12], 12'b0};
             default:  //`J_TYPE:
-                out <= {12'b0, in[31], in[19:12], in[20], in[30:21], 1'b0};
+                out = {12'b0, in[31], in[19:12], in[20], in[30:21], 1'b0};
         endcase
     end
 endmodule  // generate immediate value
@@ -324,7 +328,7 @@ module rv32i(
     wire branch        = ctrl[10];  // branch
     wire reg_write     = ctrl[9];   // reg_write
     wire mem_alu_2_reg = ctrl[8];   // mem(1) or alu(0) saved to register
-    wire dmem_w_o      = ctrl[7];   // write data to memory
+    assign dmem_w_o    = ctrl[7];   // write data to memory
     wire alu_r1_src_pc = ctrl[6];   // alu r1 pc source(0: pc, 1: pc+4)
     wire alu_r1_src    = ctrl[5];   // alu r1 source(0:r1, 1:pc)
     wire alu_r2_src    = ctrl[4];   // alu r2 source(0:r2, 1:imm)
